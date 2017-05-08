@@ -1,16 +1,28 @@
-* This file imports raw dataset from Compustat and sample a percentage
+* Master Thesis Tilburg 2017
+* Author: Lucas Avezum 
 
-use C:\Users\User\work\master_thesis\cleaning\input\compustat_reduced
+* This file imports raw dataset from Amadeus and sample a percentage
 
-sort gvkey
+use C:\Users\User\work\master_thesis\cleaning\input\financials_VL, clear
+
+* Keep only uncosolidated information
+keep if consol == "U1" | consol == "U2"
+
+* Drop missing values
+drop if missing(fias, tfas, cash, toas, ncli, ltdb, culi, turn, ebta)
+
+* Sample % of data
+sort idnr
 preserve
 tempfile tmp
-bysort gvkey: keep if _n == 1
+bysort idnr: keep if _n == 1
 sample 10
-sort gvkey
+sort idnr
 save `tmp'
 restore
-merge m:1 gvkey using `tmp'
+merge m:1 idnr using `tmp'
 keep if _merge == 3
 drop _merge 
-save C:\Users\User\work\master_thesis\cleaning\temp\working_sample, replace
+save C:\Users\User\work\master_thesis\cleaning\temp\financials_sample, replace
+
+
