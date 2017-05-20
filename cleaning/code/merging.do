@@ -6,6 +6,7 @@
 * Sort sample file
 use C:\Users\User\work\master_thesis\cleaning\temp\financials_sample, clear
 sort idnr closdate_year
+drop sd_isin sd_ticker consol
 save C:\Users\User\work\master_thesis\cleaning\temp\financials_sample, replace
 
 *******************************************
@@ -25,7 +26,7 @@ drop sd_isin sd_ticker consol
 sort idnr closdate_year 
 by idnr closdate_year: gen dup = cond(_N==1,0,_n)
 keep if dup==0
-
+drop dup 
 * Merge
 #delimit;
 merge 1:1 idnr closdate_year using 
