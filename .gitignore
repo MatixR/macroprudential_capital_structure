@@ -1,2 +1,4 @@
 *.dta
 cleaning/auxiliar_info
+*.csv
+*.xlsx

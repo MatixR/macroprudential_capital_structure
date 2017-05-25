@@ -2,6 +2,7 @@
 * Author: Lucas Avezum 
 
 * This file merges the datasets from Amadeus
+set more off
 
 * Sort sample file
 use C:\Users\User\work\master_thesis\cleaning\temp\financials_sample, clear
@@ -9,9 +10,9 @@ sort idnr closdate_year
 drop sd_isin sd_ticker consol
 save C:\Users\User\work\master_thesis\cleaning\temp\financials_sample, replace
 
-*******************************************
-***** Merging Financials with Info ********
-*******************************************
+//=========================================
+//===== Merging Financials with Info ======
+//=========================================
 
 * Sort and clean master file
 use C:\Users\User\work\master_thesis\cleaning\input\Info_VL, clear
@@ -27,6 +28,7 @@ sort idnr closdate_year
 by idnr closdate_year: gen dup = cond(_N==1,0,_n)
 keep if dup==0
 drop dup 
+
 * Merge
 #delimit;
 merge 1:1 idnr closdate_year using 
@@ -37,9 +39,9 @@ keep if _merge == 3
 drop _merge
 save C:\Users\User\work\master_thesis\cleaning\temp\financials_info_sample, replace
 
-*********************************************************
-***** Merging Financials and Info with Ownership ********
-*********************************************************
+//=========================================================
+//===== Merging Financials and Info with Ownership ========
+//=========================================================
 
 
 use C:\Users\User\work\master_thesis\cleaning\input\ownership_VL, clear
@@ -63,7 +65,7 @@ use C:\Users\User\work\master_thesis\cleaning\temp\financials_info_sample, clear
 merge m:1 idnr using `tmp'
 drop if _merge == 2
 drop _merge
-save C:\Users\User\work\master_thesis\cleaning\temp\working_sample, replace
+save C:\Users\User\work\master_thesis\cleaning\temp\amadeus_sample, replace
 
 
 

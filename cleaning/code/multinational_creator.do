@@ -4,7 +4,7 @@
 * This file creates multinational relationships
 set more off
 
-use C:\Users\User\work\master_thesis\cleaning\temp\working_sample, clear
+use C:\Users\User\work\master_thesis\cleaning\temp\amadeus_sample, clear
 
 * Create multinational indicator
 replace guo_bvdepnr = idnr if  missing(guo_bvdepnr)
@@ -27,8 +27,8 @@ replace owner = 0 if missing(owner)
 gen parent = 1 if mean_subsidiary_ID > owner & owner > 0
 replace parent = 0 if missing(parent)
 
-
-save C:\Users\User\work\master_thesis\cleaning\temp\working_sample2, replace
+sort idnr closdate_year
+save C:\Users\User\work\master_thesis\cleaning\temp\amadeus_sample2, replace
 
 
 

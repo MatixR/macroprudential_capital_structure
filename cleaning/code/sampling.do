@@ -4,6 +4,7 @@
 * This file imports raw dataset from Amadeus and sample a percentage
 
 use C:\Users\User\work\master_thesis\cleaning\input\financials_VL, clear
+set more off
 
 * Keep only uncosolidated information
 keep if consol == "U1" | consol == "U2"
