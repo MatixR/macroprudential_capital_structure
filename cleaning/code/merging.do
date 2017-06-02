@@ -66,7 +66,3 @@ merge m:1 idnr using `tmp'
 drop if _merge == 2
 drop _merge
 save C:\Users\User\work\master_thesis\cleaning\temp\amadeus_sample, replace
-
-
-
-

@@ -28,13 +28,4 @@ gen parent = 1 if mean_subsidiary_ID > owner & owner > 0
 replace parent = 0 if missing(parent)
 
 sort idnr closdate_year
-save C:\Users\User\work\master_thesis\cleaning\temp\amadeus_sample2, replace
-
-
-
-
-
-
-
-
-
+save C:\Users\User\work\master_thesis\cleaning\temp\amadeus_sample, replace

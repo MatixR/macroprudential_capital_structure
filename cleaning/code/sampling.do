@@ -30,5 +30,3 @@ merge m:1 idnr using `tmp'
 keep if _merge == 3
 drop _merge dup
 save C:\Users\User\work\master_thesis\cleaning\temp\financials_sample, replace
-
-

@@ -65,6 +65,7 @@ drop if missing(MPI)
 save "C:\Users\User\work\master_thesis\cleaning\temp\MPI.dta", replace
 }
 
+* Write country variable in uppercase
 gen country1 = upper(country)
 drop country
 rename country1 country 
@@ -75,11 +76,12 @@ save "C:\Users\User\work\master_thesis\cleaning\temp\MPI.dta", replace
 //===== Merge Macroprudential Database to Amadeus  ======
 //=======================================================
 
-use C:\Users\User\work\master_thesis\cleaning\temp\working_sample2, clear
+use C:\Users\User\work\master_thesis\cleaning\temp\amadeus_sample, clear
 sort country closdate_year
 #delimit;
 merge m:1 country closdate_year using 
 C:\Users\User\work\master_thesis\cleaning\temp\MPI;
 #delimit cr
 keep if _merge==3
+drop _merge
 save "C:\Users\User\work\master_thesis\cleaning\temp\Amadeus_MPI.dta", replace
