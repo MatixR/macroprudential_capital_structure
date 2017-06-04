@@ -14,7 +14,7 @@ drop if missing(fias, tfas, cash, toas, ncli, ltdb, culi, turn, ebta)
 
 * Drop repeated observations
 sort idnr closdate_year 
-by idnr closdate_year: gen dup = cond(_N==1,0,_n)
+by idnr closdate_year: gen dup = cond(_N==1,0,_n-1)
 keep if dup==0
 
 * Sample % of data
@@ -29,4 +29,6 @@ restore
 merge m:1 idnr using `tmp'
 keep if _merge == 3
 drop _merge dup
+sort idnr closdate_year
+drop sd_isin sd_ticker consol
 save C:\Users\User\work\master_thesis\cleaning\temp\financials_sample, replace

@@ -15,8 +15,10 @@ import excel country id var0 var1 var2 var3 var4 var5 var6 var7 var8 var9 var10 
 * Drop lines and collumns not used
 drop if missing(var1)
 drop country
+
+* Drop obs that are not country
 sort id
-by id: gen dup = cond(_N==1,0,_n)
+by id: gen dup = cond(_N==1,0,_n)  
 keep if dup==0 
 drop dup
 
@@ -72,6 +74,11 @@ rename country1 country
 order country closdate_year
 save "C:\Users\User\work\master_thesis\cleaning\temp\MPI.dta", replace
 
+* Erase auxiliary files
+foreach a in MPI BORROWER FINANCIAL LTV LTV_CAP DTI DP CTC LEV SIFI INTER CONC FC RR RR_REV CG TAX {
+erase "C:\Users\User\work\master_thesis\cleaning\temp\Index`a'.dta"
+}
+
 //=======================================================
 //===== Merge Macroprudential Database to Amadeus  ======
 //=======================================================
@@ -84,4 +91,6 @@ C:\Users\User\work\master_thesis\cleaning\temp\MPI;
 #delimit cr
 keep if _merge==3
 drop _merge
-save "C:\Users\User\work\master_thesis\cleaning\temp\Amadeus_MPI.dta", replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI.dta", replace
+
+

@@ -4,12 +4,6 @@
 * This file merges the datasets from Amadeus
 set more off
 
-* Sort sample file
-use C:\Users\User\work\master_thesis\cleaning\temp\financials_sample, clear
-sort idnr closdate_year
-drop sd_isin sd_ticker consol
-save C:\Users\User\work\master_thesis\cleaning\temp\financials_sample, replace
-
 //=========================================
 //===== Merging Financials with Info ======
 //=========================================
@@ -25,7 +19,7 @@ drop sd_isin sd_ticker consol
 
 * Drop repeated observations
 sort idnr closdate_year 
-by idnr closdate_year: gen dup = cond(_N==1,0,_n)
+by idnr closdate_year: gen dup = cond(_N==1,0,_n-1)
 keep if dup==0
 drop dup 
 
@@ -54,7 +48,7 @@ drop sd_isin sd_ticker ish_tick ish_toas guo_tick guo_toas consol
 
 * Drop repeated observations
 sort idnr 
-by idnr: gen dup = cond(_N==1,0,_n)
+by idnr: gen dup = cond(_N==1,0,_n-1)
 keep if dup==0
 
 * Merge
