@@ -9,6 +9,7 @@ sort idnr closdate_year
 egen firm_id = group(idnr)
 order firm_id
 xtset firm_id closdate_year
+
 //=================================
 //====== Dependent Variables ======
 //=================================
