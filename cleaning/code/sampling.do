@@ -3,7 +3,7 @@
 
 * This file imports raw dataset from Amadeus and sample a percentage
 
-use C:\Users\User\work\master_thesis\cleaning\input\financials_VL, clear
+use "C:\Users\User\work\master_thesis\cleaning\input\\`2'", clear
 set more off
 
 * Keep only uncosolidated information
@@ -22,7 +22,7 @@ sort idnr
 preserve
 tempfile tmp
 bysort idnr: keep if _n == 1
-sample 10
+sample `3'
 sort idnr
 save `tmp'
 restore
@@ -31,4 +31,4 @@ keep if _merge == 3
 drop _merge dup
 sort idnr closdate_year
 drop sd_isin sd_ticker consol
-save C:\Users\User\work\master_thesis\cleaning\temp\financials_sample, replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\financials_`1'", replace

@@ -9,7 +9,7 @@ set more off
 //=========================================
 
 * Sort and clean master file
-use C:\Users\User\work\master_thesis\cleaning\input\Info_VL, clear
+use "C:\Users\User\work\master_thesis\cleaning\input\\`2'", clear
 
 * Keep only uncosolidated information
 keep if consol == "U1" | consol == "U2"
@@ -26,19 +26,19 @@ drop dup
 * Merge
 #delimit;
 merge 1:1 idnr closdate_year using 
-C:\Users\User\work\master_thesis\cleaning\temp\financials_sample;
+"C:\Users\User\work\master_thesis\cleaning\temp\financials_`1'";
 #delimit cr
 
 keep if _merge == 3
 drop _merge
-save C:\Users\User\work\master_thesis\cleaning\temp\financials_info_sample, replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\financials_info_`1'", replace
 
 //=========================================================
 //===== Merging Financials and Info with Ownership ========
 //=========================================================
 
 
-use C:\Users\User\work\master_thesis\cleaning\input\ownership_VL, clear
+use "C:\Users\User\work\master_thesis\cleaning\input\ownership_VL", clear
 
 * Keep only uncosolidated information
 keep if consol == "U1" | consol == "U2"
@@ -55,8 +55,8 @@ keep if dup==0
 preserve
 tempfile tmp
 save `tmp'
-use C:\Users\User\work\master_thesis\cleaning\temp\financials_info_sample, clear
+use "C:\Users\User\work\master_thesis\cleaning\temp\financials_info_`1'", clear
 merge m:1 idnr using `tmp'
 drop if _merge == 2
 drop _merge dup
-save C:\Users\User\work\master_thesis\cleaning\temp\amadeus_sample, replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_`1'", replace

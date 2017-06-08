@@ -87,7 +87,7 @@ erase "C:\Users\User\work\master_thesis\cleaning\temp\Control`a'.dta"
 //===== Merge Control Database to Amadeus  ======
 //===============================================
 
-use C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI, clear
+use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_`1'", clear
 sort country closdate_year
 #delimit;
 merge m:1 country closdate_year using 
@@ -95,4 +95,4 @@ C:\Users\User\work\master_thesis\cleaning\temp\control;
 #delimit cr
 keep if _merge==3
 drop _merge
-save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_control.dta", replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_control_`1'.dta", replace

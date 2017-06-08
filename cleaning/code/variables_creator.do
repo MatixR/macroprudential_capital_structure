@@ -4,7 +4,7 @@
 * This file manipulate raw data to create variables of interest
 set more off
 
-use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_control.dta", clear
+use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_control_`1'.dta", clear
 sort idnr closdate_year
 egen firm_id = group(idnr)
 order firm_id
@@ -64,5 +64,5 @@ by country nace_prim_code closdate_year: egen opportunity = median(sales_growth)
 sort idnr closdate_year
 by idnr: egen risk = sd(ebta)
 
-save "C:\Users\User\work\master_thesis\cleaning\temp\dataset.dta", replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_`1'.dta", replace
 

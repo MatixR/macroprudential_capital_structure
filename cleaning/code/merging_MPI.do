@@ -83,7 +83,7 @@ erase "C:\Users\User\work\master_thesis\cleaning\temp\Index`a'.dta"
 //===== Merge Macroprudential Database to Amadeus  ======
 //=======================================================
 
-use C:\Users\User\work\master_thesis\cleaning\temp\amadeus_sample, clear
+use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_`1'", clear
 sort country closdate_year
 #delimit;
 merge m:1 country closdate_year using 
@@ -91,6 +91,6 @@ C:\Users\User\work\master_thesis\cleaning\temp\MPI;
 #delimit cr
 keep if _merge==3
 drop _merge
-save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI.dta", replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_`1'.dta", replace
 
 
