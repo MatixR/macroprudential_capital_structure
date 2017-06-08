@@ -2,3 +2,11 @@
 cleaning/auxiliar_info
 *.csv
 *.xlsx
+*.bst
+*.synctex.gz
+*.bbl
+*.out
+*.pdf
+*.aux
+*.blg
+*.log
