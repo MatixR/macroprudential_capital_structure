@@ -54,7 +54,7 @@ sort debt_shifting_group
 by debt_shifting_group: egen total_asset_multinational = sum(toas)
 gen asset_share = toas/total_asset_multinational 
 
-foreach a in MPI BORROWER FINANCIAL LTV LTV_CAP DTI DP CTC LEV SIFI INTER CONC FC RR RR_REV CG TAX {
+foreach a in MPI BORROWER FINANCIAL LTV LTV_CAP DTI DP CTC LEV SIFI INTER CONC FC RR RR_REV CG TAX tax_rate{
 gen `a'_debt_shift = .
 }
 drop debt_shifting_group
@@ -73,7 +73,7 @@ by debt_shifting_group: egen total_asset_multinational = sum(toas)
 gen asset_share = toas/total_asset_multinational
 
 * Create debt shifting variable
-foreach a in MPI BORROWER FINANCIAL LTV LTV_CAP DTI DP CTC LEV SIFI INTER CONC FC RR RR_REV CG TAX {
+foreach a in MPI BORROWER FINANCIAL LTV LTV_CAP DTI DP CTC LEV SIFI INTER CONC FC RR RR_REV CG TAX tax_rate{
 gen `a'_debt_shift = .
 quiet summ debt_shifting_group
 
