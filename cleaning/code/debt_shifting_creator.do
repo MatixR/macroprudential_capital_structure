@@ -35,6 +35,35 @@ replace owner = 0 if missing(owner)
 gen parent = 1 if mean_subsidiary_ID > owner & owner > 0
 replace parent = 0 if missing(parent)
 
+* Create intermediate indicator
+replace ish_bvdepnr = idnr if  missing(ish_bvdepnr)
+sort ish_bvdepnr idnr
+egen intermediate_group_ID = group(ish_bvdepnr)
+
+* Create subsidiary per intermediate indicator
+egen intermediate_subsidiary_ID = concat(ish_bvdepnr idnr)
+sort intermediate_group_ID intermediate_subsidiary_ID
+by intermediate_group_ID intermediate_subsidiary_ID: gen help1 = 1 if _n == 1
+replace help1 = 0 if missing(help1)
+bysort intermediate_group_ID (intermediate_subsidiary_ID): gen subsidiary_ID2 = sum(help1)
+drop help1
+sort intermediate_group_ID subsidiary_ID2
+
+* Create intermediate firm dummy
+by intermediate_group_ID: egen mean_subsidiary_ID2 = mean(subsidiary_ID2)
+gen no_intermediate = 1 if ish_bvdepnr == idnr
+replace no_intermediate = 0 if missing(no_intermediate)
+gen intermediate = 1 if mean_subsidiary_ID2 > no_intermediate & no_intermediate > 0
+replace intermediate = 0 if missing(intermediate) | parent == 1
+
+* Labeling  and changing unit of variables
+lab var MPI "Macroprudential policy index"
+gen help1 = tax_rate/100
+replace tax_rate = help1
+drop help1
+lab var tax_rate "Corporate tax rate"
+lab var parent "Parent"
+
 sort idnr closdate_year
 
 //====================================
@@ -56,6 +85,7 @@ gen asset_share = toas/total_asset_multinational
 
 foreach a in MPI BORROWER FINANCIAL LTV LTV_CAP DTI DP CTC LEV SIFI INTER CONC FC RR RR_REV CG TAX tax_rate{
 gen `a'_debt_shift = .
+lab var `a'_debt_shift "`a' incentive to shift debt"
 }
 drop debt_shifting_group
 save "C:\Users\User\work\master_thesis\cleaning\output\dataset_stand_alone_`1'", replace
@@ -75,6 +105,7 @@ gen asset_share = toas/total_asset_multinational
 * Create debt shifting variable
 foreach a in MPI BORROWER FINANCIAL LTV LTV_CAP DTI DP CTC LEV SIFI INTER CONC FC RR RR_REV CG TAX tax_rate{
 gen `a'_debt_shift = .
+lab var `a'_debt_shift "`a' incentive to shift debt"
 quiet summ debt_shifting_group
 
 forvalues i=1/`r(max)'{
