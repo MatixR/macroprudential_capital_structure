@@ -18,7 +18,7 @@ keep if consol == "U1" | consol == "U2"
 drop sd_isin sd_ticker consol
 
 * Drop repeated observations
-sort idnr closdate_year 
+sort idnr closdate_year
 by idnr closdate_year: gen dup = cond(_N==1,0,_n-1)
 keep if dup==0
 drop dup 
@@ -50,6 +50,7 @@ drop sd_isin sd_ticker ish_tick ish_toas guo_tick guo_toas consol
 sort idnr 
 by idnr: gen dup = cond(_N==1,0,_n-1)
 keep if dup==0
+drop dup
 
 * Merge
 preserve
@@ -58,5 +59,5 @@ save `tmp'
 use "C:\Users\User\work\master_thesis\cleaning\temp\financials_info_`1'", clear
 merge m:1 idnr using `tmp'
 drop if _merge == 2
-drop _merge dup
+drop _merge
 save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_`1'", replace

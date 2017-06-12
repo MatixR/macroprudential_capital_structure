@@ -10,12 +10,13 @@ set more off
 keep if consol == "U1" | consol == "U2"
 
 * Drop missing values
-drop if missing(fias, tfas, cash, toas, ncli, ltdb, culi, turn, ebta)
+drop if missing(toas, ncli, culi)
 
 * Drop repeated observations
-sort idnr closdate_year 
-by idnr closdate_year: gen dup = cond(_N==1,0,_n-1)
-keep if dup==0
+sort idnr closdate_year months
+by idnr closdate_year: gen dup = cond(_N==1,0,_n)
+drop if dup == 2
+drop dup
 
 * Sample % of data
 sort idnr
@@ -28,7 +29,7 @@ save `tmp'
 restore
 merge m:1 idnr using `tmp'
 keep if _merge == 3
-drop _merge dup
+drop _merge
 sort idnr closdate_year
 drop sd_isin sd_ticker consol
 save "C:\Users\User\work\master_thesis\cleaning\temp\financials_`1'", replace
