@@ -1,13 +1,13 @@
 * Master Thesis Tilburg 2017
 * Author: Lucas Avezum 
 
-* This file merges controls datasets to Amadeus sample
+* This file merges World Bank controls datasets to Amadeus sample
 set more off
 
 
-//=====================================
-//====== Clean Control Database  ======
-//=====================================
+//========================================
+//====== Clean World Bank Database  ======
+//========================================
 
 foreach a in cpi credit_financial_GDP deflator gdp_growth_rate gdp_per_capita market_cap_GDP private_credit_GDP stock_traded_GDP tax_rate turnover {
 insheet using "C:\Users\User\work\master_thesis\cleaning\input\\`a'.csv", clear
@@ -37,9 +37,9 @@ save "C:\Users\User\work\master_thesis\cleaning\temp\Control`a'.dta", replace
 
 }
 
-//======================================
-//===== Merge Controls Database  =======
-//======================================
+//========================================
+//===== Merge World Bank Database  =======
+//========================================
 * Include country variable 
 insheet using C:\Users\User\work\master_thesis\cleaning\input\cpi.csv, clear
 keep v1
@@ -58,7 +58,7 @@ C:\Users\User\work\master_thesis\cleaning\temp\Controlcpi;
 sort id closdate_year
 drop _merge
 
-save "C:\Users\User\work\master_thesis\cleaning\temp\control.dta", replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\worldbank.dta", replace
 
 * Join all indexes in one file 
 foreach a in credit_financial_GDP deflator gdp_growth_rate gdp_per_capita market_cap_GDP private_credit_GDP stock_traded_GDP tax_rate turnover {
@@ -68,7 +68,7 @@ C:\Users\User\work\master_thesis\cleaning\temp\Control`a';
 #delimit cr
 sort id closdate_year
 drop _merge
-save "C:\Users\User\work\master_thesis\cleaning\temp\control.dta", replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\worldbank.dta", replace
 }
 
 * Write country variable in uppercase
@@ -77,22 +77,22 @@ drop country
 rename country1 country 
 order country closdate_year
 drop id
-save "C:\Users\User\work\master_thesis\cleaning\temp\control.dta", replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\worldbank.dta", replace
 
 foreach a in cpi credit_financial_GDP deflator gdp_growth_rate gdp_per_capita market_cap_GDP private_credit_GDP stock_traded_GDP tax_rate turnover {
 
 erase "C:\Users\User\work\master_thesis\cleaning\temp\Control`a'.dta"
 }
-//===============================================
-//===== Merge Control Database to Amadeus  ======
-//===============================================
+//==================================================
+//===== Merge World Bank Database to Amadeus  ======
+//==================================================
 
 use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_`1'", clear
 sort country closdate_year
 #delimit;
 merge m:1 country closdate_year using 
-C:\Users\User\work\master_thesis\cleaning\temp\control;
+C:\Users\User\work\master_thesis\cleaning\temp\worldbank;
 #delimit cr
 keep if _merge==3
 drop _merge
-save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_control_`1'.dta", replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_WB_`1'.dta", replace

@@ -4,7 +4,7 @@
 * This file manipulate raw data to create variables of interest
 set more off
 
-use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_control_`1'.dta", clear
+use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_WB_PRS_`1'.dta", clear
 sort idnr closdate_year
 egen firm_id = group(idnr)
 order firm_id
@@ -101,13 +101,19 @@ drop help1
 }
 
 * Labeling remaning controls
+* World Bank
 lab var gdp_growth_rate "GDP growth rate"
 lab var credit_financial_GDP "Finacial sector credit to GDP"
 lab var private_credit_GDP "Private credit to GDP"
 lab var stock_traded_GDP "Value of stock traded to GDP"
 lab var market_cap_GDP "Market capitalization to GDP"
 lab var turnover "Turnover ratio of stock traded"
-
+* PRS
+lab var economic_risk "Economic risk" 
+lab var exchange_rate_risk "Exchange rate risk"
+lab var financial_risk "Financial Risk"
+lab var political_risk "Political Risk"
+lab var law_order "Law and order"
 
 
 save "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_`1'.dta", replace

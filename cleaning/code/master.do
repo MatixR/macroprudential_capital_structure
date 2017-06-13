@@ -45,7 +45,16 @@ do C:\Users\User\work\master_thesis\cleaning\code\merging_MPI
 //================================================================
 
 #delimit;
-do C:\Users\User\work\master_thesis\cleaning\code\merging_controls 
+do C:\Users\User\work\master_thesis\cleaning\code\merging_worldbank 
+"$track_index" ;
+#delimit cr
+
+//=========================================================
+//====== Merging Amadeus and MPI to PRS controls ==========
+//=========================================================
+
+#delimit;
+do C:\Users\User\work\master_thesis\cleaning\code\merging_PRS
 "$track_index" ;
 #delimit cr
 

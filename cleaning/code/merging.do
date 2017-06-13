@@ -14,7 +14,7 @@ use "C:\Users\User\work\master_thesis\cleaning\input\\`2'", clear
 * Keep only uncosolidated information
 keep if consol == "U1" | consol == "U2"
 
-* Drop repeated variables
+* Drop useless variables
 drop sd_isin sd_ticker consol
 
 * Drop repeated observations
@@ -43,7 +43,7 @@ use "C:\Users\User\work\master_thesis\cleaning\input\ownership_VL", clear
 * Keep only uncosolidated information
 keep if consol == "U1" | consol == "U2"
 
-* Drop repeated variables
+* Drop useless variables
 drop sd_isin sd_ticker ish_tick ish_toas guo_tick guo_toas consol
 
 * Drop repeated observations

@@ -72,6 +72,7 @@ gen country1 = upper(country)
 drop country
 rename country1 country 
 order country closdate_year
+drop id
 save "C:\Users\User\work\master_thesis\cleaning\temp\MPI.dta", replace
 
 * Erase auxiliary files
