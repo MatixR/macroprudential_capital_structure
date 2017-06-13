@@ -9,15 +9,76 @@
 * the second are firms that do not have parent firms
 set more off
 use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_`1'", clear
+*use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_sample10", clear
 
 //========================
 //====== Indicators ======
 //========================
+* Create intermediate dummy
+preserve 
+tempfile tmp1
+keep ish_bvdepnr
+sort ish_bvdepnr
+by ish_bvdepnr: gen dup = cond(_N==1,0,_n-1)
+keep if dup == 0
+drop dup
+rename ish_bvdepnr ID
+save `tmp1'
+restore
+preserve
+keep idnr
+sort idnr 
+by idnr: gen dup = cond(_N==1,0,_n-1)
+keep if dup == 0
+drop dup
+rename idnr ID
+tempfile tmp2
+merge 1:1 ID using `tmp1'
+keep if _merge == 3
+gen intermediate = 1 
+drop _merge
+rename ID idnr
+save `tmp2'
+restore
+merge m:1 idnr using `tmp2'
+drop _merge
+replace intermediate = 0 if missing(intermediate)
+
+* Create parent dummy
+preserve 
+tempfile tmp1
+keep guo_bvdepnr
+sort guo_bvdepnr
+by guo_bvdepnr: gen dup = cond(_N==1,0,_n-1)
+keep if dup == 0
+drop dup
+rename guo_bvdepnr ID
+save `tmp1'
+restore
+preserve
+keep idnr
+sort idnr 
+by idnr: gen dup = cond(_N==1,0,_n-1)
+keep if dup == 0
+drop dup
+rename idnr ID
+tempfile tmp2
+merge 1:1 ID using `tmp1'
+keep if _merge == 3
+gen parent = 1 
+drop _merge
+rename ID idnr
+save `tmp2'
+restore
+merge m:1 idnr using `tmp2'
+drop _merge
+replace parent = 0 if missing(parent)
 
 * Create multinational indicator
 replace guo_bvdepnr = idnr if  missing(guo_bvdepnr)
 sort guo_bvdepnr idnr
 egen multinational_ID = group(guo_bvdepnr)
+by multinational_ID: egen mean_subsidiary_ID = mean(subsidiary_ID)
 
 * Create subsidiary per multinational indicator
 egen multinational_subsidiary_ID = concat(guo_bvdepnr idnr)
@@ -25,36 +86,12 @@ sort multinational_ID multinational_subsidiary_ID
 by multinational_ID multinational_subsidiary_ID: gen help1 = 1 if _n == 1
 replace help1 = 0 if missing(help1)
 bysort multinational_ID (multinational_subsidiary_ID): gen subsidiary_ID = sum(help1)
-drop help1
+drop help1 multinational_subsidiary_ID
 sort multinational_ID subsidiary_ID
 
-* Create parent and own-owner firm dummy
-by multinational_ID: egen mean_subsidiary_ID = mean(subsidiary_ID)
+* Create own-owner firm dummy
 gen owner = 1 if guo_bvdepnr == idnr
 replace owner = 0 if missing(owner)
-gen parent = 1 if mean_subsidiary_ID > owner & owner > 0
-replace parent = 0 if missing(parent)
-
-* Create intermediate indicator
-replace ish_bvdepnr = idnr if  missing(ish_bvdepnr)
-sort ish_bvdepnr idnr
-egen intermediate_group_ID = group(ish_bvdepnr)
-
-* Create subsidiary per intermediate indicator
-egen intermediate_subsidiary_ID = concat(ish_bvdepnr idnr)
-sort intermediate_group_ID intermediate_subsidiary_ID
-by intermediate_group_ID intermediate_subsidiary_ID: gen help1 = 1 if _n == 1
-replace help1 = 0 if missing(help1)
-bysort intermediate_group_ID (intermediate_subsidiary_ID): gen subsidiary_ID2 = sum(help1)
-drop help1
-sort intermediate_group_ID subsidiary_ID2
-
-* Create intermediate firm dummy
-by intermediate_group_ID: egen mean_subsidiary_ID2 = mean(subsidiary_ID2)
-gen no_intermediate = 1 if ish_bvdepnr == idnr
-replace no_intermediate = 0 if missing(no_intermediate)
-gen intermediate = 1 if mean_subsidiary_ID2 > no_intermediate & no_intermediate > 0
-replace intermediate = 0 if missing(intermediate) | parent == 1
 
 * Labeling  and changing unit of variables
 lab var MPI "Macroprudential policy index"
@@ -63,6 +100,7 @@ replace tax_rate = help1
 drop help1
 lab var tax_rate "Corporate tax rate"
 lab var parent "Parent"
+lab var intermediate "Intermediate"
 
 sort idnr closdate_year
 
@@ -87,7 +125,7 @@ foreach a in MPI BORROWER FINANCIAL LTV LTV_CAP DTI DP CTC LEV SIFI INTER CONC F
 gen `a'_debt_shift = .
 lab var `a'_debt_shift "`a' incentive to shift debt"
 }
-drop debt_shifting_group
+drop debt_shifting_group mean_subsidiary_ID
 save "C:\Users\User\work\master_thesis\cleaning\output\dataset_stand_alone_`1'", replace
 restore
 
@@ -120,6 +158,7 @@ quiet replace `a'_debt_shift = debt_shift_help if debt_shifting_group==`i'
 quiet drop help* debt_shift_help
 }
 }
+drop debt_shifting_group mean_subsidiary_ID
 save "C:\Users\User\work\master_thesis\cleaning\output\dataset_multinationals_`1'", replace
 
 //==================== Merged Dataset ======================
