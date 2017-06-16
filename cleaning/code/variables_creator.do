@@ -24,11 +24,11 @@ lab var adj_leverage "Adjusted financial leverage"
 
 * Create long term debt leverage variable
 gen longterm_debt = (ltdb)/(toas)
-lab var adj_leverage "Long term debt"
+lab var longterm_debt "Long term debt"
 
 * Create adjusted long term debt leverage variable
 gen adj_longterm_debt = (ltdb-cash)/(toas-cash)
-lab var adj_leverage "Adjusted long term debt"
+lab var adj_longterm_deb "Adjusted long term debt"
 
 //=============================================
 //====== Control Variables at Firm Level ======
@@ -49,7 +49,7 @@ lab var log_sales "Log of sales"
 
 * Create firm size variable - fixed asset
 gen log_fixedasset = log(fias)
-lab var log_sales "Log of fixed assets"
+lab var log_fixedasset "Log of fixed assets"
 
 * Create profitability variable
 gen profitability = ebta/toas
@@ -60,7 +60,7 @@ sort country nace_prim_code closdate_year
 by country nace_prim_code closdate_year: egen total_profit = sum(ebta)
 by country nace_prim_code closdate_year: egen total_asset = sum(toas)
 gen agg_profitability = total_profit/total_asset
-lab var profitability "Aggregate profitability"
+lab var agg_profitability "Aggregate profitability"
 
 * Create auxiliary sales growth variable
 sort firm_id closdate_year
@@ -86,6 +86,12 @@ sort firm_id closdate_year
 gen logcpi = log(cpi)
 gen inflation = D.logcpi
 lab var inflation "Inflation"
+
+* Create change in exchange rate variable
+sort firm_id closdate_year
+gen logFX = log(exchrate2)
+gen delta_FX = D.logFX
+lab var delta_FX "Change in exchange rate"
 
 * Changing GDP per capita to thousands
 gen help1 = gdp_per_capita/1000
