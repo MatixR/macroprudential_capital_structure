@@ -15,7 +15,7 @@ use "C:\Users\User\work\master_thesis\cleaning\input\\`2'", clear
 keep if consol == "U1" | consol == "U2"
 
 * Drop useless variables
-drop sd_isin sd_ticker consol
+drop sd_isin sd_ticker consol name_nat city_nat region_nat
 
 * Drop repeated observations
 sort idnr closdate_year
@@ -31,6 +31,7 @@ merge 1:1 idnr closdate_year using
 
 keep if _merge == 3
 drop _merge
+
 save "C:\Users\User\work\master_thesis\cleaning\temp\financials_info_`1'", replace
 
 //=========================================================

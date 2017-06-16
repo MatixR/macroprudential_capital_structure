@@ -8,9 +8,6 @@ set more off
 //=================================
 //====== Clean PRS Database  ======
 //=================================
-insheet using "C:\Users\User\work\master_thesis\cleaning\input\law_order.csv", clear
-import excel using C:\Users\User\work\master_thesis\cleaning\input\economic_risk.xlsx, sheet("Sheet1") firstrow clear
-
 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
 import excel using C:\Users\User\work\master_thesis\cleaning\input\\`a'.xlsx, sheet("Sheet1") firstrow clear
