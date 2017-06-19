@@ -8,8 +8,9 @@
 * which we do not have information about other firms at their multinational level, 
 * the second are firms that do not have parent firms
 set more off
+use "\\Client\C$\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_`1'", clear
 //use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_`1'", clear
-use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_sample10", clear
+use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_full", clear
 
 //========================
 //====== Indicators ======
@@ -118,7 +119,7 @@ sort idnr closdate_year
 //====== Debt shifting variable ======
 //==================================== 
 //MPI BORROWER FINANCIAL LTV LTV_CAP DTI DP CTC LEV SIFI INTER CONC FC RR RR_REV CG TAX tax_rate
-global debt_shift_variables "MPI tax_rate"
+//global debt_shift_variables "MPI tax_rate"
 
 * Split dataset in multinationals and stand-alone firms
 //================== Stand Alone Firm =================
@@ -133,11 +134,13 @@ sort debt_shifting_group
 by debt_shifting_group: egen total_asset_multinational = sum(toas)
 gen asset_share = toas/total_asset_multinational 
 
-foreach a in "$debt_shift_variables"{
+foreach a in MPI tax_rate{
 gen `a'_debt_shift = .
 lab var `a'_debt_shift "`a' incentive to shift debt"
 }
 drop debt_shifting_group
+//save "\\Client\C$\Users\User\work\master_thesis\cleaning\temp\dataset_stand_alone_`1'", replace
+
 save "C:\Users\User\work\master_thesis\cleaning\output\dataset_stand_alone_`1'", replace
 restore
 
@@ -153,29 +156,28 @@ sort debt_shifting_group
 by debt_shifting_group: egen total_asset_multinational = sum(toas)
 gen asset_share = toas/total_asset_multinational
 
+* Create subsidiary per multinational time indicator
+bysort debt_shifting_group: gen subsidiary_time_ID = _n
+
 * Keeping only looped variables
-keep "$debt_shift_variables" debt_shifting_group asset_share idnr closdate_year
+keep MPI tax_rate debt_shifting_group subsidiary_time_ID asset_share idnr closdate_year
 
-* Create debt shifting variable
-foreach a in "$debt_shift_variables"{
-gen `a'_debt_shift = .
+* Create debt shifting variable 
+timer on 1
+foreach a in MPI BORROWER FINANCIAL tax_rate{
+quiet summ subsidiary_time_ID
+
+forvalues k = 1/`r(max)'{
+by debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*asset_share[`k']
+}
+quiet egen `a'_debt_shift = rowtotal(help*)
 lab var `a'_debt_shift "`a' incentive to shift debt"
-quiet summ debt_shifting_group
-
-forvalues i=1/`r(max)'{
-quiet summ subsidiary if debt_shifting_group==`i'
-
-  forvalues k = 1/`r(max)'{
-by debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*asset_share[`k'] if debt_shifting_group==`i'
-
-  }
-quiet egen debt_shift_help = rowtotal(help*) if debt_shifting_group==`i'
-quiet replace `a'_debt_shift = debt_shift_help if debt_shifting_group==`i'
-quiet drop help* debt_shift_help
+quiet drop help* 
 }
-}
+timer off 1
+
 * Merge debt shift variable to remaining dataset
-drop debt_shifting_group
+drop debt_shifting_group subsidiary_time_ID
 sort idnr closdate_year
 save `tmp'
 restore
@@ -185,7 +187,11 @@ keep if _merge == 3
 drop _merge
 sort idnr closdate_year
 save "C:\Users\User\work\master_thesis\cleaning\output\dataset_multinationals_`1'", replace
+//save "\\Client\C$\Users\User\work\master_thesis\cleaning\temp\dataset_multinationals_`1'", replace
 
 //==================== Merged Dataset ======================
 append using "C:\Users\User\work\master_thesis\cleaning\output\dataset_stand_alone_`1'"
+//append using "\\Client\C$\Users\User\work\master_thesis\cleaning\output\dataset_stand_alone_`1'"
+
 save "C:\Users\User\work\master_thesis\cleaning\output\dataset_full_`1'", replace
+//save "\\Client\C$\Users\User\work\master_thesis\cleaning\temp\dataset_full_`1'", replace
