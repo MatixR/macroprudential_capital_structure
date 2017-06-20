@@ -1,5 +1,7 @@
 *.dta
 cleaning/auxiliar_info
+analysis/temp
+analysis/code/regression_backup.do
 *.csv
 *.xlsx
 *.bst
