@@ -12,3 +12,4 @@ analysis/code/regression_backup.do
 *.aux
 *.blg
 *.log
+*.bib
