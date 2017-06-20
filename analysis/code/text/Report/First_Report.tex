@@ -1,0 +1,96 @@
+\documentclass[12pt,runningheads]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,hyperref,array,xcolor,multicol,verbatim,mathpazo,caption}
+%\usepackage[normalem]{ulem}
+\usepackage[pdftex]{graphicx}
+\graphicspath{{Imagens/}}
+\usepackage{fullpage}
+\usepackage{natbib}
+\usepackage{indentfirst}
+\usepackage{changepage}
+
+\setlength{\pdfpagewidth}{8.5in} \setlength{\pdfpageheight}{11in}
+%\setlength{\textheight}{8.5in} \setlength{\topmargin}{0.0in}
+\setlength{\headheight}{0.0in} \setlength{\headsep}{0.0in}
+\setlength{\leftmargin}{0.5in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{\baselineskip}%
+\setlength{\textwidth}{6.5in}
+%\linespread{1.6}
+\newcommand*{\captionsource}[2]{%
+  \caption[{#1}]{%
+    #1%
+    \\\hspace{\linewidth}%
+    \textbf{Source:} #2%
+  }%
+}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\begin{document}
+
+
+\title{Report \ for:\\ \textbf{
+   Macroprudential Policy Spill-over: Evidence from Multinational Firms' Capital Structure \large}} 
+
+
+%\vspace*{20pt}
+\author{Lucas Avezum \\
+%EndAName
+Tilburg University \vspace*{20pt}}
+\date{\today }
+
+\maketitle
+
+\section{Data}
+\subsection{Firm level}
+  I decided to use a subset of large and very large firms from \underline{Amadeus} dataset for two reasons:
+ \begin{itemize}
+\item Ownership availability: Compustat dataset has very limited ownership information
+\item Time period available: Orbis only give access to data from 2007 onwards. With Amadeus we can track firms during the total period that we have the macroprudential index available (from 2000 to 2013)
+\end{itemize}
+All firms that do not belong to a holding, or group of firms that only have firms presents in one single country were excluded. The final dataset contains, depending on the model specification, up to 540,346 firm-year observations within a total of 8,103 multinationals.  
+
+\subsection{Country level}
+\underline{\cite*{cerutti2015use}}: yearly index for the use of macroprudential policies across 12 types of instruments, 3 aggregate indexes for 119 countries. The index is construct with 1 if a measure was in use at a country for a given year and zero if not in use. Hence the total aggregate measure can vary from 0 to 12. 
+
+\underline{World Bank database}: for most country level controls such, credit to GDP and inflation, GDP per capita, GDP growth rate and corporate taxes (proxied by total tax as \% of commercial profits). 
+
+\underline{International Country Risk Guide}: used for the remaining country level control variables for risk measures such, political, exchange rate and economic risks.
+
+The countries included in the analysis so far are: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Estonia, Finland, France, Germany, Hungary, Iceland, Ireland, Italy, Latvia, Lithuania, Malta, the Netherlands, Norway, Poland, Portugal, Romania, Serbia, Slovenia, Spain, Sweden, Switzerland, Turkey, Ukraine and the United Kingdom.
+
+\break 
+
+\section{Summary Statistics}
+
+Following \cite*{huizinga2008capital} I defined financial leverage as the ration of total non equity liabilities to total assets. Adjusted financial leverage is the same metric but removing cash from both the denominator and numerator. To control for firm size it was used the log of sales. Tangibility is the ratio of fixed to total assets while adjusted tangibility is the ratio of tangible fixed to total assets. Profitability is the ratio of EBITDA to total assets. Growth opportunities is the median of the annual growth of sales for each country industry combination. Volatility of profits is the standard deviation of each firm profitability (EBITDA/total assets) during the total time period (from 2000 to 2013). Lastly aggregate profitability is the sum of EBITA to total assets for each country industry combination.
+
+The summary statistics for all variables of interest and controls is shown in table 1:
+\input{C:/Users/User/work/master_thesis/analysis/temp/summary_firm_full_dirt}
+
+Given the results I further cleaned the data as following: replace by missing all values of leverage and adjusted leverage that lied out of the $[0,1]$ range. Winsorized the top and bottom 1\% of Tangibility, adjusted tangibility, profitability, opportunity, aggregate profitability and volatility of profits. Table 2 present the resulting summary statistics.
+\input{C:/Users/User/work/master_thesis/analysis/temp/summary_firm_full_clean}
+
+At country level the summary statistics are shown in table 3.
+\input{C:/Users/User/work/master_thesis/analysis/temp/summary_country}
+
+\break
+
+\section{Preliminary Results}
+Both leverage and adjusted leveraged are regressed on macroprudential policy, corporate tax rate and the respective debt shifting measures. The results are shown in collumns (1) and (3) of the table below. In all regressions multinational and time fixed effects are included. While the coefficients of corporate tax are in line with the results of \cite{huizinga2008capital}, macroprudential policy measures are rarely statistic significant and with low economic significance. The results improve marginally for the macroprudential index when other controls are introduce while the incetive to shift debt due to macroprudential looses its already small significance. 
+
+The results are in line with \cite{beck2004bank} that found macroprudential policy to affect little debt growth of large firms in developed countries. 
+%\begin{adjustwidth}{-2cm}{}
+\begin{figure}	
+\scalebox{0.75}{\input{C:/Users/User/work/master_thesis/analysis/temp/regression_full}}
+\end{figure}
+%\end{adjustwidth}
+
+\section{Proposed next steps}
+Given the results above I am working on getting access to the full Orbis dataset. Although we will loose half of out macroprudential database, the inclusion of countries outside Europe might increase variability on incentive to shift debt due to differences in macroprudential policies.
+\bibliography{references}
+\bibliographystyle{te}
+
+
+\end{document} 
