@@ -8,9 +8,9 @@
 * which we do not have information about other firms at their multinational level, 
 * the second are firms that do not have parent firms
 set more off
-use "\\Client\C$\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_`1'", clear
-//use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_`1'", clear
-use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_full", clear
+//use "\\Client\C$\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_`1'", clear
+use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_`1'", clear
+//use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_sample10", clear
 
 //========================
 //====== Indicators ======
@@ -124,6 +124,7 @@ sort idnr closdate_year
 * Split dataset in multinationals and stand-alone firms
 //================== Stand Alone Firm =================
 preserve
+tempfile tmp1
 keep if multinational == 0
 
 * Create auxiliary variable to debt shift
@@ -139,15 +140,13 @@ gen `a'_debt_shift = .
 lab var `a'_debt_shift "`a' incentive to shift debt"
 }
 drop debt_shifting_group
-//save "\\Client\C$\Users\User\work\master_thesis\cleaning\temp\dataset_stand_alone_`1'", replace
-
-save "C:\Users\User\work\master_thesis\cleaning\output\dataset_stand_alone_`1'", replace
+save `tmp1'
 restore
 
 //==================== Multinationals ==================
 keep if multinational == 1
 preserve
-tempfile tmp
+tempfile tmp2
 * Create auxiliary variable to debt shift
 egen debt_shifting_group = group(multinational_ID closdate_year)
 
@@ -164,7 +163,7 @@ keep MPI tax_rate debt_shifting_group subsidiary_time_ID asset_share idnr closda
 
 * Create debt shifting variable 
 timer on 1
-foreach a in MPI BORROWER FINANCIAL tax_rate{
+foreach a in MPI tax_rate{
 quiet summ subsidiary_time_ID
 
 forvalues k = 1/`r(max)'{
@@ -179,19 +178,15 @@ timer off 1
 * Merge debt shift variable to remaining dataset
 drop debt_shifting_group subsidiary_time_ID
 sort idnr closdate_year
-save `tmp'
+save `tmp2'
 restore
 sort idnr closdate_year
-merge 1:1 idnr closdate_year using `tmp'
+merge 1:1 idnr closdate_year using `tmp2'
 keep if _merge == 3
 drop _merge
 sort idnr closdate_year
-save "C:\Users\User\work\master_thesis\cleaning\output\dataset_multinationals_`1'", replace
-//save "\\Client\C$\Users\User\work\master_thesis\cleaning\temp\dataset_multinationals_`1'", replace
 
 //==================== Merged Dataset ======================
-append using "C:\Users\User\work\master_thesis\cleaning\output\dataset_stand_alone_`1'"
-//append using "\\Client\C$\Users\User\work\master_thesis\cleaning\output\dataset_stand_alone_`1'"
+append using `tmp1'
+save "C:\Users\User\work\master_thesis\cleaning\temp\dataset_nocontrols_`1'", replace
 
-save "C:\Users\User\work\master_thesis\cleaning\output\dataset_full_`1'", replace
-//save "\\Client\C$\Users\User\work\master_thesis\cleaning\temp\dataset_full_`1'", replace
