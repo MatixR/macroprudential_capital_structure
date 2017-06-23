@@ -83,11 +83,12 @@ foreach a in cpi credit_financial_GDP deflator gdp_growth_rate gdp_per_capita ma
 
 erase "C:\Users\User\work\master_thesis\cleaning\temp\Control`a'.dta"
 }
+
 //==================================================
 //===== Merge World Bank Database to Amadeus  ======
 //==================================================
 
-use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_`1'", clear
+use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_nocontrols_`1'", clear
 sort country closdate_year
 #delimit;
 merge m:1 country closdate_year using 
@@ -95,4 +96,4 @@ C:\Users\User\work\master_thesis\cleaning\temp\worldbank;
 #delimit cr
 keep if _merge==3
 drop _merge
-save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_WB_`1'.dta", replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\dataset_WB_`1'.dta", replace

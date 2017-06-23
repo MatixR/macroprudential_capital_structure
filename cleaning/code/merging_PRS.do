@@ -80,7 +80,7 @@ erase "C:\Users\User\work\master_thesis\cleaning\temp\Control`a'.dta"
 //===== Merge PRS Database to Amadeus  ======
 //===========================================
 
-use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_WB_`1'", clear
+use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_WB_`1'", clear
 sort country closdate_year
 #delimit;
 merge m:1 country closdate_year using 
@@ -88,4 +88,4 @@ C:\Users\User\work\master_thesis\cleaning\temp\PRS;
 #delimit cr
 keep if _merge==3
 drop _merge
-save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_WB_PRS_`1'.dta", replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_WB_PRS_`1'.dta", replace

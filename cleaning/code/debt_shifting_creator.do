@@ -7,6 +7,8 @@
 * NOTE: we differentiate stand-alone firms to own-owners firms: the first are firms
 * which we do not have information about other firms at their multinational level, 
 * the second are firms that do not have parent firms
+
+
 set more off
 //use "\\Client\C$\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_`1'", clear
 use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_`1'", clear
@@ -118,8 +120,6 @@ sort idnr closdate_year
 //====================================
 //====== Debt shifting variable ======
 //==================================== 
-//MPI BORROWER FINANCIAL LTV LTV_CAP DTI DP CTC LEV SIFI INTER CONC FC RR RR_REV CG TAX tax_rate
-//global debt_shift_variables "MPI tax_rate"
 
 * Split dataset in multinationals and stand-alone firms
 //================== Stand Alone Firm =================
@@ -135,7 +135,7 @@ sort debt_shifting_group
 by debt_shifting_group: egen total_asset_multinational = sum(toas)
 gen asset_share = toas/total_asset_multinational 
 
-foreach a in MPI tax_rate{
+foreach a in `2'{
 gen `a'_debt_shift = .
 lab var `a'_debt_shift "`a' incentive to shift debt"
 }
@@ -159,11 +159,11 @@ gen asset_share = toas/total_asset_multinational
 bysort debt_shifting_group: gen subsidiary_time_ID = _n
 
 * Keeping only looped variables
-keep MPI tax_rate debt_shifting_group subsidiary_time_ID asset_share idnr closdate_year
+keep `2' debt_shifting_group subsidiary_time_ID asset_share idnr closdate_year
 
 * Create debt shifting variable 
 timer on 1
-foreach a in MPI tax_rate{
+foreach a in `2'{
 quiet summ subsidiary_time_ID
 
 forvalues k = 1/`r(max)'{
