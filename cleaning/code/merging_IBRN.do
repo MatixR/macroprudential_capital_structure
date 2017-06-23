@@ -5,9 +5,9 @@
 set more off
   
 
-//============================================
-//===== Clean Macroprudential Database  ======
-//============================================
+//=================================
+//===== Clean IBRN Database  ======
+//=================================
 
 import excel using C:\Users\User\work\master_thesis\cleaning\input\IBRN.xlsx, sheet("Data") firstrow clear
 
@@ -59,13 +59,14 @@ restore
 preserve
 tempfile tmp2
 drop if !inlist(ifscode,122,124,132,134,136,137,138,172,174,178,181,182,184,423,936,939,941,946,961)
-gen help1 = 1 if ifscode == 936 & year>2008
-keep if help1 == 1
+gen help1 = 1 if ifscode == 936 & year<=2008
+drop if help1 == 1
 drop help1
 save `tmp2'
 use `tmp1'
 tempfile tmp3
 keep if ifscode == 163
+drop ifscode
 merge 1:m year using `tmp2'
 drop _merge
 save `tmp3'
@@ -74,26 +75,13 @@ drop if inlist(ifscode,122,124,132,134,136,137,138,172,174,178,181,182,184,423,9
 gen help1 = 1 if ifscode == 936 & year>2008
 drop if help1 == 1
 drop help1
-merge m:1 ifscode year using `tmp1'
+merge 1:1 ifscode year using `tmp1'
 append using `tmp3'
 
-rename year closdate_year
 rename biscode cntrycde
-drop ifscode _merge country
-sort ifscode closdate_year
+drop  _merge country
+sort ifscode year
 
 save "C:\Users\User\work\master_thesis\cleaning\temp\IBRN.dta", replace
 
-//=======================================================
-//===== Merge Macroprudential Database to Amadeus  ======
-//=======================================================
 
-use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_`1'", clear
-sort country closdate_year
-#delimit;
-merge m:1 country closdate_year using 
-C:\Users\User\work\master_thesis\cleaning\temp\IBRN;
-#delimit cr
-keep if _merge==3
-drop _merge
-save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_`1'.dta", replace
