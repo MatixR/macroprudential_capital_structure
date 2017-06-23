@@ -31,11 +31,11 @@
 //=========================
 //====== Arguments ========
 //=========================
-global track_index "sample10"
+global track_index "test_new_code"
 global sample_percent=10
 global info_file "info_VL"
 global financial_file "financials_VL"
-global MPP_vars "MPI BORROWER FINALCIAL tax_rate ltv_cap_y_avg rr_foreign_y_avg rr_local_y_avg cum_ltv_cap_y_avg cum_rr_foreign_y_avg cum_rr_local_y_avg"
+global MPP_vars "MPI BORROWER tax_rate ltv_cap_y_avg rr_local_y_avg cum_ltv_cap_y_avg cum_rr_local_y_avg"
 
 //======================
 //====== Sample ========
@@ -65,15 +65,6 @@ do C:\Users\User\work\master_thesis\cleaning\code\merging_MPI
 "$track_index" ;
 #delimit cr
 
-//================================================
-//====== Create debt shifting variables ==========
-//================================================
-
-#delimit;
-do C:\Users\User\work\master_thesis\cleaning\code\debt_shifting_creator 
-"$track_index" "$MPP_vars" ;
-#delimit cr
-
 //================================================================
 //====== Merging Amadeus and MPI to World Bank controls ==========
 //================================================================
@@ -81,6 +72,15 @@ do C:\Users\User\work\master_thesis\cleaning\code\debt_shifting_creator
 #delimit;
 do C:\Users\User\work\master_thesis\cleaning\code\merging_worldbank 
 "$track_index" ;
+#delimit cr
+
+//================================================
+//====== Create debt shifting variables ==========
+//================================================
+
+#delimit;
+do C:\Users\User\work\master_thesis\cleaning\code\debt_shifting_creator 
+"$track_index" "$MPP_vars" ;
 #delimit cr
 
 //=========================================================

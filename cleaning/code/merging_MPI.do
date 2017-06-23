@@ -89,6 +89,7 @@ merge 1:1 ifscode year using
 C:\Users\User\work\master_thesis\cleaning\temp\IBRN;
 #delimit cr
 drop _merge
+drop if missing(cntrycde)
 rename year closdate_year
 sort cntrycde closdate_year
 save `tmp'

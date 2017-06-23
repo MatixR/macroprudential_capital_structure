@@ -88,7 +88,7 @@ erase "C:\Users\User\work\master_thesis\cleaning\temp\Control`a'.dta"
 //===== Merge World Bank Database to Amadeus  ======
 //==================================================
 
-use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_nocontrols_`1'", clear
+use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_`1'.dta", clear
 sort country closdate_year
 #delimit;
 merge m:1 country closdate_year using 

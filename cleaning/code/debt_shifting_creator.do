@@ -11,7 +11,7 @@
 
 set more off
 //use "\\Client\C$\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_`1'", clear
-use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_`1'", clear
+use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_WB_`1'", clear
 //use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_sample10", clear
 
 //========================
@@ -139,7 +139,7 @@ foreach a in `2'{
 gen `a'_debt_shift = .
 lab var `a'_debt_shift "`a' incentive to shift debt"
 }
-drop debt_shifting_group
+drop debt_shifting_group total_asset_multinational 
 save `tmp1'
 restore
 
@@ -188,5 +188,5 @@ sort idnr closdate_year
 
 //==================== Merged Dataset ======================
 append using `tmp1'
-save "C:\Users\User\work\master_thesis\cleaning\temp\dataset_nocontrols_`1'", replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\dataset_debt_shift_`1'", replace
 
