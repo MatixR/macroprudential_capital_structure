@@ -4,7 +4,7 @@
 * This file manipulate raw data to create variables of interest
 set more off
 
-use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_MPI_WB_PRS_`1'.dta", clear
+use "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_WB_PRS_`1'.dta", clear
 sort idnr closdate_year
 egen firm_id = group(idnr)
 order firm_id
@@ -56,25 +56,23 @@ gen profitability = ebta/toas
 lab var profitability "Profitability"
 
 * Create aggregate profitability variable
-sort country nace_prim_code closdate_year
-by country nace_prim_code closdate_year: egen total_profit = sum(ebta)
-by country nace_prim_code closdate_year: egen total_asset = sum(toas)
+bysort country nace_prim_code closdate_year: egen total_profit = sum(ebta)
+bysort country nace_prim_code closdate_year: egen total_asset = sum(toas)
 gen agg_profitability = total_profit/total_asset
 lab var agg_profitability "Aggregate profitability"
+drop total_profit total_asset
 
 * Create auxiliary sales growth variable
-sort firm_id closdate_year
 gen logturn = log(turn)
-gen sales_growth = D.logturn
+bysort idnr (closdate_year): gen sales_growth = D.logturn if closdate_year == closdate_year[_n-1]+1
 
 * Create growth opportunity variable
-sort country nace_prim_code closdate_year
-by country nace_prim_code closdate_year: egen opportunity = median(sales_growth)
+bysort country nace_prim_code closdate_year: egen opportunity = median(sales_growth)
 lab var opportunity "Growth opportunities"
+drop sale_growth logturn
 
 * Create risk of firm variable
-sort idnr closdate_year
-by idnr: egen risk = sd(profitability)
+bysort idnr (closdate_year): egen risk = sd(profitability)
 lab var risk "Volatility of profits"
 
 //================================================
@@ -82,16 +80,16 @@ lab var risk "Volatility of profits"
 //================================================
 
 * Create inflation variable
-sort firm_id closdate_year
 gen logcpi = log(cpi)
-gen inflation = D.logcpi
+bysort idnr (closdate_year):gen inflation = D.logcpi if closdate_year == closdate_year[_n-1]+1
 lab var inflation "Inflation"
+drop logcpi
 
 * Create change in exchange rate variable
-sort firm_id closdate_year
 gen logFX = log(exchrate2)
-gen delta_FX = D.logFX
+bysort idnr (closdate_year): gen delta_FX = D.logFX if closdate_year == closdate_year[_n-1]+1
 lab var delta_FX "Change in exchange rate"
+drop logFX
 
 * Changing GDP per capita to thousands
 gen help1 = gdp_per_capita/1000
@@ -120,7 +118,7 @@ lab var exchange_rate_risk "Exchange rate risk"
 lab var financial_risk "Financial Risk"
 lab var political_risk "Political Risk"
 lab var law_order "Law and order"
-
-
-save "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_`1'.dta", replace
+* Other remaining labeling
+lab var tax_rate "Tax incentive to shift debt"
+save "C:\Users\User\work\master_thesis\cleaning\output\dataset_`1'.dta", replace
 
