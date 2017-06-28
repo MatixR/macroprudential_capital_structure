@@ -4,9 +4,9 @@
 * This file creates summary statistics
 set more off
 
-//=====================================
-//====== Multinationals Dataset =======
-//=====================================
+//===================================
+//====== Basic Summary tables =======
+//===================================
  
 use "C:\Users\User\work\master_thesis\cleaning\output\dataset_multinationals_full", clear
 
@@ -71,3 +71,56 @@ title("Summary statistics of country level variables");
 #delimit cr
 
 tabout country using  "C:\Users\User\work\master_thesis\analysis\temp\summary_country_firm.tex"
+
+
+//====================================
+//====== MPI Correlation table =======
+//====================================
+
+use "C:\Users\User\work\master_thesis\cleaning\temp\MPI", clear
+drop if !inlist(ifscode,122,124,132,134,136,137,138,172,174,178,181,182,184,423,936,939,941,946,961)
+keep year MPI country
+reshape wide MPI, i(year) j(country) string
+rename MPI* *
+foreach lab of varlist Austria-Spain{
+label var `lab' "`lab'"
+} 
+ 
+#delimit;
+corrtex Austria-Spain, file("C:\Users\User\work\master_thesis\analysis\temp\MPI_correl.tex") 
+replace digits(2)  landscape title("Aggregate MPI cross-correlation table");
+#delimit cr
+
+//===================================================
+//====== Number of firms per country per type =======
+//===================================================
+use "C:\Users\User\work\master_thesis\cleaning\output\dataset_multinationals_full", clear
+* Turning country variables at proper case and adding variable that tells parent country
+bysort idnr: keep if _n == 1
+replace country = proper(country)
+preserve
+tempfile tmp1
+keep guo_cntry 
+bysort guo_cntry: keep if _n == 1
+save `tmp1'
+restore
+preserve
+tempfile tmp2
+keep country cntrycde
+rename cntrycde guo_cntry
+merge m:1 guo_cntry using `tmp1'
+keep if _merge == 3 
+drop _merge
+bysort guo_cntry: keep if _n == 1
+rename country guo_country
+save `tmp2'
+restore
+merge m:1 guo_cntry using `tmp2'
+replace guo_country = "Other" if missing(guo_country) 
+
+
+
+eststo: estpost tab country parent 
+eststo: estpost tab guo_country 
+esttab , cell(b) unstack noobs fragment 
+
