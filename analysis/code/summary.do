@@ -124,3 +124,73 @@ eststo: estpost tab country parent
 eststo: estpost tab guo_country 
 esttab , cell(b) unstack noobs fragment 
 
+//=================================
+//====== MPI Summary tables =======
+//=================================
+tempfile tmp
+import excel ifscode var1 country using C:\Users\User\Data\IMF\ifs_code.xlsx, sheet("Sheet1") clear
+drop in 1/2
+drop var1
+destring ifscode, replace
+save `tmp'
+use "C:\Users\User\work\master_thesis\cleaning\temp\IBRN", clear
+drop if missing(cntrycde)
+replace ifscode = 942 if ifscode == 965 
+merge m:1 ifscode using `tmp' 
+order year cntrycde ifscode country
+keep if _merge==3
+drop _merge 
+lab var ltv_cap_y_avg  "Loan-to-value ratio limits"
+lab var rr_foreign_y_avg "Reserve requirement on foreign currency"
+lab var rr_local_y_avg "Reserve requirement on local currency"
+ 
+ /////////// By country /////////////////////
+* Table of means
+#delimit;
+estpost tabstat ltv_cap_y_avg rr_foreign_y_avg rr_local_y_avg,
+statistics(mean) by(country);
+#delimit cr
+
+#delimit;
+esttab using "C:\Users\User\work\master_thesis\analysis\temp\mean_MPI.csv", 
+cells("ltv_cap_y_avg(fmt(2)) rr_foreign_y_avg(fmt(2)) rr_local_y_avg(fmt(2))") label noobs nonumbers replace
+title("Summary statistics of firm level variables");
+#delimit cr
+
+* Table of standard deviation
+#delimit;
+estpost tabstat ltv_cap_y_avg rr_foreign_y_avg rr_local_y_avg,
+statistics(sd) by(country);
+#delimit cr
+
+#delimit;
+esttab using "C:\Users\User\work\master_thesis\analysis\temp\sd_MPI.csv", 
+cells("ltv_cap_y_avg(fmt(2)) rr_foreign_y_avg(fmt(2)) rr_local_y_avg(fmt(2))") label noobs nonumbers replace
+title("Summary statistics of firm level variables");
+#delimit cr
+
+* Obs: final table merged by hand
+ /////////// By year /////////////////////
+* Table of means
+#delimit;
+estpost tabstat ltv_cap_y_avg rr_foreign_y_avg rr_local_y_avg,
+statistics(mean) by(year);
+#delimit cr
+
+#delimit;
+esttab using "C:\Users\User\work\master_thesis\analysis\temp\mean_MPI_year.csv", 
+cells("ltv_cap_y_avg(fmt(2)) rr_foreign_y_avg(fmt(2)) rr_local_y_avg(fmt(2))") label noobs nonumbers replace;
+#delimit cr
+
+* Table of standard deviation
+#delimit;
+estpost tabstat ltv_cap_y_avg rr_foreign_y_avg rr_local_y_avg,
+statistics(sd) by(year);
+#delimit cr
+
+#delimit;
+esttab using "C:\Users\User\work\master_thesis\analysis\temp\sd_MPI_year.csv", 
+cells("ltv_cap_y_avg(fmt(2)) rr_foreign_y_avg(fmt(2)) rr_local_y_avg(fmt(2))") label noobs nonumbers replace;
+#delimit cr
+
+* Obs: final table merged by hand
