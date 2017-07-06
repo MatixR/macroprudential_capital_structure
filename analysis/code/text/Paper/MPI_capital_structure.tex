@@ -1,0 +1,167 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,eurosym,geometry,ulem,caption,color,xcolor,multicol,setspace,sectsty,comment,footmisc,caption,natbib,pdflscape,subfigure,array,hyperref,verbatim,mathpazo,longtable}
+%\usepackage[normalem]{ulem}
+\usepackage[pdftex]{graphicx}
+\graphicspath{{Imagens/}}
+\usepackage{fullpage}
+\usepackage{indentfirst}
+\usepackage{changepage}
+
+%\setlength{\pdfpagewidth}{8.5in} \setlength{\pdfpageheight}{11in}
+%\setlength{\textheight}{8.5in} \setlength{\topmargin}{0.0in}
+%\setlength{\headheight}{0.0in} \setlength{\headsep}{0.0in}
+%\setlength{\leftmargin}{0.5in}
+%\setlength{\oddsidemargin}{0.0in}
+%\setlength{\parindent}{2em}
+%\setlength{\parskip}{\baselineskip}%
+%\setlength{\textwidth}{6.5in}
+%\linespread{1.6}
+\newcommand*{\captionsource}[2]{%
+  \caption[{#1}]{%
+    #1%
+    \\\hspace{\linewidth}%
+    \textbf{Source:} #2%
+  }%
+}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\onehalfspacing
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}{Proposition}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\newtheorem{hyp}{Hypothesis}
+\newtheorem{subhyp}{Hypothesis}[hyp]
+\renewcommand{\thesubhyp}{\thehyp\alph{subhyp}}
+
+\newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\blue}[1]{{\color{blue} #1}}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+
+\geometry{left=1.0in,right=1.0in,top=1.0in,bottom=1.0in}
+\begin{document}
+	
+	\begin{titlepage}
+		\title{Macroprudential Policy International Spill-over: Evidence from Multinational's Capital Structure\thanks{Very preliminary version}}
+		\author{Lucas Avezum\thanks{abc} \and \and Harry Huizinga\thanks{abc} \and Louis Raes\thanks{abc}}
+		\date{\today}
+		\maketitle
+		\begin{abstract}
+			\noindent Placeholder\\
+			\vspace{0in}\\
+			\noindent\textbf{Keywords:} key1, key2, key3\\
+			\vspace{0in}\\
+			\noindent\textbf{JEL Codes:} key1, key2, key3\\
+			
+			\bigskip
+		\end{abstract}
+		\setcounter{page}{0}
+		\thispagestyle{empty}
+	\end{titlepage}
+	\pagebreak \newpage
+	
+	
+	
+	
+	\doublespacing
+	
+	
+	\section{Introduction} \label{sec:introduction}
+	
+	\section{Literature review} \label{sec:literature}
+	Empirical research on the effects of prudential policies has increase considerably after the 2008 financial crisis. \cite{jimenez2012macroprudential}
+	
+	Using firm-level data, \cite*{ayyagari2017credit} relate macroprudential policies and firm's credit growth. They found that the effectiveness of prudential tools at smoothing credit depend on firm's location (emerging or developed country), size, debt maturity and type of instrument (borrower-target or financial institution target).
+	
+	Our work is closely related to the series of papers developed under the International Banking Research Network (IBRN) 2015 initiative, summarized by \cite{buch2017international}. They also rely on multinational relationships to identify international spillovers. However, their analysis is restricted to the effects on banking loans, while we study changes in firm's capital structure out of financial sector. Their findings corroborate to the evidence that the effects of prudential tools are heterogeneous on type and location. On average, the economic significance of international spillover were found to be small. Although at first we might expect our results to follow theirs, our estimation strategy allows to identify changes in firm's debt that goes beyond banking credit supply. Hence, the main contribution of the paper is to show that macroprudential policy affect firm's leverage by changing their credit condition relative to other firm's within the same multinational group. Our finding provide stronger evidence of prudential tools spillover, that should be considered given the original objetive of providing financial stability.
+	
+	The paper proceeds as follows: Section 2 describes the data, Section 3 explains the empirical strategy while the results are discussed in Section 4. We provide extensions to our baseline model in Section 5. Section 7 concludes. 
+	
+	\section{Data} \label{sec:data}
+	\subsection{Macroprudential policy} \label{subsec:MPI}
+	
+	We rely on the efforts of \cite*{cerutti2016changes} on our measure of macroprudential policy \footnote{ In turn, their work build on \cite*{cerutti2015use}}, which was also developed within the IBRN macroprudential study initiative. The measures constructed consists of indexes of 9 instruments: general capital requirements (GCR), real estate loans capital buffer (RECB), consumer loans capital buffer (CCB), concentration limits (CL), interbank exposure (IE), loan-to-value ratio limits (LTV), reserve requeriments on foreign currency (RRFC) and reserve requirements on local currency (RRLC). The time unit is quarterly and the database span from the first quarter of 2001 to the last quarter of 2014. Sixty four countries are included. Each quarter data point is an positive, negative or zero entry meaning respectively, tightening, loosening or no change in the instrument. The indexes not only track the use but also the intensity of each change. A cumulative measure of each instrument is also available.    
+	
+	Due to firm level data availability we only use XX countries from 2007 to 2014 and average the indexes per year. Our main focus in this paper is to study the effects of reserve requirements and loan-to-value ratios as those measures have been shown in the literature to be used in counter-cyclically. The other prudential tools are little or less correlated to business cycles measures suggesting a structural use, as noted by \cite{cerutti2016changes}. 
+	
+	Table XX shows a some summary statistics by country. DESCRIBE TABLE. Create box-plot of correlations.
+	
+
+	
+    Summary statistics by year. Check if use increased after crisis DESCRIBE TABLE.
+    
+	\subsection{Firm level} \label{subsec:firm}
+	Firm level data and ownership relationships are taken from the Orbis database compiled by Bureau Van Dijk.	The dataset consist of worldwide accounting and ownership information on both private and public owned companies. Ownership is considered if one firm owns at least 50\% of another at a given year. We call the second a subsidiary firm. If a company owns one or more firms but itself is owned by another, this firm is then called an intermediate and for all purposes is also considerer as a subsidiary. A parent firm is the ultimate owner of a group, that is, a firm that owns one or more companies but none of its shareholders have more than 50\% of its shares.
+	
+	Given our interest in cross-border effects, we keep only multinationals groups, that is, ownership networks where firms are present in at least two countries. Banks, insurance and financial related companies are also excluded since their capital structure differs from other industries \footnote{Check IBRN studies on the banking sector}. Table XX provides information on the amount of parent and subsidiary firms per country of our sample.
+	
+	Information on   
+	\section{Empirical strategy} \label{sec:strategy}
+	
+	
+	In order to assess potential international spillovers from macroprudential policy our estimation strategy is based on \cite*{huizinga2008capital}. Although their work was designed to study tax incentive to debt shifting, we believe that the same strategy is also suitable to our case. As \cite{huizinga2008capital} note, multinational groups take into account both tax and non-tax factor when deciding their optimal financial structure. For instance, looser credit market in one country may lead to relative higher leverage at subsidiaries in this country, as the multinational will take advantage of better financing conditions. Given an optimal leverage at the multinational level, subsidiaries at other countries should reduce external financing. As macroprudential instruments aim at smoothing credit markets, to the degree of their domestic effectiveness, internatinal spillover in the form of debt shifting seems plausible.
+	
+	Macroprudential cross-border effect is identified by averaging the differentials of indexes by the asset share (BETTER EXPLAIN). Our baseline regression is:
+	 
+	\begin{equation*}
+	\begin{aligned}
+	y_{imc,t}=&\beta_0MPI_{c,t}+\beta_1\sum_j\bigg[MPI_{ic,t} - MPI_{jc',t}\bigg]\rho_{j,t}\\
+	&+\alpha_0Tax_{ic,t}+\alpha_1\sum_j\bigg[Tax_{ic,t} - Tax_{jc',t}\bigg]\rho_{j,t}\\
+	&+\Gamma X_{t}+f_{m}+f_{t}+f_{c}+\varepsilon_{i,t}
+	\end{aligned}
+	\end{equation*}
+	
+	Where $i$ denotes firm, $m$ multinational group (indexed by parent), $c$ country and $t$ year. The dependent variable is the log change of a capital structure measure such as leverage, adjusted leverage, long term or short term debt. $MPI$ is a macroprudential measure such as reserve requirement, LTV-ratio. $\rho_{i,t}$ is the asset share within multinational of firm $i$ at time $t$. $f_{m}$, $f_{t}$ and $f_{c}$ are respectively multinational, time and country fixed effects. $X$ is a set of controls variables.
+	
+	We are interest both in $\beta_0$ and $\beta_1$, respectively, the domestic and international effect of prudential policies on firm's capital structure choice. By our hypothesis and the way we construct the debt shifting variable we expect both $\beta_0$ and $\beta_1$ to be negative. Given prior evidence, we control by both corporate tax level at the host country as by tax incentive to shift debt \footnote{our measure of corporate tax is only a proxy of what \cite{huizinga2008capital} have construct, but the results remain in line}. We also control for several other firm and country level characteristics as described in Section \ref{sec:data}.
+	
+	     
+	\section{Results} \label{sec:result}
+	
+	\section{Discussions} \label{sec:discussion}
+	
+	\section{Conclusion} \label{sec:conclusion}
+	
+	
+	
+	\singlespacing
+	\bibliography{C:/Users/User/work/master_thesis/analysis/code/text/bibliography/references}
+	\bibliographystyle{C:/Users/User/work/master_thesis/analysis/code/text/bibliography/te}
+	
+	
+	
+	\clearpage
+	
+	\onehalfspacing
+	
+	\section*{Tables} \label{sec:tab}
+	\addcontentsline{toc}{section}{Tables}
+	
+		\input{C:/Users/User/work/master_thesis/analysis/temp/summary_MPI}
+	
+	\clearpage
+		\input{C:/Users/User/work/master_thesis/analysis/temp/summary_MPI_year}
+	\section*{Figures} \label{sec:fig}
+	\addcontentsline{toc}{section}{Figures}
+	
+	%\begin{figure}[hp]
+	%  \centering
+	%  \includegraphics[width=.6\textwidth]{../fig/placeholder.pdf}
+	%  \caption{Placeholder}
+	%  \label{fig:placeholder}
+	%\end{figure}
+	
+	
+	\clearpage
+	
+	\section*{Appendix A.} 
+	\label{sec:appendixa}
+	\addcontentsline{toc}{section}{Appendix A}
+	
+
+\end{document} 
