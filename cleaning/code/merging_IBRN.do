@@ -9,7 +9,7 @@ set more off
 //===== Clean IBRN Database  ======
 //=================================
 
-import excel using C:\Users\User\work\master_thesis\cleaning\input\IBRN.xlsx, sheet("Data") firstrow clear
+import excel using "\\Client\C$\Users\User\work\master_thesis\cleaning\input\IBRN.xlsx", sheet("Data") firstrow clear
 
 foreach var of varlist _all{
 * Destring variables
@@ -29,7 +29,7 @@ preserve
 //===== Clean IMF Interest Rate Database  ======
 //==============================================
 
-insheet using C:\Users\User\work\master_thesis\cleaning\input\interest_rate.csv, clear
+insheet using "\\Client\C$\Users\User\work\master_thesis\cleaning\input\interest_rate.csv", clear
 tempfile tmp1
 * Calculating year average
 gen year = substr(timeperiod,1,4)
@@ -78,10 +78,12 @@ drop help1
 merge 1:1 ifscode year using `tmp1'
 append using `tmp3'
 
-rename biscode cntrycde
-drop  _merge country
+rename biscode country_id
+drop  _merge
+replace country = upper(country)
+
 sort ifscode year
 
-save "C:\Users\User\work\master_thesis\cleaning\temp\IBRN.dta", replace
+save "S:\temp\IBRN.dta", replace
 
 
