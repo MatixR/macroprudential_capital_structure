@@ -2,22 +2,34 @@
 * Author: Lucas Avezum 
 
 * This file creates summary statistics
-set more off
+
 
 //===================================
 //====== Basic Summary tables =======
 //===================================
  
-use "C:\Users\User\work\master_thesis\cleaning\output\dataset_multinationals_full", clear
+use "S:\output\dataset_orbis.dta", clear
+
+set more off
+gen nace2 = int(nace/100)
+rename multinational_ID multinationals
+drop if multinational == 0
+
+keep if type_id == "C"
+
+bysort multinationals: egen mean_parent = mean(parent)
+drop if mean_parent == 0
 
 * Summary table of variables per firm
 #delimit;
-estpost tabstat leverage adj_leverage MPI_debt_shift tax_rate_debt_shift intermediate parent
-fixed_total tangible_total log_sales profitability opportunity risk agg_profitability,
+estpost tabstat leverage adj_leverage  
+cum_ltv_cap_y_avg_debt_shift cum_rr_local_y_avg_debt_shift tax_rate_debt_shift 
+intermediate parent fixed_total tangible_total intangible_total 
+log_sales profitability opportunity agg_profitability risk,
 statistics(count mean sd min max) columns(statistics); 
 #delimit cr
 #delimit;
-esttab using "C:\Users\User\work\master_thesis\analysis\temp\summary_firm_full_dirt.tex",
+esttab using "S:\output\Tex\summary_firm_orbis_dirt.tex",
 replace cells("count(fmt(0)) mean(fmt(2)) sd(fmt(2)) min(fmt(2)) max(fmt(2))") label noobs nonumbers 
 title("Summary statistics of firm level variables");
 #delimit cr
@@ -25,47 +37,58 @@ title("Summary statistics of firm level variables");
 * Cleaning from outliers
 replace leverage = . if leverage > 1 | leverage < 0
 replace adj_leverage = . if adj_leverage > 1 | adj_leverage < 0
-winsor fixed_total, gen(fixed_total_w) p(0.01)
+
+winsor fixed_total, gen(fixed_total_w) p(0.001)
 lab var fixed_total_w "Tangibility"
-winsor profitability, gen(profitability_w) p(0.01)
+
+winsor profitability, gen(profitability_w) p(0.001)
 lab var profitability_w "Profitability"
-winsor tangible_total, gen(tangible_total_w) p(0.01)
+
+winsor tangible_total, gen(tangible_total_w) p(0.001)
 lab var tangible_total_w "Adjusted tangibility"
-winsor opportunity, gen(opportunity_w) p(0.01)
+
+winsor intangible_total, gen(intangible_total_w) p(0.001)
+lab var intangible_total_w "Intangibility"
+
+winsor opportunity, gen(opportunity_w) p(0.001)
 lab var opportunity_w "Opportunity"
-winsor agg_profitability, gen(agg_profitability_w) p(0.01)
+
+winsor agg_profitability, gen(agg_profitability_w) p(0.001)
 lab var agg_profitability_w "Aggregate profitability"
+
 winsor risk, gen(risk_w) p(0.01)
 lab var risk_w "Volatility of profits"
  
 
 * Summary table of variables per firm
 #delimit;
-estpost tabstat leverage adj_leverage MPI_debt_shift tax_rate_debt_shift intermediate parent
-fixed_total_w tangible_total_w log_sales profitability_w opportunity_w risk_w agg_profitability_w,
+estpost tabstat leverage adj_leverage  
+cum_ltv_cap_y_avg_debt_shift cum_rr_local_y_avg_debt_shift tax_rate_debt_shift 
+intermediate parent fixed_total_w tangible_total_w intangible_total_w 
+log_sales profitability_w opportunity_w agg_profitability_w risk_w,
 statistics(count mean sd min max) columns(statistics); 
 #delimit cr
 #delimit;
-esttab using "C:\Users\User\work\master_thesis\analysis\temp\summary_firm_full_clean.tex",
+esttab using "S:\output\Tex\summary_firm_orbis_clean.tex",
 replace cells("count(fmt(0)) mean(fmt(2)) sd(fmt(2)) min(fmt(2)) max(fmt(2))") label noobs nonumbers 
 title("Summary statistics of firm level variables");
 #delimit cr
 
-tabout country using  "C:\Users\User\work\master_thesis\analysis\temp\summary_country_firm.txt", replace sum style(tex)
 
 * Summary table of variables per country
-use "C:\Users\User\work\master_thesis\cleaning\output\dataset_multinationals_full", clear
+*use "S:\output\dataset_orbis.dta", clear
 
-bysort country closdate_year: keep if _n == 1
+bysort country year: keep if _n == 1
 
 #delimit;
-estpost tabstat MPI tax_rate inflation gdp_growth_rate gdp_per_capita
+estpost tabstat cum_ltv_cap_y_avg cum_rr_local_y_avg tax_rate 
+inflation gdp_growth_rate gdp_per_capita
 credit_financial_GDP private_credit_GDP stock_traded_GDP market_cap turnover
 economic_risk exchange_rate_risk financial_risk law_order political_risk,
 statistics(count mean sd min max) columns(statistics); 
 #delimit cr
 #delimit;
-esttab using "C:\Users\User\work\master_thesis\analysis\temp\summary_country.tex",
+esttab using "S:\output\Tex\summary_country_orbis.tex",
 replace cells("count(fmt(0)) mean(fmt(2)) sd(fmt(2)) min(fmt(2)) max(fmt(2))") label noobs nonumbers
 title("Summary statistics of country level variables");
 #delimit cr
@@ -94,36 +117,54 @@ replace digits(2)  landscape title("Aggregate MPI cross-correlation table");
 //===================================================
 //====== Number of firms per country per type =======
 //===================================================
-use "C:\Users\User\work\master_thesis\cleaning\output\dataset_multinationals_full", clear
-* Turning country variables at proper case and adding variable that tells parent country
-bysort idnr: keep if _n == 1
-replace country = proper(country)
-preserve
-tempfile tmp1
-keep guo_cntry 
-bysort guo_cntry: keep if _n == 1
-save `tmp1'
-restore
-preserve
-tempfile tmp2
-keep country cntrycde
-rename cntrycde guo_cntry
-merge m:1 guo_cntry using `tmp1'
-keep if _merge == 3 
-drop _merge
-bysort guo_cntry: keep if _n == 1
-rename country guo_country
-save `tmp2'
-restore
-merge m:1 guo_cntry using `tmp2'
-replace guo_country = "Other" if missing(guo_country) 
 
+* Parent firms and subsidiary by host country collumns
+use "S:\output\dataset_orbis.dta", clear
+set more off
+drop if multinational == 0
+keep if type_id == "C"
+rename multinational_ID multinationals
 
+bysort multinationals: egen mean_parent = mean(parent)
+drop if mean_parent == 0
 
-eststo: estpost tab country parent 
-eststo: estpost tab guo_country 
-esttab , cell(b) unstack noobs fragment 
+bysort id: keep if _n == 1
 
+estpost tab country parent 
+#delimit;
+esttab using "S:\output\Tex\number_firms_orbis_1.csv", 
+cell(b) unstack noobs fragment replace; 
+#delimit cr
+
+* Parent firms and subsidiary by host country collumns
+use "S:\output\dataset_orbis.dta", clear
+set more off
+drop if multinational == 0
+keep if type_id == "C"
+rename multinational_ID multinationals
+
+bysort multinationals: egen mean_parent = mean(parent)
+drop if mean_parent == 0
+
+egen firm_parent_ID = group(id id_P)
+bysort firm_parent_ID: keep if _n == 1
+estpost tab country_id_P 
+
+#delimit;
+esttab using "S:\output\Tex\number_firms_orbis_2.csv", 
+cell(b) unstack noobs fragment replace; 
+#delimit cr
+* Obs: final table merged by hand
+
+* Movers
+bysort id: gen dup = cond(_N==1,1,_n)
+drop if dup==1
+rename dup Movers
+estpost tab Movers
+#delimit;
+esttab using "S:\output\Tex\movers.tex", 
+cell(b) noobs fragment replace; 
+#delimit cr
 //=================================
 //====== MPI Summary tables =======
 //=================================
