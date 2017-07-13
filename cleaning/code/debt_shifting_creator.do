@@ -10,9 +10,7 @@
 
 
 set more off
-//use "\\Client\C$\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_`1'", clear
-use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_WB_`1'", clear
-//use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_no_debt_shifting_sample10", clear
+use "S:\temp\merged_MPI_WB_`1'", clear
 
 //========================
 //====== Indicators ======
@@ -21,71 +19,65 @@ use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_WB_`1'", clear
 * Create parent dummy
 preserve 
 tempfile tmp1
-keep guo_bvdepnr
-sort guo_bvdepnr
-by guo_bvdepnr: gen dup = cond(_N==1,0,_n-1)
+keep id_P year
+sort id_P year
+by id_P year: gen dup = cond(_N==1,0,_n-1)
 keep if dup == 0
 drop dup
-rename guo_bvdepnr ID
+rename id_P ID
 save `tmp1'
 restore
 preserve
-keep idnr
-sort idnr 
-by idnr: gen dup = cond(_N==1,0,_n-1)
-keep if dup == 0
-drop dup
-rename idnr ID
+keep id year
+sort id year
+rename id ID
 tempfile tmp2
-merge 1:1 ID using `tmp1'
+merge 1:1 ID year using `tmp1'
 keep if _merge == 3
 gen parent = 1 
 drop _merge
-rename ID idnr
+rename ID id
 save `tmp2'
 restore
-merge m:1 idnr using `tmp2'
+merge m:1 id year using `tmp2'
 drop _merge
 replace parent = 0 if missing(parent)
 
 * Create intermediate dummy
 preserve 
 tempfile tmp1
-keep ish_bvdepnr
-sort ish_bvdepnr
-by ish_bvdepnr: gen dup = cond(_N==1,0,_n-1)
+keep id_I year
+sort id_I year
+by id_I year: gen dup = cond(_N==1,0,_n-1)
 keep if dup == 0
 drop dup
-rename ish_bvdepnr ID
+rename id_I ID
 save `tmp1'
 restore
 preserve
-keep idnr
-sort idnr 
-by idnr: gen dup = cond(_N==1,0,_n-1)
-keep if dup == 0
-drop dup
-rename idnr ID
+keep id year
+sort id year
+rename id ID
 tempfile tmp2
-merge 1:1 ID using `tmp1'
+merge 1:1 ID year using `tmp1'
 keep if _merge == 3
 gen intermediate = 1 
 drop _merge
-rename ID idnr
+rename ID id
 save `tmp2'
 restore
-merge m:1 idnr using `tmp2'
+merge m:1 id year using `tmp2'
 drop _merge
 replace intermediate = 0 if missing(intermediate)
 replace intermediate = 0 if parent == 1
 
 * Create multinational indicator
-replace guo_bvdepnr = idnr if  missing(guo_bvdepnr)
-sort guo_bvdepnr idnr
-egen multinational_ID = group(guo_bvdepnr)
+replace id_P = id if  missing(id_P)
+sort id_P id
+egen multinational_ID = group(id_P)
 
 * Create subsidiary per multinational indicator
-egen multinational_subsidiary_ID = concat(guo_bvdepnr idnr)
+egen multinational_subsidiary_ID = concat(id_P id)
 bysort multinational_ID multinational_subsidiary_ID: gen help1 = 1 if _n == 1
 replace help1 = 0 if missing(help1)
 bysort multinational_ID (multinational_subsidiary_ID): gen subsidiary_ID = sum(help1)
@@ -93,14 +85,14 @@ drop help1 multinational_subsidiary_ID
 bysort multinational_ID: egen mean_subsidiary_ID = mean(subsidiary_ID)
 
 * Create own-owner firm dummy
-gen owner = 1 if guo_bvdepnr == idnr
+gen owner = 1 if id_P == id
 replace owner = 0 if missing(owner)
 
 * Create multinational dummy
-egen multinational_year_ID = group(multinational_ID closdate_year)
-bysort multinational_year_ID country: gen help1 = 1 if _n == 1
+egen multinational_year_ID = group(multinational_ID year)
+bysort multinational_year_ID country_id: gen help1 = 1 if _n == 1
 replace help1 = 0 if missing(help1)
-bysort multinational_year_ID (country): gen help2 = sum(help1)
+bysort multinational_year_ID (country_id): gen help2 = sum(help1)
 bysort multinational_year_ID: egen help3 = mean(help2)
 bysort multinational_year_ID: gen multinational = 0 if help3 == 1
 replace multinational = 1 if missing(multinational)
@@ -115,7 +107,7 @@ lab var tax_rate "Corporate tax rate"
 lab var parent "Parent"
 lab var intermediate "Intermediate"
 
-sort idnr closdate_year
+sort id year
 
 //====================================
 //====== Debt shifting variable ======
@@ -128,7 +120,7 @@ tempfile tmp1
 keep if multinational == 0
 
 * Create auxiliary variable to debt shift
-egen debt_shifting_group = group(multinational_ID closdate_year)
+egen debt_shifting_group = group(multinational_ID year)
 
 * Create asset share of each firm within multinational
 sort debt_shifting_group
@@ -148,7 +140,7 @@ keep if multinational == 1
 preserve
 tempfile tmp2
 * Create auxiliary variable to debt shift
-egen debt_shifting_group = group(multinational_ID closdate_year)
+egen debt_shifting_group = group(multinational_ID year)
 
 * Create asset share of each firm within multinational
 sort debt_shifting_group
@@ -159,11 +151,13 @@ gen asset_share = toas/total_asset_multinational
 bysort debt_shifting_group: gen subsidiary_time_ID = _n
 
 * Keeping only looped variables
-keep `2' debt_shifting_group subsidiary_time_ID asset_share idnr closdate_year
+keep `2' debt_shifting_group subsidiary_time_ID asset_share id year
 
 * Create debt shifting variable 
+
 timer on 1
-foreach a in `2'{
+
+ foreach a in `2'{
 quiet summ subsidiary_time_ID
 
 forvalues k = 1/`r(max)'{
@@ -173,20 +167,22 @@ quiet egen `a'_debt_shift = rowtotal(help*)
 lab var `a'_debt_shift "`a' incentive to shift debt"
 quiet drop help* 
 }
+
+
 timer off 1
 
 * Merge debt shift variable to remaining dataset
 drop debt_shifting_group subsidiary_time_ID
-sort idnr closdate_year
+sort id year
 save `tmp2'
 restore
-sort idnr closdate_year
-merge 1:1 idnr closdate_year using `tmp2'
+sort id year
+merge 1:1 id year using `tmp2'
 keep if _merge == 3
 drop _merge
-sort idnr closdate_year
+sort id year
 
 //==================== Merged Dataset ======================
 append using `tmp1'
-save "C:\Users\User\work\master_thesis\cleaning\temp\dataset_debt_shift_`1'", replace
+save "S:\temp\merged_MPI_WB_DS_`1'", replace
 
