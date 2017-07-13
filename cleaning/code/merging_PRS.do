@@ -10,7 +10,7 @@ set more off
 //=================================
 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
-import excel using C:\Users\User\work\master_thesis\cleaning\input\\`a'.xlsx, sheet("Sheet1") firstrow clear
+import excel using "\\Client\C$\Users\User\work\master_thesis\cleaning\input\\`a'.xlsx", sheet("Sheet1") firstrow clear
 
 * Drop lines and collumns not used, rename variables and create ID
 drop if inlist(_n,_N)
@@ -19,15 +19,15 @@ rename * v#, renumber
 gen id = _n
 
 * Turn database in long format
-reshape long v, i(id) j(year)
+reshape long v, i(id) j(year_help)
 
 * Create year variable and rename variable of interest
 gen year_aux = 1983
-gen closdate_year = year_aux + year
-drop year_aux year
+gen year = year_aux + year_help
+drop year_aux year_help
 rename v `a'
 
-save "C:\Users\User\work\master_thesis\cleaning\temp\Control`a'.dta", replace
+save "S:\temp\Control`a'.dta", replace
 
 }
 
@@ -35,7 +35,7 @@ save "C:\Users\User\work\master_thesis\cleaning\temp\Control`a'.dta", replace
 //===== Merge PRS Database  =======
 //=================================
 * Include country variable 
-import excel using C:\Users\User\work\master_thesis\cleaning\input\economic_risk.xlsx, sheet("Sheet1") firstrow clear
+import excel using "\\Client\C$\Users\User\work\master_thesis\cleaning\input\economic_risk.xlsx", sheet("Sheet1") firstrow clear
 keep Country
 drop if inlist(_n,_N)
 gen id = _n
@@ -46,46 +46,46 @@ drop dup
 rename Country country
 #delimit;
 merge 1:m id using 
-C:\Users\User\work\master_thesis\cleaning\temp\Controleconomic_risk;
+"S:\temp\Controleconomic_risk";
 #delimit cr
-sort id closdate_year
+sort id year
 drop _merge
 
-save "C:\Users\User\work\master_thesis\cleaning\temp\PRS.dta", replace
+save "S:\temp\PRS.dta", replace
 
 * Join all indexes in one file 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
 #delimit;
-merge 1:1 id closdate_year using 
-C:\Users\User\work\master_thesis\cleaning\temp\Control`a';
+merge 1:1 id year using 
+"S:\temp\Control`a'";
 #delimit cr
-sort id closdate_year
+sort id year
 drop _merge
-save "C:\Users\User\work\master_thesis\cleaning\temp\PRS.dta", replace
+save "S:\temp\PRS.dta", replace
 }
 
 * Write country variable in uppercase
 gen country1 = upper(country)
 drop country
 rename country1 country 
-order country closdate_year
+order country year
 drop id
-save "C:\Users\User\work\master_thesis\cleaning\temp\PRS.dta", replace
+save "S:\temp\PRS.dta", replace
 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
 
-erase "C:\Users\User\work\master_thesis\cleaning\temp\Control`a'.dta"
+erase "S:\temp\Control`a'.dta"
 }
 //===========================================
 //===== Merge PRS Database to Amadeus  ======
 //===========================================
 
-use "C:\Users\User\work\master_thesis\cleaning\temp\dataset_debt_shift_`1'", clear
-sort country closdate_year
+use "S:\temp\merged_MPI_WB_DS_`1'", clear
+sort country year
 #delimit;
-merge m:1 country closdate_year using 
-C:\Users\User\work\master_thesis\cleaning\temp\PRS;
+merge m:1 country year using 
+"S:\temp\PRS";
 #delimit cr
 keep if _merge==3
 drop _merge
-save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_WB_PRS_`1'.dta", replace
+save "S:\temp\merged_MPI_WB_DS_PRS_`1'.dta", replace
