@@ -61,4 +61,4 @@ use "C:\Users\User\work\master_thesis\cleaning\temp\financials_info_`1'", clear
 merge m:1 idnr using `tmp'
 drop if _merge == 2
 drop _merge
-save "C:\Users\User\work\master_thesis\cleaning\temp\amadeus_`1'", replace
+save "C:\Users\User\work\master_thesis\cleaning\temp\merged_`1'", replace
