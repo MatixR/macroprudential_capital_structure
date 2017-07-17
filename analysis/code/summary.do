@@ -60,7 +60,7 @@ winsor risk, gen(risk_w) p(0.01)
 lab var risk_w "Volatility of profits"
  
 
-* Summary table of variables per firm
+* Clean summary table of variables per firm
 #delimit;
 estpost tabstat leverage adj_leverage  
 cum_ltv_cap_y_avg_debt_shift cum_rr_local_y_avg_debt_shift tax_rate_debt_shift 
