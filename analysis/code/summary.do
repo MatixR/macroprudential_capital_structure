@@ -58,7 +58,12 @@ lab var agg_profitability_w "Aggregate profitability"
 
 winsor risk, gen(risk_w) p(0.01)
 lab var risk_w "Volatility of profits"
- 
+
+winsor log_sales, gen(log_sales_w) p(0.001)
+lab var log_sales_w "Log of sales"
+
+winsor log_fixedasset, gen(log_fixedasset_w) p(0.001)
+lab var log_fixedasset_w "Log of fixed assets" 
 
 * Summary table of variables per firm
 #delimit;
