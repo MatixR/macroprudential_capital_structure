@@ -20,7 +20,7 @@ keep if type_id == "C"
 bysort multinationals: egen mean_parent = mean(parent)
 drop if mean_parent == 0
 
-* Summary table of variables per firm
+* Raw summary table of variables per firm
 #delimit;
 estpost tabstat leverage adj_leverage  
 cum_ltv_cap_y_avg_debt_shift cum_rr_local_y_avg_debt_shift tax_rate_debt_shift 
