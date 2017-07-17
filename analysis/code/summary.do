@@ -65,7 +65,7 @@ lab var log_sales_w "Log of sales"
 winsor log_fixedasset, gen(log_fixedasset_w) p(0.001)
 lab var log_fixedasset_w "Log of fixed assets" 
 
-* Summary table of variables per firm
+* Clean summary table of variables per firm
 #delimit;
 estpost tabstat leverage adj_leverage  
 cum_ltv_cap_y_avg_debt_shift cum_rr_local_y_avg_debt_shift tax_rate_debt_shift 
