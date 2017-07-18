@@ -8,7 +8,7 @@ set more off
 //===== Sampling financials ======
 //================================
 
-use "S:\input\financials", clear
+use "\input\orbis\financials", clear
 set seed 12345
 * Sample % of data
 sort id
@@ -32,7 +32,7 @@ save `tmp1'
 
 foreach a in 2007 2008 2009 2010 2011 2012 2013 2014 2015{
 * Merge
-use "S:\input\links_`a'", clear
+use "\input\orbis\links_`a'", clear
 merge 1:1 id year using `tmp1'
 drop if _merge == 1
 drop _merge
@@ -43,23 +43,9 @@ save `tmp1',replace
 //===== Merge financials to sector ======
 //=======================================
 
-
-merge m:1 id using S:\input\sector
+merge m:1 id using "\input\orbis\sector"
 drop if _merge == 2
 drop _merge
 
-* Rename variables
-rename exchangeratefromoriginalcurrency exchrate
-rename fixedassets fias 
-rename intangiblefixedassets ifas
-rename tangiblefixedassets tfas 
-rename cashcashequivalent cash 
-rename totalassets toas
-rename noncurrentliabilities ncli 
-rename longtermdebt ltdb 
-rename currentliabilities culi 
-rename numberofemployees workers 
-
-
-save "S:\temp\merged_`1'", replace
+save "\cleaning\temp\merged_`1'", replace
 
