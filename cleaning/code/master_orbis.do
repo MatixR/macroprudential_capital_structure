@@ -26,21 +26,28 @@
 //====== Clean Orbis ========
 //==========================
 * Run only once
-do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\orbis_to_dta"
+do "\cleaning\code\orbis_to_dta"
 
 //=========================
 //====== Arguments ========
 //=========================
-global track_index "orbis"
-global sample_percent=100
-global MPP_vars "MPI BORROWER tax_rate ltv_cap_y_avg rr_local_y_avg cum_ltv_cap_y_avg cum_rr_local_y_avg"
-
+cd "S:"
+global track_index "orbis5"
+global sample_percent=5
+#delimit;
+global MPP_vars "tax_rate sscb_res_y_avg sscb_cons_y_avg 
+sscb_oth_y_avg sscb_y_avg cap_req_y_avg concrat_y_avg 
+ibex_y_avg ltv_cap_y_avg rr_foreign_y_avg rr_local_y_avg
+cum_sscb_res_y_avg cum_sscb_cons_y_avg cum_sscb_oth_y_avg cum_sscb_y_avg 
+cum_cap_req_y_avg cum_concrat_y_avg cum_ibex_y_avg cum_ltv_cap_y_avg 
+cum_rr_foreign_y_avg cum_rr_local_y_avg";
+#delimit cr
 //================================
 //====== Sample and Merge ========
 //================================
 
 #delimit;
-do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\merging_orbis"
+do "\cleaning\code\merging_orbis"
 "$track_index" $sample_percent ;
 #delimit cr
 
@@ -48,10 +55,10 @@ do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\merging_orbis"
 //====== Merge to GMPI and IBRN ==========
 //========================================
 
-do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\merging_IBRN"
+do "\cleaning\code\merging_IBRN"
 
 #delimit;
-do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\merging_MPI" 
+do "\cleaning\code\merging_MPI" 
 "$track_index" ;
 #delimit cr
 
@@ -60,7 +67,7 @@ do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\merging_MPI"
 //==============================================
 
 #delimit;
-do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\merging_worldbank" 
+do "\cleaning\code\merging_worldbank" 
 "$track_index" ;
 #delimit cr
 
@@ -69,7 +76,7 @@ do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\merging_worldbank"
 //================================================
 
 #delimit;
-do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\debt_shifting_creator" 
+do "\cleaning\code\debt_shifting_creator" 
 "$track_index" "$MPP_vars" ;
 #delimit cr
 
@@ -78,7 +85,7 @@ do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\debt_shifting_creato
 //=======================================
 
 #delimit;
-do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\merging_PRS"
+do "\cleaning\code\merging_PRS"
 "$track_index" ;
 #delimit cr
 
@@ -87,6 +94,6 @@ do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\merging_PRS"
 //=====================================================================
 
 #delimit;
-do "\\Client\C$\Users\User\work\master_thesis\cleaning\code\variables_creator"
+do "\cleaning\code\variables_creator"
 "$track_index" ;
 #delimit cr
