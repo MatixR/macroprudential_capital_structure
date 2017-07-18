@@ -2,26 +2,40 @@
 * Author: Lucas Avezum 
 
 * This file merges IBRN MPI quarterly index and IMF policy interest rate datasets to Amadeus sample
-set more off
-  
+set more off 
 
 //=================================
 //===== Clean IBRN Database  ======
 //=================================
 
-import excel using "\\Client\C$\Users\User\work\master_thesis\cleaning\input\IBRN.xlsx", sheet("Data") firstrow clear
+import excel using "\input\IBRN.xlsx", sheet("Data") firstrow clear
 
 foreach var of varlist _all{
 * Destring variables
 destring `var', replace
 }
+* Creating groups for moving average
+gen year_1q = year 
+bysort year: replace year_1q = year+1 if quarter > 1 
+gen year_2q = year 
+bysort year: replace year_2q = year+1 if quarter > 2
+gen year_3q = year 
+bysort year: replace year_3q = year+1 if quarter > 3
+
+order year year_1q year_2q year_3q
+sort ifscode year quarter
 foreach var of varlist sscb_res-cum_PruC2{
 * Create year average of each index  
+bysort ifscode year_1q: egen `var'_1q = mean(`var')
+bysort ifscode year_2q: egen `var'_2q = mean(`var')
+bysort ifscode year_3q: egen `var'_3q = mean(`var')
 bysort ifscode year: egen `var'_y_avg = mean(`var')
+replace `var'_y_avg = `var'_1q if quarter == 1
+replace `var'_y_avg = `var'_2q if quarter == 2
+replace `var'_y_avg = `var'_3q if quarter == 3
 }
 
-keep if quarter == 1
-keep country biscode ifscode year *_y_avg
+keep country biscode ifscode year *_y_avg quarter
 
 preserve
 
@@ -29,7 +43,7 @@ preserve
 //===== Clean IMF Interest Rate Database  ======
 //==============================================
 
-insheet using "\\Client\C$\Users\User\work\master_thesis\cleaning\input\interest_rate.csv", clear
+insheet using "\input\interest_rate.csv", clear
 tempfile tmp1
 * Calculating year average
 gen year = substr(timeperiod,1,4)
@@ -75,7 +89,7 @@ drop if inlist(ifscode,122,124,132,134,136,137,138,172,174,178,181,182,184,423,9
 gen help1 = 1 if ifscode == 936 & year>2008
 drop if help1 == 1
 drop help1
-merge 1:1 ifscode year using `tmp1'
+merge m:1 ifscode year using `tmp1'
 append using `tmp3'
 
 rename biscode country_id
@@ -84,6 +98,6 @@ replace country = upper(country)
 
 sort ifscode year
 
-save "S:\temp\IBRN.dta", replace
+save "\cleaning\temp\IBRN.dta", replace
 
 

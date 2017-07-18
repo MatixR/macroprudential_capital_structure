@@ -1,16 +1,15 @@
 * Master Thesis Tilburg 2017
 * Author: Lucas Avezum 
 
-* This file merges international country risk guide (PRS) controls datasets to Amadeus sample
+* This file merges international country risk guide (PRS) controls datasets to Orbis sample
 set more off
-
 
 //=================================
 //====== Clean PRS Database  ======
 //=================================
 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
-import excel using "\\Client\C$\Users\User\work\master_thesis\cleaning\input\\`a'.xlsx", sheet("Sheet1") firstrow clear
+import excel using "\input\\`a'.xlsx", sheet("Sheet1") firstrow clear
 
 * Drop lines and collumns not used, rename variables and create ID
 drop if inlist(_n,_N)
@@ -27,7 +26,7 @@ gen year = year_aux + year_help
 drop year_aux year_help
 rename v `a'
 
-save "S:\temp\Control`a'.dta", replace
+save "\cleaning\temp\Control`a'.dta", replace
 
 }
 
@@ -35,7 +34,7 @@ save "S:\temp\Control`a'.dta", replace
 //===== Merge PRS Database  =======
 //=================================
 * Include country variable 
-import excel using "\\Client\C$\Users\User\work\master_thesis\cleaning\input\economic_risk.xlsx", sheet("Sheet1") firstrow clear
+import excel using "\input\economic_risk.xlsx", sheet("Sheet1") firstrow clear
 keep Country
 drop if inlist(_n,_N)
 gen id = _n
@@ -46,22 +45,22 @@ drop dup
 rename Country country
 #delimit;
 merge 1:m id using 
-"S:\temp\Controleconomic_risk";
+"\cleaning\temp\Controleconomic_risk";
 #delimit cr
 sort id year
 drop _merge
 
-save "S:\temp\PRS.dta", replace
+save "\cleaning\temp\PRS.dta", replace
 
 * Join all indexes in one file 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
 #delimit;
 merge 1:1 id year using 
-"S:\temp\Control`a'";
+"\cleaning\temp\Control`a'";
 #delimit cr
 sort id year
 drop _merge
-save "S:\temp\PRS.dta", replace
+save "\cleaning\temp\PRS.dta", replace
 }
 
 * Write country variable in uppercase
@@ -70,22 +69,22 @@ drop country
 rename country1 country 
 order country year
 drop id
-save "S:\temp\PRS.dta", replace
+save "\cleaning\temp\PRS.dta", replace
 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
 
-erase "S:\temp\Control`a'.dta"
+erase "\cleaning\temp\Control`a'.dta"
 }
 //===========================================
 //===== Merge PRS Database to Amadeus  ======
 //===========================================
 
-use "S:\temp\merged_MPI_WB_DS_`1'", clear
+use "\cleaning\temp\merged_MPI_WB_DS_`1'", clear
 sort country year
 #delimit;
 merge m:1 country year using 
-"S:\temp\PRS";
+"\cleaning\temp\PRS";
 #delimit cr
 keep if _merge==3
 drop _merge
-save "S:\temp\merged_MPI_WB_DS_PRS_`1'.dta", replace
+save "\cleaning\temp\merged_MPI_WB_DS_`1'.dta", replace

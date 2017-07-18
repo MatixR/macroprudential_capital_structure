@@ -10,7 +10,7 @@
 
 
 set more off
-use "S:\temp\merged_MPI_WB_`1'", clear
+use "\cleaning\temp\merged_`1'", clear
 
 //========================
 //====== Indicators ======
@@ -119,70 +119,100 @@ preserve
 tempfile tmp1
 keep if multinational == 0
 
-* Create auxiliary variable to debt shift
-egen debt_shifting_group = group(multinational_ID year)
-
-* Create asset share of each firm within multinational
-sort debt_shifting_group
-by debt_shifting_group: egen total_asset_multinational = sum(toas)
-gen asset_share = toas/total_asset_multinational 
-
 foreach a in `2'{
-gen `a'_debt_shift = .
-lab var `a'_debt_shift "`a' incentive to shift debt"
+gen `a'_ds = 0
+lab var `a'_ds "`a' incentive to shift debt"
+gen `a'_ds_s = 0
+lab var `a'_ds_s "`a' incentive to shift debt other subsidiaries"
+gen `a'_ds_p = 0
+lab var `a'_ds_p "`a' incentive to shift debt to parent"
 }
-drop debt_shifting_group total_asset_multinational 
 save `tmp1'
 restore
 
 //==================== Multinationals ==================
 keep if multinational == 1
-preserve
-tempfile tmp2
+
 * Create auxiliary variable to debt shift
-egen debt_shifting_group = group(multinational_ID year)
+egen double debt_shifting_group = group(multinational_ID year)
 
 * Create asset share of each firm within multinational
 sort debt_shifting_group
-by debt_shifting_group: egen total_asset_multinational = sum(toas)
+by debt_shifting_group: egen total_asset_multinational = total(toas)
 gen asset_share = toas/total_asset_multinational
 
 * Create subsidiary per multinational time indicator
 bysort debt_shifting_group: gen subsidiary_time_ID = _n
 
-* Keeping only looped variables
-keep `2' debt_shifting_group subsidiary_time_ID asset_share id year
+* Save base file
+set more off
+preserve
+tempfile tmp2
 
-* Create debt shifting variable 
+* Keep only looped variables
+keep `2' debt_shifting_group subsidiary_time_ID asset_share id year parent
 
-timer on 1
-
+* Create debt shifting variable among all firms of multinational
  foreach a in `2'{
 quiet summ subsidiary_time_ID
-
 forvalues k = 1/`r(max)'{
-by debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*asset_share[`k']
+bysort debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*asset_share[`k']
 }
-quiet egen `a'_debt_shift = rowtotal(help*)
-lab var `a'_debt_shift "`a' incentive to shift debt"
+quiet egen `a'_ds = rowtotal(help*)
+lab var `a'_ds "`a' incentive to shift debt"
+quiet drop help* 
+}
+save `tmp2'
+* Keep only groups with parent firm
+tempfile tmp3
+bysort debt_shifting_group: egen parent_indicator = mean(parent)
+keep if parent_indicator > 0
+
+* Create debt shifting variable only with parent firm
+foreach a in `2'{
+bysort debt_shifting_group (parent): gen help1 = `a'[_N]*asset_share[_N]
+bysort debt_shifting_group (parent): gen help2 = `a'*asset_share[_N]
+quiet gen `a'_ds_p= help2-help1
+quiet drop help* 
+}
+sort id year
+merge 1:1 id year using `tmp2'
+drop _merge
+save `tmp3'
+
+* Keep only subsidiaries
+restore
+preserve
+tempfile tmp4
+keep if parent == 0
+
+* Keep only looped variables
+keep `2' debt_shifting_group subsidiary_time_ID asset_share id year parent
+
+* Debt shift only among subsidiaries
+foreach a in `2'{
+quiet summ subsidiary_time_ID
+forvalues k = 1/`r(max)'{
+bysort debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*asset_share[`k']
+}
+quiet egen `a'_ds_s = rowtotal(help*)
+lab var `a'_ds_s "`a' incentive to shift debt other subsidiaries"
 quiet drop help* 
 }
 
-
-timer off 1
+sort id year
+merge 1:1 id year using `tmp3'
+drop _merge subsidiary_time_ID parent_indicator debt_shifting_group
+save `tmp4'
 
 * Merge debt shift variable to remaining dataset
-drop debt_shifting_group subsidiary_time_ID
-sort id year
-save `tmp2'
 restore
 sort id year
-merge 1:1 id year using `tmp2'
+merge 1:1 id year using `tmp4'
 keep if _merge == 3
 drop _merge
 sort id year
-
 //==================== Merged Dataset ======================
 append using `tmp1'
-save "S:\temp\merged_MPI_WB_DS_`1'", replace
+save "\cleaning\temp\merged_MPI_WB_DS_`1'", replace
 

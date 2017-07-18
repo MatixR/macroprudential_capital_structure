@@ -4,13 +4,12 @@
 * This file merges World Bank controls datasets to Amadeus sample
 set more off
 
-
 //========================================
 //====== Clean World Bank Database  ======
 //========================================
 
 foreach a in cpi credit_financial_GDP deflator gdp_growth_rate gdp_per_capita market_cap_GDP private_credit_GDP stock_traded_GDP tax_rate turnover {
-insheet using "\\Client\C$\Users\User\work\master_thesis\cleaning\input\\`a'.csv", clear
+insheet using "\input\\`a'.csv", clear
 
 * Drop lines and collumns not used
 drop in 1/2
@@ -33,7 +32,7 @@ drop year_aux year_help
 drop if id==1
 rename v `a'
 
-save "S:\temp\Control`a'.dta", replace
+save "\cleaning\temp\Control`a'", replace
 
 }
 
@@ -41,7 +40,7 @@ save "S:\temp\Control`a'.dta", replace
 //===== Merge World Bank Database  =======
 //========================================
 * Include country variable 
-insheet using "\\Client\C$\Users\User\work\master_thesis\cleaning\input\cpi.csv", clear
+insheet using "\input\cpi.csv", clear
 keep v1
 drop in 1/2
 gen id = _n
@@ -53,22 +52,22 @@ drop if id==1
 rename v1 country
 #delimit;
 merge 1:m id using 
-"S:\temp\Controlcpi";
+"\cleaning\temp\Controlcpi";
 #delimit cr
 sort id year
 drop _merge
 
-save "S:\temp\worldbank.dta", replace
+save "\cleaning\temp\worldbank", replace
 
 * Join all indexes in one file 
 foreach a in credit_financial_GDP deflator gdp_growth_rate gdp_per_capita market_cap_GDP private_credit_GDP stock_traded_GDP tax_rate turnover {
 #delimit;
 merge 1:1 id year using 
-"S:\temp\Control`a'";
+"\cleaning\temp\Control`a'";
 #delimit cr
 sort id year
 drop _merge
-save "S:\temp\worldbank.dta", replace
+save "\cleaning\temp\worldbank", replace
 }
 
 * Write country variable in uppercase
@@ -77,23 +76,23 @@ drop country
 rename country1 country 
 order country year
 drop id
-save "S:\temp\worldbank.dta", replace
+save "\cleaning\temp\worldbank", replace
 
 foreach a in cpi credit_financial_GDP deflator gdp_growth_rate gdp_per_capita market_cap_GDP private_credit_GDP stock_traded_GDP tax_rate turnover {
 
-erase "S:\temp\Control`a'.dta"
+erase "\cleaning\temp\Control`a'.dta"
 }
 
 //===========================================================
 //===== Merge World Bank Database to Financia dataset  ======
 //===========================================================
 
-use "S:\temp\merged_MPI_`1'.dta", clear
+use "\cleaning\temp\merged_`1'.dta", clear
 sort country year
 #delimit;
 merge m:1 country year using 
-"S:\temp\worldbank.dta";
+"\cleaning\temp\worldbank.dta";
 #delimit cr
 keep if _merge==3
 drop _merge
-save "S:\temp\merged_MPI_WB_`1'.dta", replace
+save "\cleaning\temp\merged_`1'.dta", replace
