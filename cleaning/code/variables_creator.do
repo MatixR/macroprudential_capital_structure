@@ -4,7 +4,7 @@
 * This file manipulate raw data to create variables of interest
 set more off
 
-use "S:\temp\merged_MPI_WB_DS_PRS_`1'.dta", clear
+use "\cleaning\temp\merged_MPI_WB_DS_`1'.dta", clear
 sort id year
 egen firm_id = group(id)
 order firm_id
@@ -87,8 +87,8 @@ gen profitability = ebitda/toas
 lab var profitability "Profitability"
 
 * Create aggregate profitability variable
-bysort country_id nace year: egen total_profit = sum(ebitda)
-bysort country_id nace year: egen total_asset = sum(toas)
+bysort country_id nace year: egen total_profit = total(ebitda)
+bysort country_id nace year: egen total_asset = total(toas)
 gen agg_profitability = total_profit/total_asset
 lab var agg_profitability "Aggregate profitability"
 drop total_profit total_asset
@@ -159,11 +159,11 @@ lab var cum_rr_local_y_avg "Reserve requirements - local currency (cumulative)"
 lab var interest_rate_y_avg "Policy rate"
 
 * Debt shift variables
-lab var tax_rate_debt_shift "Tax incentive to shift debt" 
-lab var ltv_cap_y_avg_debt_shift "LTV incentive to shift debt"
-lab var rr_local_y_avg_debt_shift "RRLC incentive to shift debt" 
-lab var cum_ltv_cap_y_avg_debt_shift "LTV (cumulative) incentive to shift debt"
-lab var cum_rr_local_y_avg_debt_shift "RRLC (cumulative) incentive to shift debt"
+lab var tax_rate_ds "Tax incentive to shift debt" 
+lab var ltv_cap_y_avg_ds "LTV incentive to shift debt"
+lab var rr_local_y_avg_ds "RRLC incentive to shift debt" 
+lab var cum_ltv_cap_y_avg_ds "LTV (cumulative) incentive to shift debt"
+lab var cum_rr_local_y_avg_ds "RRLC (cumulative) incentive to shift debt"
 
 * World Bank
 lab var gdp_growth_rate "GDP growth rate"
@@ -180,7 +180,7 @@ lab var political_risk "Political Risk"
 lab var law_order "Law and order"
 * Other remaining labeling
 lab var tax_rate "Corporate tax rate"
-save "S:\output\dataset_`1'.dta", replace
+save "\cleaning\output\dataset_`1'.dta", replace
 *saveold "\\Client\C$\Users\User\work\master_thesis\analysis\input\orbis_multinationals.dta", version(13) replace
 
 
