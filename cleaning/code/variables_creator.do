@@ -107,12 +107,6 @@ lab var risk "Volatility of profits"
 //====== Control Variables at Country Level ======
 //================================================
 
-* Create inflation variable
-gen logcpi = log(cpi)
-bysort firm_id (year):gen inflation = D.logcpi if year == year[_n-1]+1
-lab var inflation "Inflation"
-drop logcpi
-
 * Create change in exchange rate variable
 gen logFX = log(exchrate)
 bysort firm_id (year): gen delta_FX = D.logFX if year == year[_n-1]+1
@@ -131,6 +125,12 @@ gen help1 = `a'/100
 replace `a' = help1
 drop help1
 }
+
+* Sector two digitis
+gen nace2 = int(nace/100)
+
+* Rename multinational ID to look nice in table
+rename multinational_ID multinationals
 
 * Labeling remaning controls
 * Macroprudential indexes

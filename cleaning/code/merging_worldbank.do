@@ -69,6 +69,13 @@ sort id year
 drop _merge
 save "\cleaning\temp\worldbank", replace
 }
+* Create inflation variable
+egen country_id = group(country)
+xtset country_id year
+gen logcpi = log(cpi)
+bysort country_id (year):gen inflation = D.logcpi if year == year[_n-1]+1
+lab var inflation "Inflation"
+drop logcpi country_id
 
 * Write country variable in uppercase
 gen country1 = upper(country)
