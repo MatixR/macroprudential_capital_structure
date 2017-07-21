@@ -47,5 +47,21 @@ merge m:1 id using "\input\orbis\sector"
 drop if _merge == 2
 drop _merge
 
+* Sector two digitis
+gen nace2 = int(nace/100)
+
+//===================================
+//===== First cleaning of data ======
+//===================================
+
+* Remove financials and utilities firms
+keep if type_id == "C"
+drop if inlist(nace2,35,36,37,38,39)
+
+* Remove non-positive and missing total asset
+drop if missing(toas)
+drop if toas == 0
+drop if toas < 0
+
 save "\cleaning\temp\merged_`1'", replace
 
