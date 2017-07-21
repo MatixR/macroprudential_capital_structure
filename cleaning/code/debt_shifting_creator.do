@@ -99,14 +99,9 @@ replace multinational = 1 if missing(multinational)
 drop multinational_year_ID help1 help2 help3
 
 * Labeling  and changing unit of variables
-lab var MPI "Macroprudential policy index"
 gen help1 = tax_rate/100
 replace tax_rate = help1
 drop help1
-lab var tax_rate "Corporate tax rate"
-lab var parent "Parent"
-lab var intermediate "Intermediate"
-
 sort id year
 
 //====================================
@@ -119,13 +114,10 @@ preserve
 tempfile tmp1
 keep if multinational == 0
 
-foreach a in `2'{
+foreach a of varlist `2'{
 gen `a'_ds = 0
-lab var `a'_ds "`a' incentive to shift debt"
 gen `a'_ds_s = 0
-lab var `a'_ds_s "`a' incentive to shift debt other subsidiaries"
 gen `a'_ds_p = 0
-lab var `a'_ds_p "`a' incentive to shift debt to parent"
 }
 save `tmp1'
 restore
@@ -153,13 +145,12 @@ tempfile tmp2
 keep `2' debt_shifting_group subsidiary_time_ID asset_share id year parent
 
 * Create debt shifting variable among all firms of multinational
- foreach a in `2'{
+ foreach a of varlist `2'{
 quiet summ subsidiary_time_ID
 forvalues k = 1/`r(max)'{
 bysort debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*asset_share[`k']
 }
 quiet egen `a'_ds = rowtotal(help*)
-lab var `a'_ds "`a' incentive to shift debt"
 quiet drop help* 
 }
 save `tmp2'
@@ -169,7 +160,7 @@ bysort debt_shifting_group: egen parent_indicator = mean(parent)
 keep if parent_indicator > 0
 
 * Create debt shifting variable only with parent firm
-foreach a in `2'{
+foreach a of varlist `2'{
 bysort debt_shifting_group (parent): gen help1 = `a'[_N]*asset_share[_N]
 bysort debt_shifting_group (parent): gen help2 = `a'*asset_share[_N]
 quiet gen `a'_ds_p= help2-help1
@@ -190,13 +181,12 @@ keep if parent == 0
 keep `2' debt_shifting_group subsidiary_time_ID asset_share id year parent
 
 * Debt shift only among subsidiaries
-foreach a in `2'{
+foreach a of varlist `2'{
 quiet summ subsidiary_time_ID
 forvalues k = 1/`r(max)'{
 bysort debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*asset_share[`k']
 }
 quiet egen `a'_ds_s = rowtotal(help*)
-lab var `a'_ds_s "`a' incentive to shift debt other subsidiaries"
 quiet drop help* 
 }
 
