@@ -46,7 +46,7 @@ drop log_longterm_debt
 
 * Create loans leverage variable
 gen loans_leverage = (loans)/(toas)
-lab var loans_leverage "Loans"
+lab var loans_leverage "Short term debt"
 
 * Create loans growth
 gen log_loans = log(loans_leverage)
@@ -72,7 +72,7 @@ lab var tangible_total "Adjusted tangibility"
 
 * Create intangibility variable - intangible asset
 gen intangible_total = ifas/toas
-lab var tangible_total "Intangibility"
+lab var intangible_total "Intangibility"
 
 * Create firm size variable - sales
 gen log_sales = log(sales)
@@ -126,45 +126,99 @@ replace `a' = help1
 drop help1
 }
 
+//===============================
+//====== Cleaning outliers ======
+//===============================
+
+* Dependent variables
+winsor leverage, gen(leverage_w) p(0.001)
+lab var leverage_w "Financial leverage"
+winsor adj_leverage, gen(adj_leverage_w) p(0.001)
+lab var adj_leverage_w "Adjusted financial leverage"
+winsor longterm_debt, gen(longterm_debt_w) p(0.001)
+lab var longterm_debt_w "Long term debt"
+winsor loans_leverage, gen(loans_leverage_w) p(0.001)
+lab var loans_leverage_w "Short term debt"
+
+* Independent variables
+winsor fixed_total, gen(fixed_total_w) p(0.001)
+lab var fixed_total_w "Tangibility"
+winsor profitability, gen(profitability_w) p(0.001)
+lab var profitability_w "Profitability"
+winsor tangible_total, gen(tangible_total_w) p(0.001)
+lab var tangible_total_w "Adjusted tangibility"
+winsor intangible_total, gen(intangible_total_w) p(0.001)
+lab var intangible_total_w "Intangibility"
+winsor opportunity, gen(opportunity_w) p(0.001)
+lab var opportunity_w "Opportunity"
+winsor agg_profitability, gen(agg_profitability_w) p(0.001)
+lab var agg_profitability_w "Aggregate profitability"
+winsor risk, gen(risk_w) p(0.01)
+lab var risk_w "Volatility of profits"
+winsor log_fixedasset, gen(log_fixedasset_w) p(0.001)
+lab var log_fixedasset_w "Log of fixed assets"
+winsor log_sales, gen(log_sales_w) p(0.001)
+lab var log_sales_w "Log of sales"
+
+//================================
+//====== Labeling variables ======
+//================================
+
 * Sector two digitis
 gen nace2 = int(nace/100)
 
 * Rename multinational ID to look nice in table
 rename multinational_ID multinationals
 
-* Labeling remaning controls
 * Macroprudential indexes
 lab var BORROWER "Borrower target index"
 lab var FINANCIAL "Financial target index"
-lab var sscb_res_y_avg "Capital buffer - real estate"
-lab var sscb_cons_y_avg "Capital buffer - consumers" 
-lab var sscb_oth_y_avg "Capital buffer - others" 
-lab var sscb_y_avg "Capital buffer - overall" 
-lab var cap_req_y_avg "Capital requirements" 
-lab var concrat_y_avg "Concentration limits"
-lab var ibex_y_avg "Interbank exposure limits"
-lab var ltv_cap_y_avg "LTV ratio limits" 
-lab var rr_foreign_y_avg "Reserve requirements - foreign currency"
-lab var rr_local_y_avg "Reserve requirements - local currency"
-lab var cum_sscb_res_y_avg "Capital buffer - real estate (cumulative)"
-lab var cum_sscb_cons_y_avg "Capital buffer - consumers (cumulative)"
-lab var cum_sscb_oth_y_avg "Capital buffer - others (cumulative)"
-lab var cum_sscb_y_avg "Capital buffer - overall (cumulative)"
-lab var cum_cap_req_y_avg "Capital requirements (cumulative)"
-lab var cum_concrat_y_avg "Concentration limits (cumulative)"
-lab var cum_ibex_y_avg "Interbank exposure limits (cumulative)"
-lab var cum_ltv_cap_y_avg "LTV ratio limits (cumulative)" 
-lab var cum_rr_foreign_y_avg "Reserve requirements - foreign currency (cumulative)"
-lab var cum_rr_local_y_avg "Reserve requirements - local currency (cumulative)"
-lab var interest_rate_y_avg "Policy rate"
 
+lab var cum_sscb_res_y "Capital buffer - real estate"
+lab var cum_sscb_cons_y "Capital buffer - consumers" 
+lab var cum_sscb_oth_y "Capital buffer - others" 
+lab var cum_sscb_y "Capital buffer - overall" 
+lab var cum_cap_req_y "Capital requirement" 
+lab var cum_concrat_y "Concentration limit"
+lab var cum_ibex_y "Interbank exposure limit"
+lab var cum_ltv_cap_y "LTV ratio limits" 
+lab var cum_rr_foreign_y "Reserve req. on foreign currency"
+lab var cum_rr_local_y "Reserve req. on local currency"
+
+foreach var of varlist cum_*_y{
+lab var l1_`var' "`: var label `var'' (-1)"
+lab var l2_`var' "`: var label `var'' (-2)"
+lab var l3_`var' "`: var label `var'' (-3)"
+lab var l4_`var' "`: var label `var'' (-4)"
+}
 * Debt shift variables
-lab var tax_rate_ds "Tax incentive to shift debt" 
-lab var ltv_cap_y_avg_ds "LTV incentive to shift debt"
-lab var rr_local_y_avg_ds "RRLC incentive to shift debt" 
-lab var cum_ltv_cap_y_avg_ds "LTV (cumulative) incentive to shift debt"
-lab var cum_rr_local_y_avg_ds "RRLC (cumulative) incentive to shift debt"
-
+lab var tax_rate_ds "Tax rate spillover"
+lab var tax_rate_ds_s "Tax rate spillover to other subsidiaries" 
+lab var tax_rate_ds_p "Tax rate spillover to parent" 
+ 
+foreach var of varlist cum_*_y{
+lab var `var'_ds "`: var label `var'' spillover"
+lab var `var'_ds_p "`: var label `var'' spillover to parent"
+lab var `var'_ds_s "`: var label `var'' spillover to other subsidiaries"
+}
+foreach var of varlist cum_*_ds{
+lab var l1_`var' "`: var label `var'' (-1)"
+lab var l2_`var' "`: var label `var'' (-2)"
+lab var l3_`var' "`: var label `var'' (-3)"
+lab var l4_`var' "`: var label `var'' (-4)"
+}
+foreach var of varlist cum_*_ds_p{
+lab var l1_`var' "`: var label `var'' (-1)"
+lab var l2_`var' "`: var label `var'' (-2)"
+lab var l3_`var' "`: var label `var'' (-3)"
+lab var l4_`var' "`: var label `var'' (-4)"
+}
+foreach var of varlist cum_*_ds_s{
+lab var l1_`var' "`: var label `var'' (-1)"
+lab var l2_`var' "`: var label `var'' (-2)"
+lab var l3_`var' "`: var label `var'' (-3)"
+lab var l4_`var' "`: var label `var'' (-4)"
+}
 * World Bank
 lab var gdp_growth_rate "GDP growth rate"
 lab var credit_financial_GDP "Finacial sector credit to GDP"
@@ -172,14 +226,20 @@ lab var private_credit_GDP "Private credit to GDP"
 lab var stock_traded_GDP "Value of stock traded to GDP"
 lab var market_cap_GDP "Market capitalization to GDP"
 lab var turnover "Turnover ratio of stock traded"
+lab var interest_rate "Policy rate"
+
 * PRS
 lab var economic_risk "Economic risk" 
 lab var exchange_rate_risk "Exchange rate risk"
 lab var financial_risk "Financial Risk"
 lab var political_risk "Political Risk"
 lab var law_order "Law and order"
+
 * Other remaining labeling
-lab var tax_rate "Corporate tax rate"
+lab var parent "Parent"
+lab var intermediate "Intermediate"
+lab var tax_rate "Tax rate"
+
 save "\cleaning\output\dataset_`1'.dta", replace
 *saveold "\\Client\C$\Users\User\work\master_thesis\analysis\input\orbis_multinationals.dta", version(13) replace
 
