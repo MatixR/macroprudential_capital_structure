@@ -131,43 +131,40 @@ drop help1
 //===============================
 
 * Dependent variables
-winsor leverage, gen(leverage_w) p(0.001)
+winsor leverage, gen(leverage_w) p(0.01)
 lab var leverage_w "Financial leverage"
-winsor adj_leverage, gen(adj_leverage_w) p(0.001)
+winsor adj_leverage, gen(adj_leverage_w) p(0.01)
 lab var adj_leverage_w "Adjusted financial leverage"
-winsor longterm_debt, gen(longterm_debt_w) p(0.001)
+winsor longterm_debt, gen(longterm_debt_w) p(0.01)
 lab var longterm_debt_w "Long term debt"
-winsor loans_leverage, gen(loans_leverage_w) p(0.001)
+winsor loans_leverage, gen(loans_leverage_w) p(0.01)
 lab var loans_leverage_w "Short term debt"
 
 * Independent variables
-winsor fixed_total, gen(fixed_total_w) p(0.001)
+winsor fixed_total, gen(fixed_total_w) p(0.01)
 lab var fixed_total_w "Tangibility"
-winsor profitability, gen(profitability_w) p(0.001)
+winsor profitability, gen(profitability_w) p(0.01)
 lab var profitability_w "Profitability"
-winsor tangible_total, gen(tangible_total_w) p(0.001)
+winsor tangible_total, gen(tangible_total_w) p(0.01)
 lab var tangible_total_w "Adjusted tangibility"
-winsor intangible_total, gen(intangible_total_w) p(0.001)
+winsor intangible_total, gen(intangible_total_w) p(0.01)
 lab var intangible_total_w "Intangibility"
-winsor opportunity, gen(opportunity_w) p(0.001)
+winsor opportunity, gen(opportunity_w) p(0.01)
 lab var opportunity_w "Opportunity"
-winsor agg_profitability, gen(agg_profitability_w) p(0.001)
+winsor agg_profitability, gen(agg_profitability_w) p(0.01)
 lab var agg_profitability_w "Aggregate profitability"
 winsor risk, gen(risk_w) p(0.01)
 lab var risk_w "Volatility of profits"
-winsor log_fixedasset, gen(log_fixedasset_w) p(0.001)
+winsor log_fixedasset, gen(log_fixedasset_w) p(0.01)
 lab var log_fixedasset_w "Log of fixed assets"
-winsor log_sales, gen(log_sales_w) p(0.001)
+winsor log_sales, gen(log_sales_w) p(0.01)
 lab var log_sales_w "Log of sales"
 
 //================================
 //====== Labeling variables ======
 //================================
 
-* Sector two digitis
-gen nace2 = int(nace/100)
-
-* Rename multinational ID to look nice in table
+* Rename multinational ID and debt shift groups to look nice in table
 rename multinational_ID multinationals
 
 * Macroprudential indexes
