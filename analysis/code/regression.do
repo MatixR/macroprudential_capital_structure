@@ -7,24 +7,21 @@ use "\cleaning\output\dataset_orbis.dta", clear
 set more off 
 timer clear
 
-* Cleaning from financial firms
-keep if type_id == "C"
-
 * Defining locals
 * Macroprudential variables
 #delimit;
-local all_cumulative  "cum_rr_foreign_y_avg cum_rr_local_y_avg
-                       cum_sscb_res_y_avg   cum_sscb_cons_y_avg 
-                       cum_sscb_oth_y_avg   cum_sscb_y_avg 
-					   cum_cap_req_y_avg    cum_concrat_y_avg
-					   cum_ibex_y_avg       cum_ltv_cap_y_avg";					   
+local all_cumulative  "cum_rr_foreign_y cum_rr_local_y
+                       cum_sscb_res_y   cum_sscb_cons_y
+                       cum_sscb_oth_y   cum_sscb_y
+					   cum_cap_req_y    cum_concrat_y
+					   cum_ibex_y       cum_ltv_cap_y";					   
 
-local anti_cyclical   "cum_rr_foreign_y_avg cum_rr_local_y_avg cum_ltv_cap_y_avg";
+local anti_cyclical   "cum_rr_foreign_y cum_rr_local_y cum_ltv_cap_y";
 
-local bank_related    "cum_cap_req_y_avg    cum_concrat_y_avg cum_ibex_y_avg"; 
+local bank_related    "cum_cap_req_y    cum_concrat_y cum_ibex_y"; 
 
-local capital_related "cum_sscb_y_avg     cum_sscb_cons_y_avg 
-                       cum_sscb_oth_y_avg cum_sscb_res_y_avg";					   
+local capital_related "cum_sscb_y     cum_sscb_cons_y 
+                       cum_sscb_oth_y cum_sscb_res_y";					   
 					   
 #delimit cr
 
@@ -49,7 +46,7 @@ xtset multinationals
 timer on 1
 foreach a of local anti_cyclical{
 #delimit;
-xi: xtreg leverage `firm_control' `country_control'
+xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
 			        `a'       `a'_ds  
 i.year i.nace2, 
@@ -60,20 +57,21 @@ keep(`firm_control' `country_control' `a' `a'_ds tax_rate tax_rate_ds)
 addtext("Multinational, year and industry fixed effects", YES) label tex(frag) nocons
 ctitle("") title("Reserve requirement and LTV effect on firm's financial leverage");
 
-xi: xtreg leverage `firm_control' `country_control'
+xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
-			        `a'       `a'_ds  
-					multinational multinational#`a'
+			              `a'_ds  
+					multinational##c.`a'
 i.year i.nace2, 
 fe vce(cluster multinationals);
 predict `a'_ol2, xb;
 outreg2 using "\analysis\output\tables\regressions\leverage_RR_LTV.tex", 
-keep(`firm_control' `country_control' `a' `a'_ds tax_rate tax_rate_ds multinational multinational#`a')
+keep(`firm_control' `country_control' `a'_ds tax_rate tax_rate_ds multinational##c.`a')
 addtext("Multinational, year and industry fixed effects", YES) label tex(frag) nocons
 ctitle("") title("Reserve requirement and LTV effect on firm's financial leverage");
 #delimit cr
 }
 timer off 1
+
 //===============================================================================
 //====== Dataset: all firms                                                ======
 //====== Regressand: leverage                                              ======
@@ -86,7 +84,7 @@ timer off 1
 timer on 2
 foreach a of local anti_cyclical{
 #delimit;
-xi: xtreg leverage `firm_control' `country_control'
+xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds_p tax_rate_ds_s
 			        `a'       `a'_ds_p `a'_ds_s  
 i.year i.nace2, 
@@ -111,7 +109,7 @@ timer off 2
 timer on 3
 foreach a of local bank_related{
 #delimit;
-xi: xtreg leverage `firm_control' `country_control'
+xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
 			        `a'       `a'_ds  
 i.year i.nace2, 
@@ -129,7 +127,7 @@ timer off 3
 timer on 4
 foreach a of local capital_related{
 #delimit;
-xi: xtreg leverage `firm_control'
+xi: xtreg leverage_w `firm_control'
 				   tax_rate tax_rate_ds
 			        `a'       `a'_ds  
 i.year i.nace2, 
@@ -154,7 +152,7 @@ timer off 4
 timer on 5
 foreach a of local anti_cyclical{
 #delimit;
-xi: xtreg longterm_debt `firm_control' `country_control'
+xi: xtreg longterm_debt_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
 			        `a'       `a'_ds  
 i.year i.nace2, 
@@ -173,7 +171,7 @@ timer off 5
 timer on 6
 foreach a of local anti_cyclical{
 #delimit;
-xi: xtreg loans_leverage `firm_control' `country_control'
+xi: xtreg loans_leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
 			        `a'       `a'_ds  
 i.year i.nace2, 
@@ -213,7 +211,7 @@ xtset firm_id year
 timer on 8
 foreach a of local anti_cyclical{
 #delimit;
-xi: xtreg leverage `firm_control' `country_control'
+xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
 			        `a'       `a'_ds  
 i.year, 
@@ -239,7 +237,7 @@ timer off 8
 timer on 9
 foreach a of local anti_cyclical{
 #delimit;
-xi: xtreg leverage `firm_control' `country_control'
+xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds_p tax_rate_ds_s
 			        `a'       `a'_ds_p `a'_ds_s  
 i.year, 
@@ -265,7 +263,7 @@ timer off 9
 timer on 10 
 foreach a of local bank_related{
 #delimit;
-xi: xtreg leverage `firm_control' `country_control'
+xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
 			        `a'       `a'_ds  
 i.year, 
@@ -284,7 +282,7 @@ timer off 10
 timer on 11 
 foreach a of local capital_related{
 #delimit;
-xi: xtreg leverage `firm_control'
+xi: xtreg leverage_w `firm_control'
 				   tax_rate tax_rate_ds
 			        `a'       `a'_ds  
 i.year, 
@@ -313,27 +311,27 @@ xtset multinationals
 timer on 12
 foreach a of local anti_cyclical{
 #delimit;
-xi: xtreg leverage `firm_control' `country_control'
+xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
-			        l1_`a'       l1_`a'_ds 
-					multinational multinational#l1_`a'
+			              l1_`a'_ds 
+					 multinational##c.l1_`a'
 i.year i.nace2, 
 fe vce(cluster multinationals);
 
 outreg2 using "\analysis\output\tables\regressions\leverage_RR_LTV_lag1.tex", 
-keep(`firm_control' `country_control' l1_`a' l1_`a'_ds tax_rate tax_rate_ds multinational multinational#l1_`a')
+keep(`firm_control' `country_control' l1_`a'_ds tax_rate tax_rate_ds  multinational##c.l1_`a')
 addtext("Multinational, year and industry fixed effects", YES) label tex(frag) nocons
 ctitle("") title("Reserve requirement and LTV effect on firm's financial leverage");
 
-xi: xtreg leverage `firm_control' `country_control'
+xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
-			        l2_`a'       l2_`a'_ds  
-					multinational multinational#l2_`a'
+			             l2_`a'_ds  
+					multinational##c.l2_`a'
 i.year i.nace2, 
 fe vce(cluster multinationals);
 
 outreg2 using "\analysis\output\tables\regressions\leverage_RR_LTV_lag1.tex", 
-keep(`firm_control' `country_control' l2_`a' l2_`a'_ds tax_rate tax_rate_ds multinational multinational#l2_`a')
+keep(`firm_control' `country_control' l2_`a'_ds tax_rate tax_rate_ds multinational##c.l2_`a')
 addtext("Multinational, year and industry fixed effects", YES) label tex(frag) nocons
 ctitle("") title("Reserve requirement and LTV effect on firm's financial leverage");
 #delimit cr
@@ -345,33 +343,60 @@ timer off 12
 timer on 13
 foreach a of local anti_cyclical{
 #delimit;
-xi: xtreg leverage `firm_control' `country_control'
+xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
-			        l3_`a'       l3_`a'_ds 
-					multinational multinational#l3_`a'
+			        l3_`a'_ds 
+					multinational##c.l3_`a'
 i.year i.nace2, 
 fe vce(cluster multinationals);
 
 outreg2 using "\analysis\output\tables\regressions\leverage_RR_LTV_lag2.tex", 
-keep(`firm_control' `country_control' l3_`a' l3_`a'_ds tax_rate tax_rate_ds multinational multinational#l3_`a')
+keep(`firm_control' `country_control' l3_`a'_ds tax_rate tax_rate_ds multinational##c.l3_`a')
 addtext("Multinational, year and industry fixed effects", YES) label tex(frag) nocons
 ctitle("") title("Reserve requirement and LTV effect on firm's financial leverage");
 
-xi: xtreg leverage `firm_control' `country_control'
+xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
-			        l4_`a'       l4_`a'_ds  
-					multinational multinational#l4_`a'
+			        l4_`a'_ds  
+					multinational##c.l4_`a'
 i.year i.nace2, 
 fe vce(cluster multinationals);
 
 outreg2 using "\analysis\output\tables\regressions\leverage_RR_LTV_lag2.tex", 
-keep(`firm_control' `country_control' l4_`a' l4_`a'_ds tax_rate tax_rate_ds multinational multinational#l4_`a')
+keep(`firm_control' `country_control'  l4_`a'_ds tax_rate tax_rate_ds multinational##c.l4_`a')
 addtext("Multinational, year and industry fixed effects", YES) label tex(frag) nocons
 ctitle("") title("Reserve requirement and LTV effect on firm's financial leverage");
 #delimit cr
 }
 timer off 13
 
+//============================================================
+//====== Dataset: all firms                             ======
+//====== Regressand: leverage                           ======
+//====== Regressors: Reserve requirement and LTV        ======
+//====== Fixed effects: multinational*time and industry ======
+//============================================================
+ 
+sort debt_shifting_group subsidiary_ID
+xtset debt_shifting_group
+
+* Table 14. Reserve requirement and LTV effect on leverage with multinational*time FE
+*erase "\analysis\output\tables\regressions\leverage_RR_LTV_mult_yearFE.tex"
+timer on 14
+foreach a of local anti_cyclical{
+#delimit;
+xi: xtreg leverage_w `firm_control' `country_control'
+				   tax_rate 
+					 multinational##c.`a'
+i.nace2, 
+fe vce(cluster debt_shifting_group);
+
+outreg2 using "\analysis\output\tables\regressions\leverage_RR_LTV_mult_yearFE.tex", 
+keep(`firm_control' `country_control' tax_rate multinational##c.`a')
+addtext("Multinational, year and industry fixed effects", YES) label tex(frag) nocons
+ctitle("") title("Reserve requirement and LTV effect on firm's financial leverage (Multinational*year FE)");
+}
+timer off 14
 //=============================================================
 //====== Dataset: Only multinationals with parents       ======
 //====== Regressand: leverage                            ======
@@ -386,12 +411,12 @@ drop if mean_parent == 0
 sort  multinationals subsidiary_ID
 xtset multinationals
 
-* Table 14. Reserve requirement and LTV effect on leverage for multinationals
+* Table 15. Reserve requirement and LTV effect on leverage for multinationals
 *erase "\analysis\output\tables\regressions\leverage_RR_LTV_mult.tex"
-timer on 14
+timer on 15
 foreach a of local anti_cyclical{
 #delimit;
-xi: xtreg leverage `firm_control' `country_control'
+xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
 			        `a'       `a'_ds  
 i.year i.nace2, 
@@ -403,6 +428,6 @@ addtext(Multinational, year and industry fixed effects, YES) label tex(frag) noc
 ctitle("") title("Reserve requirement and LTV effect on firm's financial leverage (only multinationals)");
 #delimit cr
 }
-timer off 14 
+timer off 15 
 
 timer list
