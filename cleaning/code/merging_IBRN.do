@@ -14,6 +14,7 @@ foreach var of varlist _all{
 * Destring variables
 destring `var', replace
 }
+
 * Creating groups for moving average
 gen year_1q = year 
 bysort year: replace year_1q = year+1 if quarter > 1 
@@ -29,13 +30,15 @@ foreach var of varlist sscb_res-cum_PruC2{
 bysort ifscode year_1q: egen `var'_1q = mean(`var')
 bysort ifscode year_2q: egen `var'_2q = mean(`var')
 bysort ifscode year_3q: egen `var'_3q = mean(`var')
-bysort ifscode year: egen `var'_y_avg = mean(`var')
-replace `var'_y_avg = `var'_1q if quarter == 1
-replace `var'_y_avg = `var'_2q if quarter == 2
-replace `var'_y_avg = `var'_3q if quarter == 3
+bysort ifscode year: egen `var'_y = mean(`var')
+replace `var'_y = `var'_1q if quarter == 1
+replace `var'_y = `var'_2q if quarter == 2
+replace `var'_y = `var'_3q if quarter == 3
 }
 
-keep country biscode ifscode year *_y_avg quarter
+* Keep only variables of interest
+keep country biscode ifscode year cum_*_y quarter
+drop *PruC*
 
 preserve
 
@@ -57,13 +60,13 @@ destring help1, replace
 gen month = help1 if periodicity == "M"
 drop if missing(month)
 
-bysort countrycode year: egen interest_rate_y_avg = mean(interestratescentralbankpolicyra)
+bysort countrycode year: egen interest_rate_y = mean(interestratescentralbankpolicyra)
 by countrycode year: gen dup = cond(_N==1,1,_n)
 by countrycode year: keep if dup == 1
 drop dup
 
 rename countrycode ifscode
-keep year ifscode interest_rate_y_avg
+keep year ifscode interest_rate_y
 save `tmp1'
 
 //==============================
@@ -93,10 +96,20 @@ merge m:1 ifscode year using `tmp1'
 append using `tmp3'
 
 rename biscode country_id
+rename interest_rate_y interest_rate
 drop  _merge
 replace country = upper(country)
 
-sort ifscode year
+//=======================================
+//===== Create lagged variables =========
+//=======================================
+sort ifscode year quarter
+foreach var of varlist cum_*{
+bysort ifscode (year quarter): gen l1_`var' = `var'[_n-1] 
+bysort ifscode (year quarter): gen l2_`var' = `var'[_n-2] 
+bysort ifscode (year quarter): gen l3_`var' = `var'[_n-3] 
+bysort ifscode (year quarter): gen l4_`var' = `var'[_n-4] 
+}
 
 save "\cleaning\temp\IBRN.dta", replace
 
