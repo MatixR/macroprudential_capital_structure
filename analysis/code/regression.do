@@ -215,7 +215,7 @@ xi: xtreg leverage_w `firm_control' `country_control'
 				   tax_rate tax_rate_ds
 			        `a'       `a'_ds  
 i.year, 
-fe vce(cluster multinationals);
+fe vce(cluster firm_id);
 
 outreg2 using "\analysis\output\tables\regressions\leverage_RR_LTV_sub.tex", 
 keep(`firm_control' `country_control' `a' `a'_ds tax_rate tax_rate_ds)
@@ -395,6 +395,7 @@ outreg2 using "\analysis\output\tables\regressions\leverage_RR_LTV_mult_yearFE.t
 keep(`firm_control' `country_control' tax_rate multinational##c.`a')
 addtext("Multinational, year and industry fixed effects", YES) label tex(frag) nocons
 ctitle("") title("Reserve requirement and LTV effect on firm's financial leverage (Multinational*year FE)");
+#delimit cr
 }
 timer off 14
 //=============================================================
