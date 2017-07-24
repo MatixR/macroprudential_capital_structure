@@ -140,6 +140,11 @@ lab var longterm_debt_w "Long term debt"
 winsor loans_leverage, gen(loans_leverage_w) p(0.01)
 lab var loans_leverage_w "Short term debt"
 
+replace leverage =. if leverage > 1 | leverage < 0 
+replace adj_leverage =. if adj_leverage > 1 | adj_leverage < 0 
+replace longterm_debt =. if longterm_debt > 1 | longterm_debt < 0 
+replace loans_leverage =. if loans_leverage > 1 | loans_leverage < 0 
+
 * Independent variables
 winsor fixed_total, gen(fixed_total_w) p(0.01)
 lab var fixed_total_w "Tangibility"
@@ -160,9 +165,18 @@ lab var log_fixedasset_w "Log of fixed assets"
 winsor log_sales, gen(log_sales_w) p(0.01)
 lab var log_sales_w "Log of sales"
 
-//================================
-//====== Labeling variables ======
-//================================
+//===============================================
+//====== Replace missing indexes for zeros ======
+//===============================================
+
+replace cum_concrat_y = 0 if missing(cum_concrat_y) 
+replace cum_ibex_y = 0 if missing(cum_ibex_y)
+replace cum_ltv_cap_y = 0 if missing(cum_ltv_cap_y)
+replace cum_cap_req_y = 0 if missing(cum_cap_req_y)
+
+//=============================
+//====== Label variables ======
+//=============================
 
 * Rename multinational ID and debt shift groups to look nice in table
 rename multinational_ID multinationals
@@ -237,7 +251,17 @@ lab var parent "Parent"
 lab var intermediate "Intermediate"
 lab var tax_rate "Tax rate"
 
+//=====================================
+//====== Drop variables not used ======
+//=====================================
+
+drop l1* l2* l3* 
+drop MPI-TAX
+drop l4*_s l4*_p
+
+
 save "\cleaning\output\dataset_`1'.dta", replace
 *saveold "\\Client\C$\Users\User\work\master_thesis\analysis\input\orbis_multinationals.dta", version(13) replace
+
 
 
