@@ -1,0 +1,30 @@
+Macroprudential policy and optimal capital adjustment		
+		(1)
+VARIABLES	LABELS	Financial leverage
+		
+fixed_total_w	Tangibility	-0.176***
+		(0.00523)
+log_fixedasset_w	Log of fixed assets	0.0265***
+		(0.000726)
+profitability_w	Profitability	-0.249***
+		(0.00372)
+inflation	Inflation	-0.0116
+		(0.0246)
+political_risk	Political Risk	-0.000262**
+		(0.000107)
+private_credit_GDP	Private credit to GDP	0.00226
+		(0.00353)
+tax_rate	Tax rate	0.0368***
+		(0.00632)
+tax_rate_ds	Tax rate spillover	-0.0210***
+		(0.00562)
+cum_rr_local_y	Reserve req. on local currency	8.19e-05
+		(0.000770)
+cum_rr_local_y_ds	Reserve req. on local currency spillover	0.000285
+		(0.000488)
+		
+Observations		493,687
+Number of firm_id		146,580
+Subsidiary and year fixed effects		YES
+Robust standard errors in parentheses		
+*** p<0.01, ** p<0.05, * p<0.1		
