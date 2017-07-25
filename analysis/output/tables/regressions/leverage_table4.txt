@@ -1,59 +1,59 @@
-Macroprudential policy effect on firm's financial leverage (capital related indexes): spillover from parent and others subsidiaries											
-		(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)	(9)	(10)
-VARIABLES	LABELS	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage
-											
-fixed_total_w	Tangibility	-0.0343***	-0.0350***	-0.0349***	-0.0348***	-0.0349***	-0.0581***	-0.0584***	-0.0584***	-0.0584***	-0.0583***
-		(0.0114)	(0.0115)	(0.0115)	(0.0115)	(0.0115)	(0.00114)	(0.00114)	(0.00114)	(0.00114)	(0.00114)
-log_fixedasset_w	Log of fixed assets	0.0240***	0.0240***	0.0240***	0.0240***	0.0240***	0.0235***	0.0235***	0.0235***	0.0235***	0.0235***
-		(0.00168)	(0.00168)	(0.00168)	(0.00168)	(0.00168)	(0.000166)	(0.000166)	(0.000166)	(0.000166)	(0.000166)
-profitability_w	Profitability	-0.153***	-0.153***	-0.153***	-0.153***	-0.153***	-0.142***	-0.142***	-0.142***	-0.142***	-0.142***
-		(0.00751)	(0.00752)	(0.00752)	(0.00751)	(0.00752)	(0.000639)	(0.000639)	(0.000639)	(0.000639)	(0.000639)
-inflation	Inflation	0.362***	0.282***	0.259***	0.334***	0.301***	0.269***	0.220***	0.198***	0.243***	0.232***
-		(0.0675)	(0.0669)	(0.0669)	(0.0675)	(0.0672)	(0.00622)	(0.00606)	(0.00599)	(0.00621)	(0.00609)
-political_risk	Political Risk	-0.000210	-0.000194	-0.000276	-0.000327	-0.000196	-0.000155***	-0.000156***	-0.000205***	-0.000230***	-0.000171***
-		(0.000347)	(0.000346)	(0.000345)	(0.000345)	(0.000348)	(3.66e-05)	(3.67e-05)	(3.65e-05)	(3.65e-05)	(3.69e-05)
-private_credit_GDP	Private credit to GDP	0.0174*	0.0213**	0.0198**	0.0186*	0.0219**	0.0261***	0.0287***	0.0276***	0.0274***	0.0290***
-		(0.0101)	(0.0100)	(0.0101)	(0.0101)	(0.0100)	(0.00115)	(0.00116)	(0.00116)	(0.00116)	(0.00116)
-tax_rate	Tax rate	0.0223	0.0256	0.0134	0.0188	0.0255	0.0399***	0.0395***	0.0327***	0.0359***	0.0383***
-		(0.0182)	(0.0182)	(0.0181)	(0.0181)	(0.0182)	(0.00167)	(0.00164)	(0.00164)	(0.00164)	(0.00164)
-tax_rate_ds_p	Tax rate spillover to parent	0.103	0.0993	0.0940	0.101	0.0990	-0.0147	-0.0155*	-0.0118	-0.0151	-0.0153*
-		(0.101)	(0.101)	(0.0995)	(0.101)	(0.0999)	(0.00920)	(0.00919)	(0.00919)	(0.00918)	(0.00921)
-tax_rate_ds_s	Tax rate spillover to other subsidiaries	0.116	0.0971	0.132	0.0902	0.110	-0.00965	-0.0109	-0.00385	-0.0105	-0.00872
-		(0.0894)	(0.0905)	(0.0882)	(0.0918)	(0.0899)	(0.00937)	(0.00935)	(0.00933)	(0.00935)	(0.00935)
-cum_cap_req_y	Capital requirement	-0.0135***					-0.0104***				
-		(0.00343)					(0.000296)				
-cum_cap_req_y_ds_p	Capital requirement spillover to parent	0.0138					-2.59e-05				
-		(0.0271)					(0.00235)				
-cum_cap_req_y_ds_s	Capital requirement spillover to other subsidiaries	0.0506*					0.0131***				
-		(0.0284)					(0.00268)				
-cum_sscb_y	Capital buffer - overall		0.00996***					0.00508***			
-			(0.00283)					(0.000294)			
-cum_sscb_y_ds_p	Capital buffer - overall spillover to parent		-0.00278					-0.00340**			
-			(0.0104)					(0.00134)			
-cum_sscb_y_ds_s	Capital buffer - overall spillover to other subsidiaries		-0.0355**					-0.00550***			
-			(0.0143)					(0.00135)			
-cum_sscb_cons_y	Capital buffer - consumers			0.0389***					0.0279***		
-				(0.00928)					(0.00101)		
-cum_sscb_cons_y_ds_p	Capital buffer - consumers spillover to parent			0.0248					-0.0160***		
-				(0.0421)					(0.00567)		
-cum_sscb_cons_y_ds_s	Capital buffer - consumers spillover to other subsidiaries			-0.160***					-0.0390***		
-				(0.0588)					(0.00552)		
-cum_sscb_oth_y	Capital buffer - others				0.0324***					0.0152***	
-					(0.0107)					(0.00109)	
-cum_sscb_oth_y_ds_p	Capital buffer - others spillover to parent				0.0122					-0.0126***	
-					(0.0345)					(0.00440)	
-cum_sscb_oth_y_ds_s	Capital buffer - others spillover to other subsidiaries				-0.114**					-0.0171***	
-					(0.0473)					(0.00446)	
-cum_sscb_res_y	Capital buffer - real estate					0.00857**					0.00295***
-						(0.00418)					(0.000411)
-cum_sscb_res_y_ds_p	Capital buffer - real estate spillover to parent					-0.0146					-0.00214
-						(0.0155)					(0.00191)
-cum_sscb_res_y_ds_s	Capital buffer - real estate spillover to other subsidiaries					-0.0245					-0.00201
-						(0.0187)					(0.00188)
-											
-Observations		413,156	413,159	413,159	413,159	413,159	8,275,857	8,275,892	8,275,892	8,275,892	8,275,892
-R-squared		0.078	0.078	0.078	0.078	0.078	0.071	0.071	0.071	0.070	0.070
-Number of firm_id		374,495	374,498	374,498	374,498	374,498	2,327,038	2,327,059	2,327,059	2,327,059	2,327,059
-Subsidiary and year fixed effects		YES	YES	YES	YES	YES	YES	YES	YES	YES	YES
-Robust standard errors in parentheses											
-*** p<0.01, ** p<0.05, * p<0.1											
+Macroprudential policy effect on firm's financial leverage (capital related indexes): spillover from parent and others subsidiaries							
+		(1)	(2)	(3)	(4)	(5)	(6)
+VARIABLES	LABELS						
+							
+fixed_total_w	Tangibility	-0.058***	-0.058***	-0.058***	-0.058***	-0.058***	-0.058***
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+log_fixedasset_w	Log of fixed assets	0.024***	0.023***	0.023***	0.024***	0.024***	0.023***
+		(0.000)	(0.000)	(0.000)	(0.000)	(0.000)	(0.000)
+profitability_w	Profitability	-0.142***	-0.142***	-0.142***	-0.142***	-0.142***	-0.142***
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+inflation	Inflation	0.269***	0.220***	0.198***	0.243***	0.232***	0.226***
+		(0.006)	(0.006)	(0.006)	(0.006)	(0.006)	(0.006)
+political_risk	Political Risk	-0.000***	-0.000***	-0.000***	-0.000***	-0.000***	-0.000***
+		(0.000)	(0.000)	(0.000)	(0.000)	(0.000)	(0.000)
+private_credit_GDP	Private credit to GDP	0.026***	0.029***	0.028***	0.027***	0.029***	0.025***
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+tax_rate	Tax rate	0.040***	0.040***	0.033***	0.036***	0.038***	0.033***
+		(0.002)	(0.002)	(0.002)	(0.002)	(0.002)	(0.002)
+tax_rate_ds_p	Tax rate spillover to parent	-0.015	-0.016*	-0.012	-0.015	-0.015*	-0.014
+		(0.009)	(0.009)	(0.009)	(0.009)	(0.009)	(0.009)
+tax_rate_ds_s	Tax rate spillover to other subsidiaries	-0.010	-0.011	-0.004	-0.011	-0.009	-0.002
+		(0.009)	(0.009)	(0.009)	(0.009)	(0.009)	(0.009)
+cum_cap_req_y	Capital requirement	-0.010***					-0.009***
+		(0.000)					(0.000)
+cum_cap_req_y_ds_p	Capital requirement spillover to parent	-0.000					-0.001
+		(0.002)					(0.002)
+cum_cap_req_y_ds_s	Capital requirement spillover to other subsidiaries	0.013***					0.011***
+		(0.003)					(0.003)
+cum_sscb_y	Capital buffer - overall		0.005***				
+			(0.000)				
+cum_sscb_y_ds_p	Capital buffer - overall spillover to parent		-0.003**				
+			(0.001)				
+cum_sscb_y_ds_s	Capital buffer - overall spillover to other subsidiaries		-0.005***				
+			(0.001)				
+cum_sscb_cons_y	Capital buffer - consumers			0.028***			0.031***
+				(0.001)			(0.001)
+cum_sscb_cons_y_ds_p	Capital buffer - consumers spillover to parent			-0.016***			-0.008
+				(0.006)			(0.008)
+cum_sscb_cons_y_ds_s	Capital buffer - consumers spillover to other subsidiaries			-0.039***			-0.041***
+				(0.006)			(0.008)
+cum_sscb_oth_y	Capital buffer - others				0.015***		-0.004***
+					(0.001)		(0.001)
+cum_sscb_oth_y_ds_p	Capital buffer - others spillover to parent				-0.013***		-0.010
+					(0.004)		(0.006)
+cum_sscb_oth_y_ds_s	Capital buffer - others spillover to other subsidiaries				-0.017***		0.004
+					(0.004)		(0.006)
+cum_sscb_res_y	Capital buffer - real estate					0.003***	-0.004***
+						(0.000)	(0.000)
+cum_sscb_res_y_ds_p	Capital buffer - real estate spillover to parent					-0.002	0.001
+						(0.002)	(0.002)
+cum_sscb_res_y_ds_s	Capital buffer - real estate spillover to other subsidiaries					-0.002	0.004*
+						(0.002)	(0.002)
+							
+Observations		8,275,857	8,275,892	8,275,892	8,275,892	8,275,892	8,275,857
+R-squared		0.071	0.071	0.071	0.070	0.070	0.071
+Number of firm_id		2,327,038	2,327,059	2,327,059	2,327,059	2,327,059	2,327,038
+Subsidiary and year fixed effects		YES	YES	YES	YES	YES	YES
+Robust standard errors in parentheses							
+*** p<0.01, ** p<0.05, * p<0.1							

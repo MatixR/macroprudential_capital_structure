@@ -1,47 +1,45 @@
-Macroprudential policy effect on firm's financial leverage (capital related indexes)											
-		(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)	(9)	(10)
-VARIABLES	LABELS	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage
-											
-fixed_total_w	Tangibility	-0.0395***	-0.0402***	-0.0401***	-0.0401***	-0.0401***	-0.0602***	-0.0605***	-0.0605***	-0.0605***	-0.0604***
-		(0.0110)	(0.0110)	(0.0111)	(0.0110)	(0.0111)	(0.00111)	(0.00111)	(0.00111)	(0.00111)	(0.00111)
-log_fixedasset_w	Log of fixed assets	0.0231***	0.0231***	0.0231***	0.0231***	0.0231***	0.0232***	0.0232***	0.0232***	0.0232***	0.0232***
-		(0.00162)	(0.00162)	(0.00161)	(0.00161)	(0.00162)	(0.000162)	(0.000162)	(0.000162)	(0.000162)	(0.000162)
-profitability_w	Profitability	-0.153***	-0.153***	-0.153***	-0.153***	-0.153***	-0.142***	-0.142***	-0.142***	-0.142***	-0.142***
-		(0.00730)	(0.00731)	(0.00731)	(0.00731)	(0.00731)	(0.000623)	(0.000624)	(0.000624)	(0.000624)	(0.000624)
-inflation	Inflation	0.355***	0.281***	0.257***	0.327***	0.297***	0.270***	0.225***	0.205***	0.246***	0.236***
-		(0.0656)	(0.0651)	(0.0652)	(0.0657)	(0.0654)	(0.00608)	(0.00594)	(0.00588)	(0.00607)	(0.00596)
-political_risk	Political Risk	-0.000295	-0.000275	-0.000350	-0.000391	-0.000271	-0.000179***	-0.000177***	-0.000218***	-0.000239***	-0.000187***
-		(0.000328)	(0.000328)	(0.000327)	(0.000327)	(0.000329)	(3.53e-05)	(3.54e-05)	(3.52e-05)	(3.52e-05)	(3.56e-05)
-private_credit_GDP	Private credit to GDP	0.0109	0.0144	0.0133	0.0121	0.0150	0.0254***	0.0276***	0.0267***	0.0266***	0.0279***
-		(0.00948)	(0.00946)	(0.00947)	(0.00949)	(0.00947)	(0.00111)	(0.00111)	(0.00111)	(0.00111)	(0.00111)
-tax_rate	Tax rate	0.0254	0.0285	0.0165	0.0215	0.0288	0.0399***	0.0394***	0.0331***	0.0360***	0.0384***
-		(0.0176)	(0.0176)	(0.0175)	(0.0176)	(0.0177)	(0.00163)	(0.00161)	(0.00161)	(0.00161)	(0.00160)
-tax_rate_ds	Tax rate spillover	0.104***	0.0998***	0.110***	0.0989***	0.102***	-0.00438	-0.00620	-0.00171	-0.00557	-0.00490
-		(0.0351)	(0.0354)	(0.0352)	(0.0356)	(0.0351)	(0.00384)	(0.00384)	(0.00383)	(0.00383)	(0.00384)
-cum_cap_req_y	Capital requirement	-0.0130***					-0.0101***				
-		(0.00333)					(0.000291)				
-cum_cap_req_y_ds	Capital requirement spillover	0.00349					0.00614***				
-		(0.0112)					(0.00105)				
-cum_sscb_y	Capital buffer - overall		0.00928***					0.00478***			
-			(0.00273)					(0.000285)			
-cum_sscb_y_ds	Capital buffer - overall spillover		-0.00909					-0.00452***			
-			(0.00580)					(0.000586)			
-cum_sscb_cons_y	Capital buffer - consumers			0.0380***					0.0266***		
-				(0.00910)					(0.000983)		
-cum_sscb_cons_y_ds	Capital buffer - consumers spillover			-0.0512**					-0.0291***		
-				(0.0244)					(0.00234)		
-cum_sscb_oth_y	Capital buffer - others				0.0294***					0.0133***	
-					(0.0103)					(0.00105)	
-cum_sscb_oth_y_ds	Capital buffer - others spillover				-0.0313					-0.0149***	
-					(0.0191)					(0.00199)	
-cum_sscb_res_y	Capital buffer - real estate					0.00825**					0.00295***
-						(0.00399)					(0.000398)
-cum_sscb_res_y_ds	Capital buffer - real estate spillover					-0.00540					-0.00203**
-						(0.00819)					(0.000847)
-											
-Observations		440,184	440,184	440,184	440,184	440,184	8,817,102	8,817,102	8,817,102	8,817,102	8,817,102
-R-squared		0.074	0.074	0.075	0.074	0.074	0.069	0.068	0.069	0.068	0.068
-Number of firm_id		397,849	397,849	397,849	397,849	397,849	2,406,876	2,406,876	2,406,876	2,406,876	2,406,876
-Subsidiary and year fixed effects		YES	YES	YES	YES	YES	YES	YES	YES	YES	YES
-Robust standard errors in parentheses											
-*** p<0.01, ** p<0.05, * p<0.1											
+Macroprudential policy effect on firm's financial leverage (capital related indexes)							
+		(1)	(2)	(3)	(4)	(5)	(6)
+VARIABLES	LABELS						
+							
+fixed_total_w	Tangibility	-0.060***	-0.061***	-0.061***	-0.060***	-0.060***	-0.060***
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+log_fixedasset_w	Log of fixed assets	0.023***	0.023***	0.023***	0.023***	0.023***	0.023***
+		(0.000)	(0.000)	(0.000)	(0.000)	(0.000)	(0.000)
+profitability_w	Profitability	-0.142***	-0.142***	-0.142***	-0.142***	-0.142***	-0.142***
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+inflation	Inflation	0.270***	0.225***	0.205***	0.246***	0.236***	0.230***
+		(0.006)	(0.006)	(0.006)	(0.006)	(0.006)	(0.006)
+political_risk	Political Risk	-0.000***	-0.000***	-0.000***	-0.000***	-0.000***	-0.000***
+		(0.000)	(0.000)	(0.000)	(0.000)	(0.000)	(0.000)
+private_credit_GDP	Private credit to GDP	0.025***	0.028***	0.027***	0.027***	0.028***	0.025***
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+tax_rate	Tax rate	0.040***	0.039***	0.033***	0.036***	0.038***	0.034***
+		(0.002)	(0.002)	(0.002)	(0.002)	(0.002)	(0.002)
+tax_rate_ds	Tax rate spillover	-0.004	-0.006	-0.002	-0.006	-0.005	-0.001
+		(0.004)	(0.004)	(0.004)	(0.004)	(0.004)	(0.004)
+cum_cap_req_y	Capital requirement	-0.010***					-0.009***
+		(0.000)					(0.000)
+cum_cap_req_y_ds	Capital requirement spillover	0.006***					0.004***
+		(0.001)					(0.001)
+cum_sscb_y	Capital buffer - overall		0.005***				
+			(0.000)				
+cum_sscb_cons_y	Capital buffer - consumers			0.027***			0.029***
+				(0.001)			(0.001)
+cum_sscb_cons_y_ds	Capital buffer - consumers spillover			-0.029***			-0.027***
+				(0.002)			(0.004)
+cum_sscb_oth_y	Capital buffer - others				0.013***		-0.005***
+					(0.001)		(0.001)
+cum_sscb_oth_y_ds	Capital buffer - others spillover				-0.015***		-0.002
+					(0.002)		(0.003)
+cum_sscb_res_y	Capital buffer - real estate					0.003***	-0.003***
+						(0.000)	(0.000)
+cum_sscb_res_y_ds	Capital buffer - real estate spillover					-0.002**	0.003***
+						(0.001)	(0.001)
+							
+Observations		8,817,102	8,817,102	8,817,102	8,817,102	8,817,102	8,817,102
+R-squared		0.069	0.068	0.069	0.068	0.068	0.069
+Number of firm_id		2,406,876	2,406,876	2,406,876	2,406,876	2,406,876	2,406,876
+Subsidiary and year fixed effects		YES	YES	YES	YES	YES	YES
+Robust standard errors in parentheses							
+*** p<0.01, ** p<0.05, * p<0.1							

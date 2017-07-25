@@ -1,0 +1,35 @@
+Macroprudential policy and Capital structure partial adjustment (capital related variables): multinational*time fixed effects							
+		(1)	(2)	(3)	(4)	(5)	(6)
+VARIABLES	LABELS						
+							
+fixed_total_w	Tangibility	-0.060***	-0.061***	-0.061***	-0.061***	-0.061***	-0.061***
+		(0.014)	(0.014)	(0.014)	(0.014)	(0.014)	(0.014)
+log_fixedasset_w	Log of fixed assets	0.006***	0.006***	0.006***	0.006***	0.006***	0.006***
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+profitability_w	Profitability	-0.174***	-0.174***	-0.174***	-0.174***	-0.174***	-0.174***
+		(0.020)	(0.020)	(0.020)	(0.020)	(0.020)	(0.020)
+inflation	Inflation	0.598*	0.598*	0.586*	0.570*	0.583*	0.568*
+		(0.313)	(0.312)	(0.312)	(0.312)	(0.314)	(0.318)
+political_risk	Political Risk	0.001**	0.001**	0.001**	0.001**	0.001**	0.001**
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+private_credit_GDP	Private credit to GDP	0.002	-0.000	-0.000	0.002	-0.001	0.004
+		(0.009)	(0.009)	(0.009)	(0.010)	(0.009)	(0.010)
+tax_rate	Tax rate	0.084***	0.081***	0.079***	0.089***	0.077***	0.089***
+		(0.029)	(0.030)	(0.028)	(0.033)	(0.029)	(0.034)
+cum_cap_req_y	Capital requirement	-0.013					-0.012
+		(0.012)					(0.012)
+cum_sscb_y	Capital buffer - overall		0.001				
+			(0.003)				
+cum_sscb_cons_y	Capital buffer - consumers			0.008			0.001
+				(0.015)			(0.021)
+cum_sscb_oth_y	Capital buffer - others				0.009		0.007
+					(0.012)		(0.015)
+cum_sscb_res_y	Capital buffer - real estate					-0.000	-0.001
+						(0.004)	(0.005)
+							
+Observations		19,566	19,566	19,566	19,566	19,566	19,566
+R-squared		0.631	0.631	0.631	0.631	0.631	0.631
+Number of debt_shifting_group		14,996	14,996	14,996	14,996	14,996	14,996
+Multinational-year and country fixed effects		YES	YES	YES	YES	YES	YES
+Robust standard errors in parentheses							
+*** p<0.01, ** p<0.05, * p<0.1							

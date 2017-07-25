@@ -1,47 +1,47 @@
-Macroprudential policy effect on firm's financial leverage											
-		(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)	(9)	(10)
-VARIABLES	LABELS	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage	Financial leverage
-											
-fixed_total_w	Tangibility	-0.0414***	-0.0417***	-0.0406***	-0.0399***	-0.0400***	-0.0608***	-0.0616***	-0.0609***	-0.0604***	-0.0604***
-		(0.0110)	(0.0110)	(0.0110)	(0.0110)	(0.0110)	(0.00111)	(0.00111)	(0.00111)	(0.00111)	(0.00111)
-log_fixedasset_w	Log of fixed assets	0.0231***	0.0229***	0.0232***	0.0231***	0.0231***	0.0232***	0.0231***	0.0233***	0.0232***	0.0232***
-		(0.00162)	(0.00162)	(0.00161)	(0.00161)	(0.00161)	(0.000162)	(0.000162)	(0.000162)	(0.000162)	(0.000162)
-profitability_w	Profitability	-0.154***	-0.155***	-0.154***	-0.153***	-0.153***	-0.142***	-0.143***	-0.142***	-0.142***	-0.142***
-		(0.00731)	(0.00734)	(0.00732)	(0.00731)	(0.00731)	(0.000624)	(0.000625)	(0.000624)	(0.000624)	(0.000624)
-inflation	Inflation	0.259***	0.277***	0.295***	0.319***	0.319***	0.220***	0.210***	0.225***	0.245***	0.244***
-		(0.0654)	(0.0655)	(0.0656)	(0.0659)	(0.0655)	(0.00592)	(0.00599)	(0.00605)	(0.00606)	(0.00605)
-political_risk	Political Risk	-0.000398	-5.26e-05	0.000747**	-0.000339	-0.000266	-0.000228***	3.21e-05	0.000563***	-0.000239***	-0.000236***
-		(0.000327)	(0.000327)	(0.000370)	(0.000336)	(0.000341)	(3.52e-05)	(3.52e-05)	(3.78e-05)	(3.48e-05)	(3.55e-05)
-private_credit_GDP	Private credit to GDP	0.00957	0.0170*	0.0417***	0.0134	0.0150	0.0259***	0.0300***	0.0470***	0.0282***	0.0273***
-		(0.00949)	(0.00947)	(0.0104)	(0.00998)	(0.00965)	(0.00111)	(0.00111)	(0.00117)	(0.00115)	(0.00113)
-tax_rate	Tax rate	0.0375**	0.0207	0.0418**	0.0200	0.0210	0.0418***	0.0353***	0.0502***	0.0373***	0.0359***
-		(0.0176)	(0.0176)	(0.0178)	(0.0185)	(0.0175)	(0.00161)	(0.00161)	(0.00162)	(0.00165)	(0.00161)
-tax_rate_ds	Tax rate spillover	0.103***	0.103***	0.105***	0.113***	0.0974***	-0.00426	-0.00523	-0.00387	-0.00757*	-0.00418
-		(0.0350)	(0.0353)	(0.0351)	(0.0361)	(0.0355)	(0.00383)	(0.00383)	(0.00383)	(0.00396)	(0.00387)
-cum_rr_local_y	Reserve req. on local currency	0.00844***					0.00389***				
-		(0.00161)					(0.000188)				
-cum_rr_local_y_ds	Reserve req. on local currency spillover	-0.00331					-0.00182***				
-		(0.00328)					(0.000369)				
-cum_rr_foreign_y	Reserve req. on foreign currency		0.00568***					0.00496***			
-			(0.00121)					(0.000143)			
-cum_rr_foreign_y_ds	Reserve req. on foreign currency spillover		-0.000536					-0.00357***			
-			(0.00603)					(0.000692)			
-cum_ltv_cap_y	LTV ratio limits			-0.0116***					-0.00876***		
-				(0.00231)					(0.000254)		
-cum_ltv_cap_y_ds	LTV ratio limits spillover			-0.00902					0.000126		
-				(0.00832)					(0.000852)		
-cum_concrat_y	Concentration limit				0.000518					-0.000535**	
-					(0.00204)					(0.000227)	
-cum_concrat_y_ds	Concentration limit spillover				-0.00476					0.00195***	
-					(0.00542)					(0.000559)	
-cum_ibex_y	Interbank exposure limit					-0.00146					0.000452
-						(0.00249)					(0.000291)
-cum_ibex_y_ds	Interbank exposure limit spillover					-0.00886					-0.000225
-						(0.00745)					(0.000813)
-											
-Observations		440,184	440,184	440,184	440,184	440,184	8,817,102	8,817,102	8,817,102	8,817,102	8,817,102
-R-squared		0.075	0.075	0.075	0.074	0.074	0.069	0.069	0.069	0.068	0.068
-Number of firm_id		397,849	397,849	397,849	397,849	397,849	2,406,876	2,406,876	2,406,876	2,406,876	2,406,876
-Subsidiary and year fixed effects		YES	YES	YES	YES	YES	YES	YES	YES	YES	YES
-Robust standard errors in parentheses											
-*** p<0.01, ** p<0.05, * p<0.1											
+Macroprudential policy effect on firm's financial leverage							
+		(1)	(2)	(3)	(4)	(5)	(6)
+VARIABLES	LABELS						
+							
+fixed_total_w	Tangibility	-0.061***	-0.062***	-0.061***	-0.060***	-0.060***	-0.062***
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+log_fixedasset_w	Log of fixed assets	0.023***	0.023***	0.023***	0.023***	0.023***	0.023***
+		(0.000)	(0.000)	(0.000)	(0.000)	(0.000)	(0.000)
+profitability_w	Profitability	-0.142***	-0.143***	-0.142***	-0.142***	-0.142***	-0.143***
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+inflation	Inflation	0.220***	0.210***	0.225***	0.245***	0.244***	0.208***
+		(0.006)	(0.006)	(0.006)	(0.006)	(0.006)	(0.006)
+political_risk	Political Risk	-0.000***	0.000	0.001***	-0.000***	-0.000***	0.000***
+		(0.000)	(0.000)	(0.000)	(0.000)	(0.000)	(0.000)
+private_credit_GDP	Private credit to GDP	0.026***	0.030***	0.047***	0.028***	0.027***	0.042***
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+tax_rate	Tax rate	0.042***	0.035***	0.050***	0.037***	0.036***	0.051***
+		(0.002)	(0.002)	(0.002)	(0.002)	(0.002)	(0.002)
+tax_rate_ds	Tax rate spillover	-0.004	-0.005	-0.004	-0.008*	-0.004	-0.011***
+		(0.004)	(0.004)	(0.004)	(0.004)	(0.004)	(0.004)
+cum_rr_local_y	Reserve req. on local currency	0.004***					0.000
+		(0.000)					(0.000)
+cum_rr_local_y_ds	Reserve req. on local currency spillover	-0.002***					-0.001**
+		(0.000)					(0.000)
+cum_rr_foreign_y	Reserve req. on foreign currency		0.005***				0.005***
+			(0.000)				(0.000)
+cum_rr_foreign_y_ds	Reserve req. on foreign currency spillover		-0.004***				-0.003***
+			(0.001)				(0.001)
+cum_ltv_cap_y	LTV ratio limits			-0.009***			-0.005***
+				(0.000)			(0.000)
+cum_ltv_cap_y_ds	LTV ratio limits spillover			0.000			0.000
+				(0.001)			(0.001)
+cum_concrat_y	Concentration limit				-0.001**		-0.002***
+					(0.000)		(0.000)
+cum_concrat_y_ds	Concentration limit spillover				0.002***		0.003***
+					(0.001)		(0.001)
+cum_ibex_y	Interbank exposure limit					0.000	0.003***
+						(0.000)	(0.000)
+cum_ibex_y_ds	Interbank exposure limit spillover					-0.000	-0.000
+						(0.001)	(0.001)
+							
+Observations		8,817,102	8,817,102	8,817,102	8,817,102	8,817,102	8,817,102
+R-squared		0.069	0.069	0.069	0.068	0.068	0.069
+Number of firm_id		2,406,876	2,406,876	2,406,876	2,406,876	2,406,876	2,406,876
+Subsidiary and year fixed effects		YES	YES	YES	YES	YES	YES
+Robust standard errors in parentheses							
+*** p<0.01, ** p<0.05, * p<0.1							
