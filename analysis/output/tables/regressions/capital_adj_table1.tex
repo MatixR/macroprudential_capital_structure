@@ -1,36 +1,48 @@
-\begin{tabular}{lcc}
-\multicolumn{3}{c}{Macroprudential policy and optimal capital adjustment} \\ \hline
- & (1) & (2) \\
-VARIABLES &  &  \\ \hline
- &  &  \\
-Tangibility & -0.180*** & -0.180*** \\
- & (0.002) & (0.002) \\
-Log of fixed assets & 0.034*** & 0.034*** \\
- & (0.000) & (0.000) \\
-Profitability & -0.256*** & -0.256*** \\
- & (0.001) & (0.001) \\
-Inflation & -0.008 & -0.009 \\
- & (0.006) & (0.006) \\
-Political Risk & -0.000*** & -0.000*** \\
- & (0.000) & (0.000) \\
-Private credit to GDP & -0.003** & -0.002 \\
- & (0.001) & (0.001) \\
-Tax rate & 0.018*** & 0.017*** \\
- & (0.002) & (0.002) \\
-Tax rate spillover & -0.011*** & -0.011*** \\
- & (0.004) & (0.004) \\
-Reserve req. on local currency & 0.002*** &  \\
- & (0.000) &  \\
-Reserve req. on local currency spillover & -0.000 &  \\
- & (0.000) &  \\
-Reserve req. on foreign currency &  & 0.000*** \\
- &  & (0.000) \\
-Reserve req. on foreign currency spillover &  & 0.000 \\
- &  & (0.001) \\
- &  &  \\
-Observations & 4,329,056 & 4,329,056 \\
-Number of firm\_id & 1,378,672 & 1,378,672 \\
- Subsidiary and year fixed effects & YES & YES \\ \hline
-\multicolumn{3}{c}{ Robust standard errors in parentheses} \\
-\multicolumn{3}{c}{ *** p$<$0.01, ** p$<$0.05, * p$<$0.1} \\
+\begin{tabular}{lcccccc}
+\multicolumn{7}{c}{Macroprudential policy and optimal capital adjustment} \\ \hline
+ & (1) & (2) & (3) & (4) & (5) & (6) \\
+VARIABLES &  &  &  &  &  &  \\ \hline
+ &  &  &  &  &  &  \\
+Tangibility & -0.180*** & -0.180*** & -0.180*** & -0.180*** & -0.180*** & -0.180*** \\
+ & (0.002) & (0.002) & (0.002) & (0.002) & (0.002) & (0.002) \\
+Log of fixed assets & 0.034*** & 0.034*** & 0.034*** & 0.034*** & 0.034*** & 0.034*** \\
+ & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) \\
+Profitability & -0.256*** & -0.256*** & -0.256*** & -0.256*** & -0.256*** & -0.256*** \\
+ & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) \\
+Inflation & -0.008 & -0.009 & -0.013** & -0.009 & -0.008 & -0.011* \\
+ & (0.006) & (0.006) & (0.006) & (0.006) & (0.006) & (0.006) \\
+Political Risk & -0.000*** & -0.000*** & -0.000*** & -0.000*** & -0.000*** & -0.000* \\
+ & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) & (0.000) \\
+Private credit to GDP & -0.003** & -0.002 & 0.001 & -0.002* & -0.001 & -0.000 \\
+ & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) & (0.001) \\
+Tax rate & 0.018*** & 0.017*** & 0.017*** & 0.016*** & 0.018*** & 0.020*** \\
+ & (0.002) & (0.002) & (0.002) & (0.002) & (0.002) & (0.002) \\
+Tax rate spillover & -0.011*** & -0.011*** & -0.011*** & -0.011*** & -0.011*** & -0.011*** \\
+ & (0.004) & (0.004) & (0.004) & (0.004) & (0.004) & (0.004) \\
+Reserve req. on local currency & 0.002*** &  &  &  &  & 0.003*** \\
+ & (0.000) &  &  &  &  & (0.000) \\
+Reserve req. on local currency spillover & -0.000 &  &  &  &  & -0.000 \\
+ & (0.000) &  &  &  &  & (0.000) \\
+Reserve req. on foreign currency &  & 0.000*** &  &  &  & -0.001*** \\
+ &  & (0.000) &  &  &  & (0.000) \\
+Reserve req. on foreign currency spillover &  & 0.000 &  &  &  & 0.000 \\
+ &  & (0.001) &  &  &  & (0.001) \\
+LTV ratio limits &  &  & -0.003*** &  &  & -0.003*** \\
+ &  &  & (0.000) &  &  & (0.000) \\
+LTV ratio limits spillover &  &  & 0.001 &  &  & 0.001 \\
+ &  &  & (0.001) &  &  & (0.001) \\
+Concentration limit &  &  &  & 0.000 &  & 0.001** \\
+ &  &  &  & (0.000) &  & (0.000) \\
+Concentration limit spillover &  &  &  & -0.000 &  & 0.000 \\
+ &  &  &  & (0.001) &  & (0.001) \\
+Interbank exposure limit &  &  &  &  & -0.002*** & -0.003*** \\
+ &  &  &  &  & (0.000) & (0.000) \\
+Interbank exposure limit spillover &  &  &  &  & 0.001 & 0.001 \\
+ &  &  &  &  & (0.001) & (0.001) \\
+ &  &  &  &  &  &  \\
+Observations & 4,329,056 & 4,329,056 & 4,329,056 & 4,329,056 & 4,329,056 & 4,329,056 \\
+Number of firm\_id & 1,378,672 & 1,378,672 & 1,378,672 & 1,378,672 & 1,378,672 & 1,378,672 \\
+ Subsidiary and year fixed effects & YES & YES & YES & YES & YES & YES \\ \hline
+\multicolumn{7}{c}{ Robust standard errors in parentheses} \\
+\multicolumn{7}{c}{ *** p$<$0.01, ** p$<$0.05, * p$<$0.1} \\
 \end{tabular}
