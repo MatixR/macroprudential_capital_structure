@@ -5,8 +5,30 @@
 set more off
 
 use "\cleaning\temp\merged_MPI_WB_DS_`1'.dta", clear
+*use "\cleaning\temp\merged_MPI_WB_DS_orbis100_2.dta", clear
+
 sort id year
 egen firm_id = group(id)
+
+//===========================
+//====== Preliminaries ======
+//===========================
+* Drop observations with negative values in balance sheet
+drop if cash<0 | ncli<0 | culi<0 | fias<0 | tfas<0 | ltdb<0 | loans<0 | sales<0 
+
+* Create index of balance panel data
+bysort firm_id (year): egen balance_panel = count(year)
+bysort firm_id (year): egen unbalance_panel = min(year)
+
+* Observation weights (number of firms in country)
+sort country_id id 
+egen tag = tag(country_id id)
+bysort country_id: egen n_firm_country = total(tag)
+
+* Drop firm in countrys with less than 25 firms
+drop if n_firm_country<25
+
+* Set panel format
 order firm_id
 xtset firm_id year
 
@@ -17,6 +39,7 @@ xtset firm_id year
 * Create financial leverage variable
 gen leverage = (ncli+culi)/toas
 lab var leverage "Financial leverage"
+replace leverage =. if leverage > 1 | leverage < 0 
 
 * Create financial leverage growth
 gen log_leverage = log(leverage)
@@ -24,9 +47,16 @@ bysort firm_id (year): gen leverage_g = D.log_leverage if year == year[_n-1]+1
 lab var leverage_g "Leverage growth rate"
 drop log_leverage
 
+* Create liabilities growth
+gen log_liability = log(ncli+culi)
+bysort firm_id (year): gen liability_g = D.log_liability if year == year[_n-1]+1
+lab var leverage_g "Liabilities growth rate"
+drop log_liability
+
 * Create adjusted financial leverage variable
 gen adj_leverage = (ncli+culi-cash)/(toas-cash)
 lab var adj_leverage "Adjusted financial leverage"
+replace adj_leverage =. if adj_leverage > 1 | adj_leverage < 0 
 
 * Create adjusted financial leverage growth
 gen log_adj_leverage = log(adj_leverage)
@@ -36,27 +66,30 @@ drop log_adj_leverage
 
 * Create long term debt leverage variable
 gen longterm_debt = (ltdb)/(toas)
-lab var longterm_debt "Long term debt"
+lab var longterm_debt "Long-term debt"
+replace longterm_debt =. if longterm_debt > 1 | longterm_debt < 0 
 
 * Create long term debt growth
 gen log_longterm_debt = log(longterm_debt)
 bysort firm_id (year): gen longterm_debt_g = D.log_longterm_debt if year == year[_n-1]+1
-lab var longterm_debt_g "Long term debt growth rate"
+lab var longterm_debt_g "Long-term debt growth rate"
 drop log_longterm_debt
 
 * Create loans leverage variable
 gen loans_leverage = (loans)/(toas)
-lab var loans_leverage "Short term debt"
+lab var loans_leverage "Short-term debt"
+replace loans_leverage =. if loans_leverage > 1 | loans_leverage < 0 
 
 * Create loans growth
 gen log_loans = log(loans_leverage)
 bysort firm_id (year): gen loans_g = D.log_loans if year == year[_n-1]+1
-lab var loans_g "Loans growth rate"
+lab var loans_g "Short-term growth rate"
 drop log_loans
 
-* Create adjusted long term debt leverage variable
-gen adj_longterm_debt = (ltdb-cash)/(toas-cash)
-lab var adj_longterm_deb "Adjusted long term debt"
+* Create long- short-term debt leverage variable
+gen debt_leverage = (ltdb+loans)/(toas)
+lab var debt_leverage "Long- short-term leverage"
+replace debt_leverage =. if debt_leverage > 1 | debt_leverage < 0 
 
 //=============================================
 //====== Control Variables at Firm Level ======
@@ -87,8 +120,8 @@ gen profitability = ebitda/toas
 lab var profitability "Profitability"
 
 * Create aggregate profitability variable
-bysort country_id nace year: egen total_profit = total(ebitda)
-bysort country_id nace year: egen total_asset = total(toas)
+bysort country_id year multinational_ID: egen total_profit = total(ebitda)
+bysort country_id year multinational_ID: egen total_asset = total(toas)
 gen agg_profitability = total_profit/total_asset
 lab var agg_profitability "Aggregate profitability"
 drop total_profit total_asset
@@ -120,12 +153,34 @@ drop help1
 lab var gdp_per_capita "GDP per capita"
 
 * Changing variables to GDP to percentage
-foreach a in gdp_growth_rate  credit_financial_GDP private_credit_GDP stock_traded_GDP market_cap_GDP turnover {
-gen help1 = `a'/100
-replace `a' = help1
+foreach var in gdp_growth_rate  credit_financial_GDP private_credit_GDP stock_traded_GDP market_cap_GDP turnover {
+gen help1 = `var'/100
+replace `var' = help1
 drop help1
 }
+//========================================
+//====== Create index = 100 at 2007 ======
+//========================================
+sort firm_id year
+#delimit;
+local vars "private_credit_GDP market_cap_GDP political_risk exchange_rate_risk law_order 
+            interest_rate tax_rate gdp_per_capita
+            debt_leverage leverage adj_leverage longterm_debt loans_leverage 
+            fixed_total tangible_total log_fixedasset log_sales 
+			profitability agg_profitability";
+#delimit cr
+ foreach var of local vars{
+ bysort firm_id (year): gen `var'_i = `var'/`var'[1]
+replace `var'=`var'_i 
+drop `var'_i
+ }
+ //=======================================
+//====== Interaction term with tax ======
+//=======================================
 
+foreach var of varlist `2'{
+gen int_`var'= `var'*tax_rate 
+}
 //===============================
 //====== Cleaning outliers ======
 //===============================
@@ -133,17 +188,18 @@ drop help1
 * Dependent variables
 winsor leverage, gen(leverage_w) p(0.01)
 lab var leverage_w "Financial leverage"
+winsor leverage_g, gen(leverage_g_w) p(0.01)
+lab var leverage_g_w "Financial leverage growth rate"
+winsor liability_g, gen(liability_g_w) p(0.01)
+lab var liability_g_w "Liability growth rate"
 winsor adj_leverage, gen(adj_leverage_w) p(0.01)
 lab var adj_leverage_w "Adjusted financial leverage"
 winsor longterm_debt, gen(longterm_debt_w) p(0.01)
 lab var longterm_debt_w "Long term debt"
 winsor loans_leverage, gen(loans_leverage_w) p(0.01)
 lab var loans_leverage_w "Short term debt"
-
-replace leverage =. if leverage > 1 | leverage < 0 
-replace adj_leverage =. if adj_leverage > 1 | adj_leverage < 0 
-replace longterm_debt =. if longterm_debt > 1 | longterm_debt < 0 
-replace loans_leverage =. if loans_leverage > 1 | loans_leverage < 0 
+winsor debt_leverage, gen(debt_leverage_w) p(0.01)
+lab var debt_leverage_w "Long- short-term leverage"
 
 * Independent variables
 winsor fixed_total, gen(fixed_total_w) p(0.01)
@@ -165,14 +221,6 @@ lab var log_fixedasset_w "Log of fixed assets"
 winsor log_sales, gen(log_sales_w) p(0.01)
 lab var log_sales_w "Log of sales"
 
-//===============================================
-//====== Replace missing indexes for zeros ======
-//===============================================
-
-replace cum_concrat_y = 0 if missing(cum_concrat_y) 
-replace cum_ibex_y = 0 if missing(cum_ibex_y)
-replace cum_ltv_cap_y = 0 if missing(cum_ltv_cap_y)
-replace cum_cap_req_y = 0 if missing(cum_cap_req_y)
 
 //=============================
 //====== Label variables ======
@@ -180,62 +228,72 @@ replace cum_cap_req_y = 0 if missing(cum_cap_req_y)
 
 * Rename multinational ID and debt shift groups to look nice in table
 rename multinational_ID multinationals
-
+rename firm_id firms
 * Macroprudential indexes
 lab var BORROWER "Borrower target index"
 lab var FINANCIAL "Financial target index"
 
-lab var cum_sscb_res_y "Capital buffer - real estate"
-lab var cum_sscb_cons_y "Capital buffer - consumers" 
-lab var cum_sscb_oth_y "Capital buffer - others" 
-lab var cum_sscb_y "Capital buffer - overall" 
-lab var cum_cap_req_y "Capital requirement" 
-lab var cum_concrat_y "Concentration limit"
-lab var cum_ibex_y "Interbank exposure limit"
-lab var cum_ltv_cap_y "LTV ratio limits" 
-lab var cum_rr_foreign_y "Reserve req. on foreign currency"
-lab var cum_rr_local_y "Reserve req. on local currency"
+lab var sscb_res_y "Capital buffer - real estate"
+lab var sscb_cons_y "Capital buffer - consumers" 
+lab var sscb_oth_y "Capital buffer - others" 
+lab var sscb_y "Capital buffer - overall" 
+lab var cap_req_y "Capital requirement" 
+lab var concrat_y "Concentration limit"
+lab var ibex_y "Interbank exposure limit"
+lab var ltv_cap_y "LTV ratio limits" 
+lab var rr_foreign_y "Reserve req. on foreign currency"
+lab var rr_local_y "Reserve req. on local currency"
 
-foreach var of varlist cum_*_y{
-lab var l1_`var' "`: var label `var'' (-1)"
-lab var l2_`var' "`: var label `var'' (-2)"
-lab var l3_`var' "`: var label `var'' (-3)"
+lab var c_sscb_res_y "Capital buffer - real estate"
+lab var c_sscb_cons_y "Capital buffer - consumers" 
+lab var c_sscb_oth_y "Capital buffer - others" 
+lab var c_sscb_y "Capital buffer - overall" 
+lab var c_cap_req_y "Capital requirement" 
+lab var c_concrat_y "Concentration limit"
+lab var c_ibex_y "Interbank exposure limit"
+lab var c_ltv_cap_y "LTV ratio limits" 
+lab var c_rr_foreign_y "Reserve req. on foreign currency"
+lab var c_rr_local_y "Reserve req. on local currency"
+
+foreach var of varlist c_*_y{
 lab var l4_`var' "`: var label `var'' (-4)"
 }
+
+foreach var of varlist *_y{
+cap lab var t_`var' "`: var label `var'' (tightening)"
+cap lab var l_`var' "`: var label `var'' (loosening)"
+}
+
 * Debt shift variables
 lab var tax_rate_ds "Tax rate spillover"
 lab var tax_rate_ds_s "Tax rate spillover to other subsidiaries" 
 lab var tax_rate_ds_p "Tax rate spillover to parent" 
  
-foreach var of varlist cum_*_y{
+foreach var of varlist c_*_y{
 lab var `var'_ds "`: var label `var'' spillover"
 lab var `var'_ds_p "`: var label `var'' spillover to parent"
 lab var `var'_ds_s "`: var label `var'' spillover to other subsidiaries"
 }
-foreach var of varlist cum_*_ds{
-lab var l1_`var' "`: var label `var'' (-1)"
-lab var l2_`var' "`: var label `var'' (-2)"
-lab var l3_`var' "`: var label `var'' (-3)"
+foreach var of varlist c_*_ds{
 lab var l4_`var' "`: var label `var'' (-4)"
 }
-foreach var of varlist cum_*_ds_p{
-lab var l1_`var' "`: var label `var'' (-1)"
-lab var l2_`var' "`: var label `var'' (-2)"
-lab var l3_`var' "`: var label `var'' (-3)"
+foreach var of varlist c_*_ds_p{
 lab var l4_`var' "`: var label `var'' (-4)"
 }
-foreach var of varlist cum_*_ds_s{
-lab var l1_`var' "`: var label `var'' (-1)"
-lab var l2_`var' "`: var label `var'' (-2)"
-lab var l3_`var' "`: var label `var'' (-3)"
+foreach var of varlist c_*_ds_s{
 lab var l4_`var' "`: var label `var'' (-4)"
+}
+
+* Tax macroprudential interaction variables
+foreach var of varlist c_*_y{
+lab var int_`var' "`: var label `var''*tax"
 }
 * World Bank
 lab var gdp_growth_rate "GDP growth rate"
 lab var credit_financial_GDP "Finacial sector credit to GDP"
 lab var private_credit_GDP "Private credit to GDP"
 lab var stock_traded_GDP "Value of stock traded to GDP"
-lab var market_cap_GDP "Market capitalization to GDP"
+lab var market_cap_GDP "Market capitalization"
 lab var turnover "Turnover ratio of stock traded"
 lab var interest_rate "Policy rate"
 
@@ -255,9 +313,16 @@ lab var tax_rate "Tax rate"
 //====== Drop variables not used ======
 //=====================================
 
-drop l1* l2* l3* 
-drop MPI-TAX
-drop l4*_s l4*_p
+drop MPI-TAX 
+drop *l4_* t_* l_* *_t_* *_l_* *_l4_*
+drop if year == 2007
+
+//========================================
+//====== Create fixed effect groups ======
+//========================================
+
+egen double multinational_year = group(id_P year)
+egen double country_year = group(country_id year)
 
 
 save "\cleaning\output\dataset_`1'.dta", replace
