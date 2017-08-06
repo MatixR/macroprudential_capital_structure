@@ -47,7 +47,7 @@
 \begin{document}
 	
 	\begin{titlepage}
-		\title{Master Thesis: \\ Macroprudential Policy International Spill-over: Evidence from Multinational's Capital Structure\thanks{Preliminary version}}
+		\title{Macroprudential Policies and Capital Structure: Evidence from Multinationals \thanks{Preliminary version}}
 		\author{Lucas Avezum\thanks{abc}}
 		%\author{Lucas Avezum\thanks{abc} \and \and Harry Huizinga\thanks{abc} \and Louis Raes\thanks{abc}}
 		\date{\today}
@@ -73,72 +73,277 @@
 	
 	
 	\section{Introduction} \label{sec:introduction}
-	As \cite*{blinder2016necessity} have documented, the mandate of central banks have increased to include several macro-prudential tools. Triggered mostly by the 2008 financial crisis, financial stability is perceived by many central banks as a goal together with price stability. However, as \cite{blinder2016necessity} note, to what extend should macro-prudential policy be used in the future is still unclear. Given its early stage, the effectiveness and externalities of macro-prudential instruments have still to be properly evaluated. In special, it is reasonable to expect cross-border spillover of prudential policies choices. 
+	As \cite*{blinder2016necessity} documented, the mandate of central banks has expanded considerably. Triggered mostly by the 2008 financial crisis, financial stability is perceived by many central banks as a goal together with price stability. To achieve the former, several macro-prudential instruments were included or extended in central banker's toolbox. However, the authors also note that the extent in which macro-prudential policy will be used in the future is still unclear. Given its early stage, the effectiveness and externalities of macro-prudential instruments have still to be properly evaluated. 
 	
-	This paper provides one of the first answers to the international effect of macro-prudential policy question. More specifically, we show that changes in a one country's macro-prudential tool affect firm's leverage decision in another country. 
+	This paper studies how macro-prudential policies relate to firms' leverage. We also analyze potential international spillovers. More specifically, we show that changes in one country's macro-prudential tool affect firm's leverage decision hosted in another country. 
 	
-	% \section{Literature review} \label{sec:literature}
-	Empirical research on the effects of prudential policies has increase considerably after the 2008 financial crisis. With loan-level data \cite*{jimenez2012macroprudential} study effects of capital buffers in Spain. Using firm-level data, \cite*{ayyagari2017credit} relate macroprudential policies and firm's credit growth. They found that the effectiveness of prudential tools at smoothing credit depend on firm's location (emerging or developed country), size, debt maturity and type of instrument (borrower-target or financial institution target).
+	In order to assess potential international spillovers from macro-prudential policy our estimation strategy is based on \cite*{huizinga2008capital}. Although their work was designed to study tax incentive to shift debt, we believe that the same strategy is also suitable to our case. Multinational groups take into account both tax and non-tax factors when deciding their optimal financial structure. For instance, looser credit market in one country may lead to relative higher leverage at subsidiaries in this country, as the multinational will take advantage of better financing conditions. Given an optimal leverage at the multinational level, subsidiaries at other countries should reduce external financing. As macro-prudential instruments aim at smoothing credit markets, to the degree of their domestic effectiveness, international spillover in the form of debt shifting are plausible.
 	
-	Our work is closely related to the series of papers developed under the International Banking Research Network (IBRN) 2015 initiative, summarized by \cite{buch2017international}. They also rely on multinational relationships to identify international spillovers. However, their analysis is restricted to the effects on banking loans, while we study changes in firm's capital structure. Their findings corroborate to the evidence that the effects of prudential tools are heterogeneous on type and location. On average, the economic significance of international spillover were found to be small. Although at first we might expect our results to follow theirs, our estimation strategy allows to identify changes in firm's debt that goes beyond banking credit supply. Hence, the main contribution of the paper is to show that macroprudential policy affect firm's leverage by changing their credit condition relative to other firm's within the same multinational group. Our finding provide stronger evidence of prudential tools spillover, that should be considered given the original objetive of providing financial stability.
+	Empirical research on the effects of prudential policies has increased considerably after the 2008 financial crisis. Several authors rely on cross-country aggregate data to study the relationship between macro-prudential policies and financial indicators. \cite*{cerutti2017use} introduces a dataset containing the usage of 12 macro-prudential policies at 119 countries from 2000 to 2013. They document that prudential instruments are mostly used in developing countries where they also appear to be more effective. Among their findings, borrower-related policies, such as limits on LTVs and DTIs ratios are associated with reductions in credit growth and house prices. The author also provide an extensive review of the literature on macro-prudential policies. 
 	
-	The paper proceeds as follows: Section 2 explains the empirical strategy, Section 3 describes the data and the results are discussed in Section 4. We provide extensions to our baseline model in Section 5. Section 7 concludes. 
+	A second line of studies provides micro-level evidence. With loan-level data \cite*{jimenez2012macroprudential} study the  effects of capital buffers in Spain. \cite*{aiyar2014does} find lending to leak through foreign branches following an increase in capital requirements to regulated banks. Their work shows that capital requirements in UK were effective in curbing lending for regulated banks, but the leakage is substantial. Most studies in this second group in the literature focus on few instruments, on the bank or housing sectors and on one country. An exception is \cite*{ayyagari2017credit} that uses firm-level data to relate macro-prudential policies across 119 countries to firm's credit growth. They find that the effectiveness of prudential tools at smoothing credit depend on the firm's location (emerging or developed country), size, debt maturity and the type of instrument (borrower-target or financial institution target). We extend on this line of research by also providing evidence of international spillovers.
+	
+	Our work is also closely related to the series of papers developed under the International Banking Research Network (IBRN) 2015 initiative. \cite*{buch2017cross} summarize the methodology and provide a meta-study. The authors also rely on multinational relationships to identify international spillovers. However, their analysis is restricted to the effects on banking loans, while we study changes in firm's capital structure. Among their findings, the effects of prudential tools are heterogeneous on type and location. On average, the economic significance of international spillover is found to be small.  
+	
+	Finally, this paper also builds on the optimal capital structure literature. \cite*{demirgucc1998law}, \cite*{beck2004bank}, show how institutions impact leverage decisions. Our contribution is to study if policies intended to affect credit markets are incorporated to firms beyond the financial sector.   
+	
+   The main contribution of the paper is to show that macro-prudential policy affect firm's leverage by changing their credit condition relative to other firms within the same multinational group. Our findings provide stronger evidence of prudential tools' spillover.
+	
+	The paper proceeds as follows: Section \ref{sec:strategy} explains the empirical strategy, Section \ref{sec:data} describes the data while the results are discussed in Section \ref{sec:result}. We provide extensions to our baseline model in Section \label{sec:discussion}. Section \ref{sec:conclusion} concludes. 
 	
 	\section{Empirical strategy} \label{sec:strategy}
-	
-	
-	In order to assess potential international spillovers from macroprudential policy our estimation strategy is based on \cite*{huizinga2008capital}. Although their work was designed to study tax incentive to debt shifting, we believe that the same strategy is also suitable to our case. As \cite{huizinga2008capital} note, multinational groups take into account both tax and non-tax factor when deciding their optimal financial structure. For instance, looser credit market in one country may lead to relative higher leverage at subsidiaries in this country, as the multinational will take advantage of better financing conditions. Given an optimal leverage at the multinational level, subsidiaries at other countries should reduce external financing. As macroprudential instruments aim at smoothing credit markets, to the degree of their domestic effectiveness, internatinal spillover in the form of debt shifting seems plausible.
-	
-	Macroprudential cross-border effect is identified by averaging the differentials of indexes by the asset share. Our baseline regression is:
-	
-	\begin{equation*}
+	We extend \cite{huizinga2008capital} by allowing the cost of debt to vary. Several factors could drive this variation, but we are interested in the effects of different macroprudential policies. IMPROVE
+	\subsection{Balance sheets}
+	 \label{subsec:balancesheet}
+	We consider a multinational group that is composed of $n-1$ subsidiaries and the parent firm. Each subsidiary has assets $A_i$ and is financed by external debt $L_i$ and parent firm's equity $I_i$. For each subsidiary the balance sheet is
+		\begin{equation}
 	\begin{aligned}
-	y_{imc,t}=&\beta_0MPI_{c,t}+\beta_1\sum_j\bigg[MPI_{ic,t} - MPI_{jc',t}\bigg]\rho_{j,t}\\
-	&+\alpha_0Tax_{ic,t}+\alpha_1\sum_j\bigg[Tax_{ic,t} - Tax_{jc',t}\bigg]\rho_{j,t}\\
-	&+\Gamma X_{t}+f_{m}+f_{t}+f_{c}+\varepsilon_{i,t}
+	 A_i=I_i+L_i. 
 	\end{aligned}
-	\end{equation*}
+	\label{eq:sub balance sheet}
+	\end{equation}
+
+	 For simplicity, we assume that the parent firm is the sole owner of each subsidiary. Hence, if $A_p$, $E_p$ and $L_p$ are, respectively, the assets, equity and debt of the parent firm, its balance sheet can be stated as  
+		\begin{equation}
+	\begin{aligned}
+	A_p+\sum_{i=1}^{n-1}I_i=E_p+L_p. 
+	\end{aligned}
+	\label{eq:sparent balance sheet}
+	\end{equation}
+	Financial leverage is defined as total liabilities to total assets, that is, $\lambda_i=L_i/A_i$. At the multinational level, total leverage is
+		\begin{equation}
+	\begin{aligned}
+	\lambda_m=\frac{\sum_{i=1}^{n}L_i}{\sum_{i=1}^{n}A_i}=\sum_{i=1}^{n}\lambda_i\rho_i, 
+	\end{aligned}
+	\label{eq:sparent balance sheet}
+	\end{equation} 
+	 where $\rho_i=A_i/\sum_{i=1}^{n}A_i$ is the asset share of firm $i$ within the multinational. The second equality is reached by replacing the definition of leverage for a subsidiary in the first equality of equation \ref{eq:sparent balance sheet}. We assume that any adjustment in leverage is done by changes in debt positions rather than assets. 
+	\subsection{Costs associated with leverage}
+		 \label{subsec:costs}
+	We assume that the debt of any subsidiary firm is implicitly or explicitly guaranteed by the parent firm. Consequently, the expected cost of bankruptcy associated with higher leverage is contemplated at the multinational level. We assume the following quadratic expected bankruptcy cost function ($C_m$):
+	 
+	\begin{equation}
+	\begin{aligned}
+	C_m=\frac{\gamma}{2}\lambda_m^2\bigg(\sum_{i}^{n}A_i\bigg).
+	\end{aligned}
+	\label{eq:cost bankruptcy}
+	\end{equation}
 	
-	Where $i$ denotes firm, $m$ multinational group (indexed by parent), $c$ country and $t$ year. The dependent variable is the log change of a capital structure measure such as leverage, adjusted leverage, long term or short term debt. $MPI$ is a macroprudential measure such as reserve requirement, LTV-ratio. $\rho_{i,t}$ is the asset share within multinational of firm $i$ at time $t$. $f_{m}$, $f_{t}$ and $f_{c}$ are respectively multinational, time and country fixed effects. $X$ is a set of controls variables.
+	(IMPROVE) We also consider costs of deviating from the optimal leverage at the subsidiary level. Those costs are related to incentives to local managers and assumed to be quadratic in the deviation of $\lambda_i$ from the optimal level $\lambda^*$ as follows:  
 	
-	We are interest both in $\beta_0$ and $\beta_1$, respectively, the domestic and international effect of prudential policies on firm's capital structure choice. By our hypothesis and the way we construct the debt shifting variable we expect both $\beta_0$ and $\beta_1$ to be negative. Given prior evidence, we control by both corporate tax level at the host country as by tax incentive to shift debt \footnote{our measure of corporate tax is only a proxy of what \cite{huizinga2008capital} have construct, but the results remain in line}. We also control for several other firm and country level characteristics as described in Section \ref{sec:data}.
+	\begin{equation}
+	\begin{aligned}
+	C_i=\frac{\mu}{2}(\lambda_i-\lambda_i^*)^2A_i-\frac{\mu}{2}(\lambda_i^*)^2A_i, \quad i=1,...,n.
+	\end{aligned}
+	\label{eq:agency cost}
+	\end{equation}
+	We extend \cite{huizinga2008capital} model by allowing the cost of debt to vary across subsidiaries. Macroprudential policies have the potential to alter credit market condition which in turn may affect the cost of debt at subsidiary level. We assume a competitive banking sector. The costs for a bank when lending to a firm are the opportunity cost to not lend at the discount rate in the economy ($\delta$) and costs that arise from macroprudential policies. The latter costs are assumed to be proportional to the prudential policies and also the discount rate. The cost of debt can be written as:
+	  \begin{equation}
+	  \begin{aligned}
+	  r_i=\delta(1+\phi\Pi_i)
+	  \end{aligned}
+	  \label{eq:cost of debt}
+	  \end{equation}
+	where $\phi$ is a parameter vector specific to the set of macroprudential instruments $\Pi_i$ that are implemented in the country of firm $i$. Note that the elements of vector $\phi$ could be positive as negative parameters. Substitution effects can be present as some tools are target at non-firm related products.
+		\subsection{Multinational's value}
+			 \label{subsec:value}
+	Let $R_i$ be the gross revenue of firm $i$. For simplicity, we assume a positive and constant cash flow for each firm. Therefore, considering the debt taken, the tax payments, the perpetuity of the cash flow, the agency costs associated with leverage, and the fact that interest payments are deductible to taxable income, firm $i$'s value is equal to
+	 \begin{equation}
+	\begin{aligned}
+	V_i^L=L_i+\frac{(R_i-r_iL_i)}{\delta}(1-\tau_{i})-C_i,
+	\end{aligned}
+	\label{eq:value 1}
+	\end{equation}	
+	 where $\tau_{i}$ is the effective tax rate payed by firm $i$. Replacing the cost of debt equation \ref{eq:cost of debt} on the value function \label{eq:value 2} and rearranging terms:
+	  \begin{equation}
+	 \begin{aligned}
+	 V_i^L=V_i^U+\tau_{i}L_i-\phi\Pi_iL_i+\tau_{i}\phi\Pi_iL_i-C_i,
+	 \end{aligned}
+	 \label{eq:value 2}
+	 \end{equation}	
+	 where $V_i^U=R_i(1-\tau_{i})/\delta$ is the value of the firm if completely unleveraged. The second term of the right hand side is the usual debt tax shield. The third term is the effect of macroprudential policies. For an instrument that increase the cost of debt, the value of the firm decreases when the instrument is tightened. The fourth term is an interaction term between the level of corporate tax and macroprudential policies. Therefore, according to this expression, the magnitude of the effect of both tax and prudential policy on the value of the firm depend on each other's level. 
+	 \subsection{Optimal leverage}
+	 			 \label{subsec:opt_leverage}
+	The multinational firm's objective is to maximize its value by choosing each establishment (subsidiaries and parent firm) debt level taking into account the costs and benefits associated with leverage. The problem can be stated as follows: 
 	
+	 \begin{equation}
+	\begin{aligned}
+	\max_{L_i}V_L=V_u+\sum_{i}^{n}\tau_iL_i-C_m-\sum_{i}^{n}C_i,
+	\end{aligned}
+	\label{eq:4}
+	\end{equation}
+	where $V_L$, and $V_u$ are the multinational firm's values when leveraged and completely unleveraged, respectively. The second term of the right hand side are the gains from interest rate deduction on taxable income while the remaining terms are the costs associated to higher leverage. The first order conditions of the problem \ref{eq:4} are:
+	\begin{equation}
+	\begin{aligned}
+	\tau_i-\gamma\lambda_m-\mu(\lambda_i-\lambda^*-\phi\Pi_i)=0, \quad i=1,...,n.
+	\end{aligned}
+		\label{eq:5}
+	\end{equation}
+	Subtracting the first order condition for subsidiary $j$ from the first order condition for subsidiary $i$ we find
+	\begin{equation}
+	\begin{aligned}
+	\lambda_i-\lambda_j=\frac{1}{\mu}(\tau_i-\tau_j)+\phi(\Pi_i-\Pi_j).
+	\end{aligned}
+	\label{eq:6}
+	\end{equation}
+	Using equations \ref{eq:5}, \ref{eq:6} and the definition of $\lambda_m$, the optimal leverage level for subsidiary $i$ can be written as  
+	\begin{equation}
+	\begin{aligned}
+	\lambda_i=&\frac{\mu\lambda^*}{(\mu+\gamma)}+\frac{\tau_i}{(\mu+\gamma)}+\frac{\phi\Pi_i}{(\mu+\gamma)}\\
+	&+\frac{\gamma}{\mu(\mu+\gamma)}\sum_{j=1}^{n}(\tau_i-\tau_j)\rho_j+\frac{\phi\gamma}{(\mu+\gamma)}\sum_{j=1}^{n}(\Pi_i-\Pi_j)\rho_j
+	\end{aligned}
+	\label{eq:7}
+	\end{equation}
+	Equation \ref{eq:7} provides the theoretical foundation for our benchmark regression: 
+	\begin{equation}
+	\begin{aligned}
+	\lambda_{i,t}=\alpha_0\tau_{i,t}+\beta_0\Pi_i+\alpha_1\sum_{j=1}^{n}(\tau_{i,t}-\tau_{j,t})\rho_{j,t}+\beta_1\sum_{j=1}^{n}(\Pi_{i,t}-\Pi_{j,t})\rho_j
+	+\Gamma X_{t}+f_{i}+f_{t}+\varepsilon_{i,t},
+	\label{eq:8}
+	\end{aligned}
+	\end{equation}
+	
+	where $i$ denotes firm (either subsidiary or parent) and $t$ year. The dependent variable is a financial leverage measure of the firm. $\Pi_{i,t}$ is the index for a macro-prudential instrument used in host country. $\rho_{i,t}$ is the asset share of firm $i$ within the multinational group. $f_{i}$, $f_{t}$ and $f_{s}$ are respectively the firm, time and sector fixed effects. $X_t$ is a set of firm- and country-level control variables. We also include the corporate tax level at the host country and the tax incentive to shift debt. We are interested in both $\beta_0$ and $\beta_1$, respectively, the domestic and international effect of prudential policies on firm's capital structure choice.
+	
+	We also perform a second model specification to test the domestic effect. The assumption that, at least, part of the capital structure decision is taken at the multinational level allow us to control for unobservables characteristics at the multinational firm level at each year as follows   
+	
+	\begin{equation}
+	\begin{aligned}
+	\lambda_{im,t}=\alpha_0\tau_{i,t}+\beta_0\Pi_i
+	+\Gamma X_{t}+f_{m,t}+f_{s}+\varepsilon_{i,t}.
+	\label{eq:9}
+	\end{aligned}
+	\end{equation}
+	
+	The model includes multinational*year ($f_{m,t}$) and industry ($f_{s}$) fixed effect, besides the corporate tax, the macro-prudential indexes and the firm- and country-level controls. The drawbacks of this specification are that we have to drop the international effect variables and the sample is restricted to firms that belong to a multinational group. 
+	
+	Lastly, we allow for the possibility that the capital structure decision is not static and adjustments towards the optimal level might take time. Hence,  we perform two partial adjustment models based on \cite*{flannery2006partial}. The first model includes the domestic and international effects of tax and macro-prudential policies, firm- and country-level controls, firm and time fixed effects and one year lag of the dependent variable
+	
+	\begin{equation}
+	\begin{aligned}
+	\lambda_{i,t}=&(\Lambda\alpha_0)\tau_{i,t}+(\Lambda\beta_0)\Pi_i+(\Lambda\alpha_1)\sum_{j=1}^{n}(\tau_{i,t}-\tau_{j,t})\rho_{j,t}+(\Lambda\beta_1)\sum_{j=1}^{n}(\Pi_{i,t}-\Pi_{j,t})\rho_j\\
+	&+(\Lambda\Gamma)X_{t}+(1-\Lambda)\lambda_{i,t-1}+f_i+f_t+\varepsilon_{i,t},
+	\label{eq:10}
+	\end{aligned}
+	\end{equation}
+	Where $\Lambda$ is the speed of adjustment towards the optimal leverage. In order to account for the endogeneity that arises when we control for firm fixed effects, equation \ref{eq:10} is estimated following \cite*{arellano1991some}. We also perform an partial adjustment model based on equation \ref{eq:9} as follows
+	\begin{equation}
+	\begin{aligned}
+	\lambda_{im,t}=(\Lambda\alpha_0)\tau_{i,t}+(\Lambda\beta_0)\Pi_i
+	+(\Lambda\Gamma) X_{t}+(1-\Lambda)\lambda_{i,t-1}+f_{m,t}+f_{s}+\varepsilon_{i,t}.
+	\label{eq:11}
+	\end{aligned}
+	\end{equation}
+	 Model \ref{eq:11} has the advantage that it can be estimated by OLS since endogeneity is not a issue when controlling for the multinational*year fixed effects. 
 	\section{Data} \label{sec:data}
 	\subsection{Macroprudential policy} \label{subsec:MPI}
 	
-	We rely on the efforts of \cite*{cerutti2016changes} on our measure of macroprudential policy \footnote{ In turn, their work build on \cite*{cerutti2015use}}, which was also developed within the IBRN macroprudential study initiative. The measures constructed consists of indexes of 9 instruments: general capital requirements (GCR), real estate loans capital buffer (RECB), consumer loans capital buffer (CCB), concentration limits (CL), interbank exposure (IE), loan-to-value ratio limits (LTV), reserve requeriments on foreign currency (RRFC) and reserve requirements on local currency (RRLC). The time unit is quarterly and the database span from the first quarter of 2001 to the last quarter of 2014. Sixty four countries are included. Each quarter data point is an positive, negative or zero entry meaning respectively, tightening, loosening or no change in the instrument. The indexes not only track the use but also the intensity of each change. A cumulative measure of each instrument is also available.    
+	We rely on the efforts of \cite*{cerutti2017changes} for our measure of macroprudential policy \footnote{In turn, their work builds on \cite*{cerutti2015use}}, which was also developed within the IBRN macroprudential study initiative. The measures consist of indexes for nine instruments: reserve requirements on local currency, reserve requeriments on foreign currency, loan-to-value ratio limits, concentration limits, interbank exposure, general capital requirements, real estate loans capital buffer, consumer loans capital buffer and other loans capital buffers. The time unit is a quarter and the database spans from the first quarter of 2001 to the last quarter of 2014. Sixty-four countries are included. Each quarter data point is a positive, negative or zero entry meaning tightening, loosening or no change in the instrument, respectively. These indexes not only track the use but also the intensity of each change. A cumulative measure of each instrument is also available. Since we are interest at the effect of macro-prudential policy on the leverage level, the cumulative indexes are the appropriate choice to our analysis. 
 	
-	Due to firm level data availability we only use XX countries from 2007 to 2014 and average the indexes per year. Our main focus in this paper is to study the effects of reserve requirements and loan-to-value ratios as those measures have been shown in the literature to be used in counter-cyclically. The other prudential tools are little or less correlated to business cycles measures suggesting a structural use, as noted by \cite{cerutti2016changes}. 
-	
-	Table \ref{tab:1} shows the mean and standard deviation of prudential indexes by country. On one hand, loan-to-value ratios are used only by 36 countries out of a total of 64 in our sample. On the other hand, LTV ratios are more intensively used, as seen by a higher standard deviation relative to the reserve requirement indexes. During the sample period, LTV ratios have on average been tightened, exceptions being, Chile, Iceland, Luxembourg and Spain. Israel appears the country that most changed LTV ratios during the sample period with 0.58 standard deviation while Colombia and Portugal had no change in their policy. Reserve requirements are used in all countries as this instrument is also part of the monetary policy tool kit. Reserve requirements on foreign currency on average were slightly tightened but most countries did not changed their policy stance with this tool between 2001 and 2014. Changes in local currency reserve requirements were more used both extensive and intensively. Also, this was the only instrument to have been loosened in the sample period on average. Importantly, the indexes for both reserve requirement measures are the same for all members of the euro area, as those tools are set by the European Central Bank (ECB). Moreover, neither the US, the UK or Japan have policies measures for LTV ratio limits or changed their stance with respect to reserve requirements.   
-	
-	Summary statistics by year are shown in table \ref{tab:2}
-	    
-	
-    
-    
+	Due to firm level data being at a yearly basis, we create 4-quarter moving averages of each macro-prudential index and match these data points according to the balance sheet closing date for each firm and year. As an example, take a firm that has reported its balance sheet on May 2012. The corresponding macro-prudential index for this firm is an average between the third and fourth quarters of 2011 and the first and second quarters of 2012. 
+	  
 	\subsection{Firm level} \label{subsec:firm}
-	Firm level data and ownership relationships are taken from the Orbis database compiled by Bureau Van Dijk.	The dataset consist of worldwide accounting and ownership information on both private and public owned companies. Ownership is considered if one firm owns at least 50\% of another at a given year. We call the second a subsidiary firm. If a company owns one or more firms but itself is owned by another, this firm is then called an intermediate and for all purposes is also considerer as a subsidiary. A parent firm is the ultimate owner of a group, that is, a firm that owns one or more companies but none of its shareholders have more than 50\% of its shares.
+	Firm level data and ownership relationships are taken from the Orbis database compiled by Bureau Van Dijk.	The dataset consist of worldwide accounting and ownership information on both private and public owned companies. Ownership is considered if one firm owns at least 50\% of another in a given year. We call the second a subsidiary firm. If a company owns one or more firms but is itself owned by another, this firm is called an intermediate and for all purposes is also considered as a subsidiary. A parent firm is the ultimate owner of a group, that is, a firm that owns one or more companies but none of its shareholders have more than 50\% of its shares.
 	
-	Given our interest in cross-border effects, we keep only multinationals groups, that is, ownership networks that have firms in at least two countries. Banks, insurance and financial related companies are also excluded since their capital structure decision differs from other industries \footnote{Check IBRN studies on the banking sector}. Only multinatinals that we have information of the parent firm are kept. Table \ref{tab:number} provides information on the amount of parent and subsidiary firms per host and home country in our sample. The total number of parent and subsidiary firms are 64,810 and 305,367 respectively. There are 51,255 subsidiaries which ownership has change during the period analyzed at least once, as shown in table \ref{tab:movers}. 
-	%Our sample goes from 2007 to 2015, yielding XXX parent-year and XXX subsidiary-year observations. DESCRIBE COUNTRY SPECIFICS.  
+	Given our interest in cross-border effects, we keep only multinationals groups, that is, ownership networks that have firms in at least two countries. Banks, insurance and financial related companies\footnote{Check IBRN studies on the banking sector} and firms in the utility sector\footnote{NACE code} are also excluded since their capital structure decision is constrained by regulation.
 	
-	Statistics on firm level data is summarized in table 4. First, leverage is defined as the ratio of total non-equity liabilities to total assets. Adjusted financial leverage is a similar measure but subtracting cash and equivalent from both numerator and denominator. Our variable of interest is the macroprudential incentive to shift debt described in section \ref{sec:strategy}. Among the control variables tangibility is construct as the ratio of fixed assets to total assets. As an alternative measure, adjusted tangibility is the ratio of tangible fixed assets to total assets. We use the logarithm of sales to proxy for firm size. Profitability is the ratio of earning before interest, tax, depreciation and amortization (EBITDA) to total assets. 
+	The benchmark sample consists of around 2.4 million firms from 2007 to 2015 resulting in approximately 8.8 million firm-year observations. Table \ref{tab:number} provides information on the amount of parent and subsidiary firms per host and home country in our sample. The total number of parent and subsidiary firms are 64,810 and 305,367, respectively. There are 51,255 subsidiaries for which ownership has changed during the period analyzed at least once, as shown in table \ref{tab:movers}.
+	
+	Statistics on firm level data are summarized in table 4. Financial leverage is defined as the ratio of total non-equity liabilities to total assets. Adjusted financial leverage is a similar measure but subtracting cash and equivalent from both the numerator and the denominator. Our variable of interest is the macro-prudential incentive to shift debt described in section \ref{sec:strategy}. Among the control variables tangibility is construct as the ratio of fixed assets to total assets. While tangible assets can be used as collateral, implying a positive relationship between tangibility and leverage, the depreciation of fixed assets reduces taxable income. Hence, tangible assets can also be substitute to debt as tax shield. We use the logarithm of fixed assets to proxy for firm size, which is expected to be positively associated to leverage. Profitability is the ratio of earning before interest, tax, depreciation and amortization (EBITDA) to total assets. Higher profits may facilitate access to credit but firms with larger cash flow may also opt to finance themselves with retained earnings. Thus, the relationship between profitability and leverage is ambiguous. 
+	%As an alternative measure, adjusted tangibility is the ratio of tangible fixed assets to total assets. 
 	%%Growth opportunities is BLA BLA
-	
-	Table 5 provides statistics at the country level. We control for several institutional measures from the \textit{International Country Risk Guide}, such as political, economic, financial exchange rate risk and law and order. 
-	%Importantly, given that our multinationals can operate at countries with different currencies, we also control for exchange risks to account for possible under allocation of group's resource due to fears of host country currency volatility. As an alternative measure we control for the standard deviation of host country currency to the north American dollar during the period as a proxy for currency risk. 
-	We also include several macro controls from the World Development Indicators database of the World bank. To account for the effects of business cycle on leverage we add GDP growth as the annual change of GDP. 
-	%GDP per capita is included in some specifications to control for BLA BLA. 
-	Inflation is the annual log change in the consumer price index.     
-	
-	
-	
+	\subsection{Country level} \label{subsec:country}
+	Table 5 provides statistics at the country level. We control for political risk using the index from the \textit{International Country Risk Guide}. Higher scores mean lower political risk. \cite*{kesternich2010afraid} find that political risk can both increase or decrease firm leverage. A more unstable political environment may discourage banks to provide loans but also, parent firms might want to reduce their value at risk by leveraging their subsidiaries operations. We also include two macro controls from the \textit{World Development Indicators} database from the World bank. Private credit to GDP is the share of credit to the private sector to GDP and is a proxy to financial development. We expect financial development to affect leverage positively. Inflation is the annual log change in the consumer price index.     	
 	     
 	\section{Results} \label{sec:result}
-
-	\section{Discussions} \label{sec:discussion}
+	 Tables \ref{tab:reg1} and \ref{tab:reg2} present the model \ref{eq:8} estimated for financial leverage. All the regressions in the tables include firm and year fixed effects. The results suggest that the domestic and international components of macro-prudential policies affect financial leverage on opposite directions. the reserve requirements on local and foreign currency, the interbank exposure limit and all the capital buffers have a positive domestic effect while the incentive to shift debt is negative. To illustrate the impact of both effects, we consider a multinational firm that consists of the parent firm and one subsidiary with assets of equal size. A tightening on the reserve requirements on foreign currency in the country of the subsidiary, on the one hand, has a positive domestic effect on financial leverage of 0.5\%. On the other hand, there is an international spillover to the parent firm that reduces financial leverage by 0.02\% (the estimated coefficient from column (2), -0.004, times the  asset share of the parent firm, 0.5). The net effect of the tightening policy is 0.48\% for the subsidiary firm and 0.02\% for the parent firm. A remark on the magnitude of the coefficients estimated for the macro-prudential instruments is necessary. Although we know the direction in which a prudential policy has been changed, the degree of this change varies across countries and time. Therefore, the example shown above is intended to be an explanation of the effects and we focus on statistical significant and coefficient sign for the remaining results. 
+	 
+\begin{table}	
+	\caption{}       
+	\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/leverage_table1}}
+	\label{tab:reg1}
+\end{table}
+The estimated coefficients for the domestic and international effect of concentration limits and capital requirements are negative and positive, respectively. The domestic effect of LTV ratio limits is associated negatively to financial leverage while the incentive to shift debt is not statistically significant. Among the control variables, tangibility and profitability have consistently significant negative coefficients at 1\%. The substitution effect seems to dominate on average in our sample for both variables. Next, as expected, log of fixed assets and private credit to GDP have positive and statistically significant at 1\% estimated coefficients. Inflation enters the regression with positive sign. Finally, although tax rate obtain a positive and statistically significant at 1\% estimated parameters, the international spillover due to tax rate appears with the opposite sign from what we would expect. However, this result should be taken with a grain of salt as in all but two (models (4) and (6) of table \ref{tab:reg1} ) specifications the coefficients are statistically insignificant at 10\%.
+\begin{table}	
+	\caption{}
+	\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/leverage_table2}}
+	\label{tab:reg2}
+\end{table}
+	\subsection{Spillover from parent and other subsidiaries} \label{subsec:split_effect}
 	
+\begin{table}	
+	\caption{}
+	\scalebox{0.7}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/leverage_table3}}
+	\label{tab:reg3}
+\end{table}
+\begin{table}	
+	\caption{}
+	\scalebox{0.7}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/leverage_table4}}
+	\label{tab:reg4}
+\end{table}
+	\subsection{Effects on long- and short-term debt} \label{subsec:long_short}
+	When considering long-term debt to total asset as dependent variable, the biggest changes come from the control variables, as shown in tables \ref{tab:reg5} and \ref{tab:reg6}. Tangibility appears with a positive coefficient, suggesting that the effect of fixed assets as collateral dominates the substitution effect due to depreciation. Inflation is negatively associated to long-term debt. As \cite{huizinga2008capital} points out, in an inflationary environments the uncertainty about ex-post real interest rate may inhibit leverage on long-term liabilities. In all specifications, tax rate coefficients are significantly at 1\% and has a negative sign. Surprisingly, the tax incentive to shift debt is statistically significantly at 5\% and positive for nine out of 12 specifications.
+	
+	 
+\begin{table}	
+	\caption{}
+	\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/longterm_table5}}
+	\label{tab:reg5}
+\end{table}
+The results for the macro-prudential variables are almost unchanged. The exceptions are interbank exposure and concentration limits that have reversed their coefficients signs. 
+\begin{table}	
+	\caption{}
+	\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/longterm_table6}}
+	\label{tab:reg6}
+\end{table}
+Tables \ref{tab:reg7} and \ref{tab:reg8} reports the results for our benchmark model considering short-term debt to total assets as regressand. Tangibility regained the negative sign, suggesting that the substitution effect coming from the depreciation tax shield matters more when deciding to finance through short-term loans. Variables related to tax rate changed considerably. The international effect appears significant at 1\% at all regressions, while the evidence for the presence of a domestic effect is less robust.
+\begin{table}
+\caption{}
+\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/shortterm_table7}}
+\label{tab:reg7}
+\end{table}
+\begin{table}	
+\caption{}
+\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/shortterm_table8}}
+\label{tab:reg8}
+\end{table}
+
+\subsection{Domestic effect on multinationals} \label{subsec:multyearFE}
+\begin{table}	
+	\caption{}
+	\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/multyearFE_table9}}
+	\label{tab:9}
+\end{table}
+\begin{table}	
+	\caption{}
+	\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/multyearFE_table10}}
+	\label{tab:10}
+\end{table}
+	\subsection{Partial adjustment}
+	\label{subsec:partial}
+	\begin{table}	
+		\caption{}
+		\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/capital_adj_table1}}
+		\label{tab:11}
+	\end{table}
+
+\begin{table}	
+	\caption{}
+	\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/capital_adj_table2}}
+	\label{tab:12}
+\end{table}
+
+\begin{table}	
+	\caption{}
+	\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/capital_adj_multyearFE1}}
+	\label{tab:13}
+\end{table}
+
+\begin{table}	
+	\caption{}
+	\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/output/tables/regressions/capital_adj_multyearFE2}}
+	\label{tab:14}
+\end{table}
 	\section{Conclusion} \label{sec:conclusion}
 	
 	
@@ -149,34 +354,30 @@
 	
 	
 	
-	\clearpage
+%	\clearpage
 	
-	\onehalfspacing
+%	\onehalfspacing
 	
-	\section*{Tables} \label{sec:tab}
-	\addcontentsline{toc}{section}{Tables}
+%	\section*{Tables} \label{sec:tab}
+%	\addcontentsline{toc}{section}{Tables}
 	
-		\input{C:/Users/User/work/master_thesis/analysis/temp/summary_MPI}
+		%\input{C:/Users/User/work/master_thesis/analysis/temp/summary_MPI}
 	
-		\input{C:/Users/User/work/master_thesis/analysis/temp/summary_MPI_year}
+		%\input{C:/Users/User/work/master_thesis/analysis/temp/summary_MPI_year}
 		
-		\input{C:/Users/User/work/master_thesis/analysis/temp/Tex/number_firms_orbis}
+		%\input{C:/Users/User/work/master_thesis/analysis/temp/Tex/number_firms_orbis}
 		
-		\input{C:/Users/User/work/master_thesis/analysis/temp/Tex/summary_firm_orbis_clean}
+		%\input{C:/Users/User/work/master_thesis/analysis/temp/Tex/summary_firm_orbis_clean}
 		
-		\input{C:/Users/User/work/master_thesis/analysis/temp/Tex/summary_country_orbis}
+		%\input{C:/Users/User/work/master_thesis/analysis/temp/Tex/summary_country_orbis}
 	
-		\begin{table}
-			\centering
-			\caption{Number of firms that changed ownership}
-			\label{tab:movers}
-		\input{C:/Users/User/work/master_thesis/analysis/temp/Tex/movers}
-	\end{table}
-	\begin{table}	
-	\caption{Macroprudential policy effect on firm's financial leverage}
-	\label{tab:regression}
-	\scalebox{0.8}{\input{C:/Users/User/work/master_thesis/analysis/temp/Tex/regression_orbis_leverage}}
-\end{table}
+	%	\begin{table}
+	%		\centering
+	%		\caption{Number of firms that changed ownership}
+	%		\label{tab:movers}
+	%	%\input{C:/Users/User/work/master_thesis/analysis/temp/Tex/movers}
+	%\end{table}
+
 		
 	%\section*{Figures} \label{sec:fig}
 	%\addcontentsline{toc}{section}{Figures}
@@ -189,11 +390,11 @@
 	%\end{figure}
 	
 	
-	\clearpage
+%	\clearpage
 	
-	\section*{Appendix A.} 
-	\label{sec:appendixa}
-	\addcontentsline{toc}{section}{Appendix A}
-	\input{C:/Users/User/work/master_thesis/analysis/temp/variable_definition}
+%	\section*{Appendix A.} 
+%	\label{sec:appendixa}
+%	\addcontentsline{toc}{section}{Appendix A}
+	%\input{C:/Users/User/work/master_thesis/analysis/temp/variable_definition}
 
 \end{document} 
