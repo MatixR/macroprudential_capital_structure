@@ -41,11 +41,10 @@ do "\cleaning\code\orbis_to_dta"
 //====== Arguments ========
 //=========================
 cd "S:"
-global track_index "orbis"
+global track_index "orbis100_2"
 global sample_percent=100
-#delimit;
-global MPP_vars "tax_rate *_y";
-#delimit cr
+global MPP_vars "tax_rate *_y"
+
 //================================
 //====== Sample and Merge ========
 //================================
@@ -99,5 +98,5 @@ do "\cleaning\code\merging_PRS"
 
 #delimit;
 do "\cleaning\code\variables_creator"
-"$track_index" ;
+"$track_index" "$MPP_vars";
 #delimit cr

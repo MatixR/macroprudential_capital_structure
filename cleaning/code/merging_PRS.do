@@ -75,6 +75,23 @@ foreach a in economic_risk exchange_rate_risk financial_risk law_order political
 
 erase "\cleaning\temp\Control`a'.dta"
 }
+
+* Inverting indexes
+gen political_risk_i = 100-political_risk
+drop political_risk
+rename political_risk_i political_risk
+
+gen economic_risk_i = 50-economic_risk
+drop economic_risk
+rename economic_risk_i economic_risk
+
+gen financial_risk_i = 50-financial_risk
+drop financial_risk
+rename financial_risk_i financial_risk
+
+gen exchange_rate_risk_i = 10-exchange_rate_risk
+drop exchange_rate_risk
+rename exchange_rate_risk_i exchange_rate_risk
 //===========================================
 //===== Merge PRS Database to Amadeus  ======
 //===========================================

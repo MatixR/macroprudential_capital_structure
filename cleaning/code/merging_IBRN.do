@@ -1,7 +1,7 @@
 * Master Thesis Tilburg 2017
 * Author: Lucas Avezum 
 
-* This file merges IBRN MPI quarterly index and IMF policy interest rate datasets to Amadeus sample
+* This file merges IBRN MPI quarterly index and IMF policy interest rate datasets to Orbis sample
 set more off 
 
 //=================================
@@ -14,7 +14,10 @@ foreach var of varlist _all{
 * Destring variables
 destring `var', replace
 }
-
+* Replace missing to zeros
+foreach var of varlist sscb_res-rr_local{
+replace `var'=0 if missing(`var')
+}
 * Creating groups for moving average
 gen year_1q = year 
 bysort year: replace year_1q = year+1 if quarter > 1 
@@ -25,7 +28,7 @@ bysort year: replace year_3q = year+1 if quarter > 3
 
 order year year_1q year_2q year_3q
 sort ifscode year quarter
-foreach var of varlist sscb_res-cum_PruC2{
+foreach var of varlist sscb_res-rr_local{
 * Create year average of each index  
 bysort ifscode year_1q: egen `var'_1q = mean(`var')
 bysort ifscode year_2q: egen `var'_2q = mean(`var')
@@ -35,11 +38,23 @@ replace `var'_y = `var'_1q if quarter == 1
 replace `var'_y = `var'_2q if quarter == 2
 replace `var'_y = `var'_3q if quarter == 3
 }
-
+* Create index = 100 at 2007
+drop if year < 2007
+sort quarter ifscode year 
+foreach var of varlist *_y{
+replace `var'=0 if year == 2007
+by quarter ifscode (year): gen c_`var'=sum(`var')
+}
+* "Dummy" for tightening and loosening
+foreach var of varlist *_y{
+gen t_`var' = `var' if `var'>0
+replace t_`var' = 0 if missing(t_`var')
+gen l_`var' = `var' if `var'<0
+replace l_`var' = 0 if missing(l_`var')
+}
 * Keep only variables of interest
-keep country biscode ifscode year cum_*_y quarter
-drop *PruC*
-
+keep country biscode ifscode year *_y quarter
+drop ?_c_*
 preserve
 
 //==============================================
@@ -100,17 +115,13 @@ rename interest_rate_y interest_rate
 drop  _merge
 replace country = upper(country)
 
-//=======================================
-//===== Create lagged variables =========
-//=======================================
+//=====================================================================
+//===== Create lagged variables and replace missing for zeros =========
+//=====================================================================
 sort ifscode year quarter
-foreach var of varlist cum_*{
-bysort ifscode (year quarter): gen l1_`var' = `var'[_n-1] 
-bysort ifscode (year quarter): gen l2_`var' = `var'[_n-2] 
-bysort ifscode (year quarter): gen l3_`var' = `var'[_n-3] 
+foreach var of varlist c_*{
 bysort ifscode (year quarter): gen l4_`var' = `var'[_n-4] 
 }
-
 save "\cleaning\temp\IBRN.dta", replace
 
 
