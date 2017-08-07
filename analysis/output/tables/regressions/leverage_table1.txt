@@ -1,47 +1,51 @@
-Macroprudential policy effect on firm's financial leverage							
-		(1)	(2)	(3)	(4)	(5)	(6)
-VARIABLES	LABELS						
-							
-fixed_total_w	Tangibility	-0.061***	-0.062***	-0.061***	-0.060***	-0.060***	-0.062***
-		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
-log_fixedasset_w	Log of fixed assets	0.023***	0.023***	0.023***	0.023***	0.023***	0.023***
-		(0.000)	(0.000)	(0.000)	(0.000)	(0.000)	(0.000)
-profitability_w	Profitability	-0.142***	-0.143***	-0.142***	-0.142***	-0.142***	-0.143***
-		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
-inflation	Inflation	0.220***	0.210***	0.225***	0.245***	0.244***	0.208***
-		(0.006)	(0.006)	(0.006)	(0.006)	(0.006)	(0.006)
-political_risk	Political Risk	-0.000***	0.000	0.001***	-0.000***	-0.000***	0.000***
-		(0.000)	(0.000)	(0.000)	(0.000)	(0.000)	(0.000)
-private_credit_GDP	Private credit to GDP	0.026***	0.030***	0.047***	0.028***	0.027***	0.042***
-		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
-tax_rate	Tax rate	0.042***	0.035***	0.050***	0.037***	0.036***	0.051***
-		(0.002)	(0.002)	(0.002)	(0.002)	(0.002)	(0.002)
-tax_rate_ds	Tax rate spillover	-0.004	-0.005	-0.004	-0.008*	-0.004	-0.011***
-		(0.004)	(0.004)	(0.004)	(0.004)	(0.004)	(0.004)
-cum_rr_local_y	Reserve req. on local currency	0.004***					0.000
-		(0.000)					(0.000)
-cum_rr_local_y_ds	Reserve req. on local currency spillover	-0.002***					-0.001**
-		(0.000)					(0.000)
-cum_rr_foreign_y	Reserve req. on foreign currency		0.005***				0.005***
-			(0.000)				(0.000)
-cum_rr_foreign_y_ds	Reserve req. on foreign currency spillover		-0.004***				-0.003***
-			(0.001)				(0.001)
-cum_ltv_cap_y	LTV ratio limits			-0.009***			-0.005***
-				(0.000)			(0.000)
-cum_ltv_cap_y_ds	LTV ratio limits spillover			0.000			0.000
-				(0.001)			(0.001)
-cum_concrat_y	Concentration limit				-0.001**		-0.002***
-					(0.000)		(0.000)
-cum_concrat_y_ds	Concentration limit spillover				0.002***		0.003***
-					(0.001)		(0.001)
-cum_ibex_y	Interbank exposure limit					0.000	0.003***
-						(0.000)	(0.000)
-cum_ibex_y_ds	Interbank exposure limit spillover					-0.000	-0.000
-						(0.001)	(0.001)
-							
-Observations		8,817,102	8,817,102	8,817,102	8,817,102	8,817,102	8,817,102
-R-squared		0.069	0.069	0.069	0.068	0.068	0.069
-Number of firm_id		2,406,876	2,406,876	2,406,876	2,406,876	2,406,876	2,406,876
-Subsidiary and year fixed effects		YES	YES	YES	YES	YES	YES
-Robust standard errors in parentheses							
-*** p<0.01, ** p<0.05, * p<0.1							
+Effect of macroprudential policies on firm's financial leverage						
+		(1)	(2)	(3)	(4)	(5)
+VARIABLES	LABELS					
+						
+c_rr_local_y	Reserve req. on local currency	0.000	0.104***	0.097***	-0.026	
+		(0.006)	(0.020)	(0.023)	(0.122)	
+c_rr_foreign_y	Reserve req. on foreign currency	-0.017***	0.406***	0.330***	-0.427	
+		(0.003)	(0.059)	(0.067)	(0.575)	
+c_ltv_cap_y	LTV ratio limits	-0.066***	0.056	0.050	-0.455***	
+		(0.004)	(0.041)	(0.052)	(0.163)	
+c_rr_local_y_ds	Reserve req. on local currency spillover		-0.056***	-0.050***		-0.063***
+			(0.014)	(0.018)		(0.018)
+c_rr_foreign_y_ds	Reserve req. on foreign currency spillover		-0.018	-0.029		-0.039**
+			(0.017)	(0.018)		(0.019)
+c_ltv_cap_y_ds	LTV ratio limits spillover		0.002	0.015		0.010
+			(0.010)	(0.014)		(0.015)
+int_c_rr_local_y	Reserve req. on local currency*tax		-0.099***	-0.090***	-0.027	
+			(0.021)	(0.024)	(0.125)	
+int_c_rr_foreign_y	Reserve req. on foreign currency*tax		-0.442***	-0.363***	0.438	
+			(0.060)	(0.068)	(0.599)	
+int_c_ltv_cap_y	LTV ratio limits*tax		-0.117***	-0.112**	0.489***	
+			(0.043)	(0.054)	(0.173)	
+tax_rate	Tax rate	0.055***	0.006	0.009	0.200***	
+		(0.006)	(0.012)	(0.015)	(0.052)	
+tax_rate_ds	Tax rate spillover	0.001	-0.008	-0.017		-0.003
+		(0.018)	(0.018)	(0.032)		(0.032)
+fixed_total_w	Tangibility	-0.004***	-0.004***	-0.005***	-0.012***	-0.006***
+		(0.001)	(0.001)	(0.001)	(0.002)	(0.001)
+log_fixedasset_w	Log of fixed assets	0.519***	0.516***	0.672***	0.957***	0.679***
+		(0.014)	(0.014)	(0.021)	(0.047)	(0.021)
+profitability_w	Profitability	-0.004***	-0.004***	-0.004***	-0.004***	-0.004***
+		(0.000)	(0.000)	(0.000)	(0.001)	(0.000)
+inflation	Inflation	-0.077*	-0.161***	-0.114**	0.656***	
+		(0.041)	(0.042)	(0.048)	(0.225)	
+political_risk	Political Risk	0.091***	0.073***	0.076***	0.033	
+		(0.015)	(0.014)	(0.017)	(0.079)	
+private_credit_GDP	Private credit to GDP	0.044***	0.032***	0.028***	0.078***	
+		(0.008)	(0.008)	(0.009)	(0.028)	
+						
+Observations		2,964,227	2,964,227	2,914,664	1,003,592	2,914,752
+R-squared		0.75	0.75	0.55	0.31	0.55
+Number of firms		559,560	559,560	564,068	213,623	564,085
+Firm fixed effects		Yes	Yes	No	No	No
+Year fixed effects		Yes	Yes	Yes	No	No
+Multinational fixed effects		No	No	Yes	No	Yes
+Multinational*year fixed effects		No	No	No	Yes	No
+Country fixed effects		No	No	Yes	No	No
+Country*year fixed effects		No	No	No	No	Yes
+Industry fixed effects		No	No	Yes	Yes	Yes
+Robust standard errors in parentheses						
+*** p<0.01, ** p<0.05, * p<0.1						

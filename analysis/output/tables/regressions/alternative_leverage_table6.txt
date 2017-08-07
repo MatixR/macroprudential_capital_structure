@@ -1,0 +1,28 @@
+Spillover of macroprudential policies on firm's financial leverage: alternative control variables		
+		(1)
+		Aggregate
+VARIABLES	LABELS	profitability
+		
+c_cap_req_y_ds	Capital requirement spillover	0.026
+		(0.472)
+c_ltv_cap_y_ds	LTV ratio limits spillover	-0.221
+		(0.404)
+c_rr_local_y_ds	Reserve req. on local currency spillover	-0.095
+		(0.440)
+tax_rate_ds	Tax rate spillover	0.434
+		(1.105)
+fixed_total_w	Tangibility	-0.026*
+		(0.014)
+log_fixedasset_w	Log of fixed assets	1.246***
+		(0.452)
+agg_profitability_w	Aggregate profitability	-0.007
+		(0.008)
+		
+Observations		5,446
+Number of firms		4,645
+Multinational fixed effects		Yes
+Country*year fixed effects		Yes
+Industry fixed effects		Yes
+R-squared		0.51
+Robust standard errors in parentheses		
+*** p<0.01, ** p<0.05, * p<0.1		

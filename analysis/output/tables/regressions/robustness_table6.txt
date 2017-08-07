@@ -1,0 +1,59 @@
+Effect of bank capital related policies on firm's financial leverage: alternative control variables							
+		(1)	(2)	(3)	(4)	(5)	(6)
+		Alternative		Aggregate			
+VARIABLES	LABELS	tangibility	Log of sales	profitability	Opportunity	Volatility of profits	GDP growth rate
+							
+c_cap_req_y	Capital requirement	-0.093	-0.057	-0.083	-0.077	-0.094	-0.096
+		(0.070)	(0.065)	(0.067)	(0.072)	(0.070)	(0.070)
+c_sscb_cons_y	Capital buffer - consumers	0.710***	0.671**	0.748***	0.757***	0.722***	0.728***
+		(0.260)	(0.267)	(0.263)	(0.265)	(0.260)	(0.261)
+c_sscb_oth_y	Capital buffer - others	-0.479	-0.622	-0.620*	-0.587	-0.501	-0.512
+		(0.397)	(0.405)	(0.354)	(0.403)	(0.395)	(0.399)
+c_sscb_res_y	Capital buffer - real estate	-0.010	0.014	-0.021	-0.011	-0.009	-0.005
+		(0.089)	(0.087)	(0.109)	(0.092)	(0.089)	(0.089)
+c_cap_req_y_ds	Capital requirement spillover	0.077	0.104	-0.011	-0.004	0.081	0.082
+		(0.137)	(0.135)	(0.147)	(0.147)	(0.137)	(0.137)
+c_sscb_cons_y_ds	Capital buffer - consumers spillover	0.201	0.284	-0.121	0.144	0.236	0.243
+		(0.560)	(0.611)	(0.420)	(0.600)	(0.556)	(0.555)
+c_sscb_oth_y_ds	Capital buffer - others spillover	0.705	0.688	0.244	0.747	0.653	0.639
+		(0.585)	(0.628)	(0.479)	(0.625)	(0.577)	(0.576)
+c_sscb_res_y_ds	Capital buffer - real estate spillover	-0.118	-0.110	0.075	-0.163	-0.104	-0.110
+		(0.155)	(0.173)	(0.196)	(0.179)	(0.153)	(0.153)
+tax_rate	Tax rate	-0.043	-0.152**	-0.065	-0.044	-0.048	-0.042
+		(0.082)	(0.078)	(0.070)	(0.086)	(0.081)	(0.082)
+tax_rate_ds	Tax rate spillover	-0.093	0.182	0.008	-0.080	-0.107	-0.099
+		(0.222)	(0.185)	(0.214)	(0.232)	(0.221)	(0.221)
+fixed_total_w	Tangibility		0.010***	-0.004	-0.007	-0.006	-0.005
+			(0.003)	(0.003)	(0.005)	(0.005)	(0.005)
+log_fixedasset_w	Log of fixed assets	0.575***		0.656***	0.724***	0.678***	0.657***
+		(0.083)		(0.086)	(0.134)	(0.125)	(0.125)
+profitability_w	Profitability	-0.005**	-0.009***		-0.006**	-0.005**	-0.005**
+		(0.002)	(0.002)		(0.003)	(0.002)	(0.002)
+inflation	Inflation	0.414	0.215	-0.093	0.330	0.405	0.366
+		(0.382)	(0.400)	(0.317)	(0.406)	(0.382)	(0.386)
+political_risk	Political Risk	-0.050	-0.234*	0.150	-0.005	-0.054	-0.053
+		(0.139)	(0.133)	(0.113)	(0.151)	(0.139)	(0.139)
+private_credit_GDP	Private credit to GDP	-0.127*	-0.127*	-0.067	-0.128*	-0.130*	-0.140**
+		(0.069)	(0.071)	(0.054)	(0.078)	(0.069)	(0.071)
+tangible_total_w	Adjusted tangibility	-0.041					
+		(0.035)					
+log_sales_w	Log of sales		1.570***				
+			(0.175)				
+agg_profitability_w	Aggregate profitability			-0.600***			
+				(0.124)			
+opportunity_w	Opportunity				-0.002		
+					(0.048)		
+risk_w	Volatility of profits					0.133***	
+						(0.040)	
+gdp_growth_rate	GDP growth rate						-0.089
+							(0.236)
+							
+Observations		149,399	120,335	353,883	131,507	149,465	149,465
+R-squared		0.02	0.03	0.02	0.02	0.02	0.02
+Number of multinationals		115,966	94,382	284,521	102,189	116,005	116,005
+Year fixed effects		Yes	Yes	Yes	Yes	Yes	Yes
+Multinational fixed effects		Yes	Yes	Yes	Yes	Yes	Yes
+Country fixed effects		Yes	Yes	Yes	Yes	Yes	Yes
+Industry fixed effects		Yes	Yes	Yes	Yes	Yes	Yes
+Robust standard errors in parentheses							
+*** p<0.01, ** p<0.05, * p<0.1							

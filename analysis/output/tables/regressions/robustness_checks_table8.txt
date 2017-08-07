@@ -1,0 +1,51 @@
+Effect of macroprudential policies on firm's financial leverage: robustness checks						
+		(1)	(2)	(3)	(4)	(5)
+		Benchmark	No negative	Small and medium	Balanced	Shifting to parent
+VARIABLES	LABELS	model	profits	firms	panel	versus other countries
+						
+c_cap_req_y	Capital requirement	-0.385**	-0.312*	-1.244***	-0.244	0.033
+		(0.159)	(0.167)	(0.375)	(0.171)	(0.265)
+c_ltv_cap_y	LTV ratio limits	-0.469***	-0.511***	-0.392	-0.289	-0.524
+		(0.165)	(0.171)	(0.349)	(0.182)	(0.358)
+c_rr_local_y	Reserve req. on local currency	-0.084	-0.086	0.314	0.033	0.060
+		(0.129)	(0.130)	(0.288)	(0.134)	(0.386)
+int_c_cap_req_y	Capital requirement*tax	0.396**	0.308*	1.279***	0.242	0.267
+		(0.165)	(0.174)	(0.384)	(0.177)	(0.239)
+int_c_ltv_cap_y	LTV ratio limits*tax	0.505***	0.566***	0.369	0.314	0.533**
+		(0.176)	(0.183)	(0.364)	(0.193)	(0.251)
+int_c_rr_local_y	Reserve req. on local currency*tax	0.026	0.036	-0.432	-0.059	-0.154
+		(0.131)	(0.133)	(0.295)	(0.136)	(0.177)
+tax_rate	Tax rate	0.126**	0.150***	-0.084	0.102	0.169**
+		(0.054)	(0.056)	(0.111)	(0.062)	(0.076)
+fixed_total_w	Tangibility	-0.012***	-0.011***	-0.011***	-0.012***	-0.013***
+		(0.002)	(0.002)	(0.004)	(0.002)	(0.002)
+log_fixedasset_w	Log of fixed assets	0.957***	0.876***	1.103***	1.035***	1.069***
+		(0.047)	(0.049)	(0.091)	(0.063)	(0.052)
+profitability_w	Profitability	-0.004***	0.014***	-0.002*	-0.004***	-0.004***
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+inflation	Inflation	0.663***	0.477**	-0.122	0.604**	0.511
+		(0.223)	(0.220)	(0.413)	(0.250)	(0.319)
+political_risk	Political Risk	0.038	0.062	-0.065	0.017	-0.049
+		(0.078)	(0.080)	(0.148)	(0.093)	(0.112)
+private_credit_GDP	Private credit to GDP	0.077***	0.088***	0.129**	0.065*	0.087**
+		(0.028)	(0.029)	(0.052)	(0.034)	(0.040)
+c_cap_req_y_ds_p	Capital requirement spillover to parent					-0.155
+						(0.187)
+c_ltv_cap_y_ds_p	LTV ratio limits spillover to parent					0.090
+						(0.278)
+c_rr_local_y_ds_p	Reserve req. on local currency spillover to parent					-0.002
+						(0.356)
+c_cap_req_y_ds_s	Capital requirement spillover to other subsidiaries					-0.332**
+						(0.160)
+c_ltv_cap_y_ds_s	LTV ratio limits spillover to other subsidiaries					0.002
+						(0.275)
+c_rr_local_y_ds_s	Reserve req. on local currency spillover to other subsidiaries					0.070
+						(0.350)
+						
+Observations		1,003,592	776,100	299,471	671,771	748,171
+R-squared		0.31	0.32	0.32	0.32	0.36
+Number of firms		213,623	193,485	90,505	116,703	174,356
+Multinational*year fixed effects		Yes	Yes	Yes	Yes	Yes
+Industry fixed effects		Yes	Yes	Yes	Yes	Yes
+Robust standard errors in parentheses						
+*** p<0.01, ** p<0.05, * p<0.1						

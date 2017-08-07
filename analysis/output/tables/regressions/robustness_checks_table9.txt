@@ -1,0 +1,46 @@
+Spillover of macroprudential policies on firm's financial leverage: robustness checks						
+		(1)	(2)	(3)	(4)	(5)
+		Benchmark	No negative	Small and medium	Balanced	Shifting to parent
+VARIABLES	LABELS	model	profits	firms	panel	versus other countries
+						
+c_cap_req_y_ds	Capital requirement spillover	-0.030	-0.027	-0.066	-0.039	
+		(0.031)	(0.032)	(0.061)	(0.036)	
+c_ltv_cap_y_ds	LTV ratio limits spillover	0.020	0.037*	-0.032	0.015	
+		(0.021)	(0.022)	(0.041)	(0.025)	
+c_rr_local_y_ds	Reserve req. on local currency spillover	-0.055**	-0.052**	-0.073*	-0.020	
+		(0.024)	(0.024)	(0.043)	(0.027)	
+tax_rate_ds	Tax rate spillover	0.019	-0.010	0.130***	0.053*	
+		(0.025)	(0.025)	(0.049)	(0.030)	
+fixed_total_w	Tangibility	-0.012***	-0.011***	-0.011***	-0.012***	-0.013***
+		(0.002)	(0.002)	(0.004)	(0.002)	(0.002)
+log_fixedasset_w	Log of fixed assets	0.956***	0.875***	1.104***	1.033***	1.069***
+		(0.047)	(0.049)	(0.091)	(0.063)	(0.052)
+profitability_w	Profitability	-0.004***	0.014***	-0.002*	-0.004***	-0.004***
+		(0.001)	(0.001)	(0.001)	(0.001)	(0.001)
+inflation	Inflation	0.803***	0.544**	0.291	0.836***	0.551*
+		(0.229)	(0.226)	(0.420)	(0.257)	(0.321)
+political_risk	Political Risk	0.042	0.056	-0.043	0.038	-0.061
+		(0.077)	(0.080)	(0.148)	(0.092)	(0.113)
+private_credit_GDP	Private credit to GDP	0.062**	0.075***	0.103**	0.049	0.084**
+		(0.028)	(0.029)	(0.051)	(0.034)	(0.040)
+c_cap_req_y_ds_p	Capital requirement spillover to parent					0.132
+						(0.135)
+c_ltv_cap_y_ds_p	LTV ratio limits spillover to parent					0.048
+						(0.070)
+c_rr_local_y_ds_p	Reserve req. on local currency spillover to parent					-0.095
+						(0.090)
+c_cap_req_y_ds_s	Capital requirement spillover to other subsidiaries					-0.040
+						(0.093)
+c_ltv_cap_y_ds_s	LTV ratio limits spillover to other subsidiaries					-0.040
+						(0.054)
+c_rr_local_y_ds_s	Reserve req. on local currency spillover to other subsidiaries					-0.020
+						(0.054)
+						
+Observations		1,003,598	776,106	299,477	671,771	748,171
+R-squared		0.31	0.32	0.32	0.32	0.36
+Number of firms		213,626	193,488	90,508	116,703	174,356
+Multinational fixed effects		Yes	Yes	Yes	Yes	Yes
+Country*year fixed effects		Yes	Yes	Yes	Yes	Yes
+Industry fixed effects		Yes	Yes	Yes	Yes	Yes
+Robust standard errors in parentheses						
+*** p<0.01, ** p<0.05, * p<0.1						
