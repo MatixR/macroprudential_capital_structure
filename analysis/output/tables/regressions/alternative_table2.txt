@@ -1,0 +1,31 @@
+Effect of macroprudential policies on firm's financial leverage: alternative measures						
+		(1)	(2)	(3)	(4)	(5)
+		Financial	Adjusted	Debt	Long-term	Short-term
+VARIABLES	LABELS	leverage	leverage	leverage	debt	debt
+						
+c_rr_local_y	Reserve req. on local currency	-0.330*	-0.539**	-1.687***	-1.129**	-0.346
+		(0.179)	(0.244)	(0.436)	(0.461)	(0.528)
+c_ltv_cap_y	LTV ratio limits	0.068	-0.694	-0.502	-0.534	0.839
+		(0.299)	(0.449)	(0.834)	(0.880)	(0.979)
+c_cap_req_y	Capital requirement	-0.544***	-0.285	0.638	0.744	0.577
+		(0.198)	(0.254)	(0.516)	(0.598)	(0.617)
+c_sscb_res_y	Capital buffer - real estate	0.938**	0.996*	4.540***	4.788***	0.742
+		(0.413)	(0.580)	(1.010)	(1.113)	(1.231)
+int_c_rr_local_y	Reserve req. on local currency*tax	0.375**	0.356	1.890***	1.429***	0.525
+		(0.183)	(0.241)	(0.436)	(0.457)	(0.528)
+int_c_ltv_cap_y	LTV ratio limits*tax	-0.057	0.778*	0.088	-0.031	-1.016
+		(0.313)	(0.470)	(0.868)	(0.912)	(1.032)
+int_c_cap_req_y	Capital requirement*tax	0.596***	0.337	-0.405	-0.425	-0.757
+		(0.205)	(0.266)	(0.538)	(0.625)	(0.647)
+int_c_sscb_res_y	Capital buffer - real estate*tax	-1.039**	-0.783	-5.058***	-5.072***	-1.488
+		(0.435)	(0.608)	(1.050)	(1.154)	(1.277)
+tax_rate	Tax rate	0.197**	0.319***	1.966***	1.556***	0.802***
+		(0.081)	(0.104)	(0.224)	(0.259)	(0.271)
+						
+Observations		828,172	638,383	552,167	363,643	427,562
+R-squared		0.32	0.33	0.36	0.41	0.36
+Number of firms		173,322	143,443	113,986	76,316	85,378
+Industry fixed effects		Yes	Yes	Yes	Yes	Yes
+Multinational*year fixed effects		Yes	Yes	Yes	Yes	Yes
+Robust standard errors in parentheses						
+*** p<0.01, ** p<0.05, * p<0.1						

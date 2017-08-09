@@ -1,0 +1,58 @@
+Spillover of macroprudential policies on firm's financial leverage: extensions					
+		(1)	(2)	(3)	(4)
+		Benchmark	No negative	Small and medium	Shifting to parent
+VARIABLES	LABELS	model	profits	firms	versus other countries
+					
+c_rr_local_y_ds	Reserve req. on local currency spillover	-0.037*	-0.072***	-0.102**	
+		(0.021)	(0.022)	(0.046)	
+c_rr_foreign_y_ds	Reserve req. on foreign currency spillover	-0.042**	-0.043**	0.042	
+		(0.019)	(0.020)	(0.052)	
+c_ltv_cap_y_ds	LTV ratio limits spillover	0.003	0.011	0.020	
+		(0.017)	(0.017)	(0.035)	
+c_cap_req_y_ds	Capital requirement spillover	0.036*	0.029	0.055	
+		(0.020)	(0.022)	(0.040)	
+c_sscb_cons_y_ds	Capital buffer - consumers spillover	-0.185	-0.217**	0.106	
+		(0.118)	(0.108)	(0.214)	
+c_sscb_oth_y_ds	Capital buffer - others spillover	0.174	0.309***	-0.003	
+		(0.123)	(0.114)	(0.216)	
+c_sscb_res_y_ds	Capital buffer - real estate spillover	-0.066**	-0.075**	-0.116	
+		(0.030)	(0.030)	(0.075)	
+tax_rate_ds	Tax rate spillover	0.005	0.004	-0.022	-0.022
+		(0.035)	(0.039)	(0.083)	(0.050)
+c_rr_local_y_ds_p	Reserve req. on local currency spillover to parent				-0.076
+					(0.057)
+c_rr_foreign_y_ds_p	Reserve req. on foreign currency spillover to parent				0.042
+					(0.041)
+c_ltv_cap_y_ds_p	LTV ratio limits spillover to parent				0.057
+					(0.045)
+c_cap_req_y_ds_p	Capital requirement spillover to parent				0.041
+					(0.049)
+c_sscb_cons_y_ds_p	Capital buffer - consumers spillover to parent				0.307
+					(0.234)
+c_sscb_oth_y_ds_p	Capital buffer - others spillover to parent				-0.355
+					(0.255)
+c_sscb_res_y_ds_p	Capital buffer - real estate spillover to parent				-0.034
+					(0.072)
+c_rr_local_y_ds_s	Reserve req. on local currency spillover to other subsidiaries				0.016
+					(0.048)
+c_rr_foreign_y_ds_s	Reserve req. on foreign currency spillover to other subsidiaries				-0.128***
+					(0.049)
+c_ltv_cap_y_ds_s	LTV ratio limits spillover to other subsidiaries				-0.071
+					(0.049)
+c_cap_req_y_ds_s	Capital requirement spillover to other subsidiaries				0.038
+					(0.053)
+c_sscb_cons_y_ds_s	Capital buffer - consumers spillover to other subsidiaries				-0.237
+					(0.206)
+c_sscb_oth_y_ds_s	Capital buffer - others spillover to other subsidiaries				0.260
+					(0.233)
+c_sscb_res_y_ds_s	Capital buffer - real estate spillover to other subsidiaries				-0.077
+					(0.067)
+					
+Observations		2,575,636	2,113,305	814,747	2,341,518
+R-squared		0.55	0.56	0.52	0.59
+Number of firms		489,708	446,431	201,984	459,243
+Multinational fixed effects		Yes	Yes	Yes	Yes
+Industry fixed effects		Yes	Yes	Yes	Yes
+Country*year fixed effects		Yes	Yes	Yes	Yes
+Robust standard errors in parentheses					
+*** p<0.01, ** p<0.05, * p<0.1					

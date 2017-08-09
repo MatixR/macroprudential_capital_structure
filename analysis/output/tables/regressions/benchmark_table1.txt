@@ -1,0 +1,68 @@
+Effect of macroprudential policies on firm's financial leverage				
+		(1)	(2)	(3)
+VARIABLES	LABELS			
+				
+c_rr_local_y	Reserve req. on local currency	-0.052*	-0.330*	
+		(0.027)	(0.179)	
+c_ltv_cap_y	LTV ratio limits	0.019	0.068	
+		(0.078)	(0.299)	
+c_cap_req_y	Capital requirement	-0.112***	-0.544***	
+		(0.041)	(0.198)	
+c_sscb_res_y	Capital buffer - real estate	0.119	0.938**	
+		(0.076)	(0.413)	
+int_c_rr_local_y	Reserve req. on local currency*tax	0.021	0.375**	
+		(0.029)	(0.183)	
+int_c_ltv_cap_y	LTV ratio limits*tax	-0.048	-0.057	
+		(0.081)	(0.313)	
+int_c_cap_req_y	Capital requirement*tax	0.109**	0.596***	
+		(0.042)	(0.205)	
+int_c_sscb_res_y	Capital buffer - real estate*tax	-0.027	-1.039**	
+		(0.084)	(0.435)	
+c_rr_local_y_ds	Reserve req. on local currency spillover	-0.061***		-0.054***
+		(0.017)		(0.020)
+c_ltv_cap_y_ds	LTV ratio limits spillover	0.002		0.008
+		(0.012)		(0.017)
+c_cap_req_y_ds	Capital requirement spillover	0.031**		0.038*
+		(0.014)		(0.021)
+c_sscb_res_y_ds	Capital buffer - real estate spillover	-0.086***		-0.069**
+		(0.021)		(0.027)
+tax_rate	Tax rate	0.007	0.197**	
+		(0.018)	(0.081)	
+tax_rate_ds	Tax rate spillover	-0.026		-0.005
+		(0.020)		(0.035)
+fixed_total_w	Tangibility	-0.010***	-0.016***	-0.009***
+		(0.001)	(0.002)	(0.001)
+log_fixedasset_w	Log of fixed assets	0.631***	1.113***	0.774***
+		(0.017)	(0.053)	(0.023)
+profitability_w	Profitability	-0.004***	-0.004***	-0.005***
+		(0.000)	(0.001)	(0.000)
+opportunity_w	Opportunity	0.012**	0.075***	0.055***
+		(0.005)	(0.024)	(0.008)
+risk_w	Volatility of profits		0.118***	0.106***
+			(0.018)	(0.016)
+inflation	Inflation	0.260***	0.255	
+		(0.049)	(0.290)	
+gdp_growth_rate	GDP growth rate	0.060**	0.288	
+		(0.028)	(0.177)	
+private_credit_GDP	Private credit to GDP	0.043***	0.030	
+		(0.010)	(0.041)	
+interest_rate	Policy rate	0.007	-0.088*	
+		(0.009)	(0.050)	
+political_risk	Political Risk	-0.036*	-0.022	
+		(0.021)	(0.113)	
+exchange_rate_risk	Exchange rate risk	-0.009	-0.079***	
+		(0.007)	(0.030)	
+law_order	Law and order	0.067	2.877	
+		(0.633)	(2.000)	
+				
+Observations		2,134,105	828,172	2,575,636
+R-squared		0.75	0.32	0.55
+Number of firms		391,131	173,322	489,708
+Firm fixed effects		Yes	No	No
+Year fixed effects		Yes	No	No
+Multinational*year fixed effects		No	Yes	No
+Industry fixed effects		No	Yes	Yes
+Multinational fixed effects		No	No	Yes
+Country*year fixed effects		No	No	Yes
+Robust standard errors in parentheses				
+*** p<0.01, ** p<0.05, * p<0.1				
