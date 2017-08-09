@@ -11,16 +11,13 @@ use "\cleaning\output\dataset_orbis100_2.dta", clear
 set more off 
 timer clear
 
-* Tables 1 and 2
+* Table 1
 do "\analysis\code\regression_benchmark"
 
-* Tables 3 and 4
+* Tables 2 and 3
 do "\analysis\code\regression_alt_dep_vars"
 
-* Tables 5, 6 and 7
-do "\analysis\code\regression_alt_control_vars"
-
-* Tables 8 and 9
-do "\analysis\code\regression_robust_checks"
+* Tables 4 and 5
+do "\analysis\code\regression_extensions"
 
 timer list
