@@ -1,0 +1,58 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+%\begin{longtable}[]
+	\centering
+	%\resizebox{\textwidth}{!}{%
+		\begin{longtable}{p{1.7in}p{2.6in}p{1.7in}}
+			\caption{Variable definitions and data sources}
+			\label{tab:3}\\
+			\hline 
+			Variable      & Definition & Source \\
+			\hline \endfirsthead
+			
+			\multicolumn{3}{c}{{ \tablename \thetable{} (\textit{continued})}}\\
+			\hline	
+			Variable      & Definition & Source \\
+			\hline  \endhead
+			
+			\hline
+			\multicolumn{3}{r}{{\textit{continued on next page}}}\\ 
+			\endfoot
+			\hline
+			\endlastfoot
+			Financial leverage      & Ratio of non-equity liabilities to total assets & Orbis \\
+			Adjusted financial leverage      & Ratio of non-equity liabilities minus accounts payable minus cash to total assets minus accounts payable minus cash & Orbis\\
+			RR on local currency & Average of quarterly index of changes in reserve requirements on local currency & \cite{cerutti2017changes}\\
+			RRLC incentive to shift debt & Sum of international reserve requirement on local currency differences weighted by local asset shares& \cite{cerutti2017changes}\\
+			RR on foreign currency & Average of quarterly index of changes in reserve requirements on foreign currency & \cite{cerutti2017changes}\\
+			RRFC incentive to shift debt & Sum of international reserve requirement on foreign currency differences weighted by local asset shares& \cite{cerutti2017changes}\\
+			LTV ratio & Average of quarterly index of changes in loan to value ration limit & \cite{cerutti2017changes}\\
+			LTV incentive to shift debt & Sum of international loan to value ratio limits differences weighted by local asset shares& \cite{cerutti2017changes}\\
+			Corporate tax rate & Taxes and other mandatory contributions after accounting  for deductions and exemptions to total commercial profit & World Bank Doing Business indicators\\
+			Tax incentive to shift debt & Sum of international corporate tax rate  differences weighted by local asset shares& World Bank Doing Business indicators\\
+			Tangibility& Ratio of fixed assets to total assets & Orbis\\
+			Adjusted tangibility& Ratio of tangible fixed assets to total assets & Orbis\\
+			Intangibility& Ratio of intangible assets to total assets & Orbis\\
+			Log of sales& logarithm of sales & Orbis\\
+			Profitability& Ratio of EBITDA to total assets & Orbis\\
+			Intermediate& Dummy variable assigning 1 to subsidiaries that are also owner firm & Orbis\\
+			Parent& Dummy variable assigning 1 to ultimate owner firm & Orbis\\
+			Volatility of profits & Standard deviation of the firm's ratio of EBITDA to total assets over the period 2007-2015& Orbis\\
+			Growth opportunities & Median of the annual growth rate of sales per country and industry& Orbis\\
+			Aggregate profitability & & Orbis\\
+			Private credit to GDP & Ratio of credit to the private sector to GDP & World Bank indicators\\
+			Financial sector credit to GDP & Ratio of domestic credit provided by financial sector to GDP & World Bank indicators\\
+			Value of stock traded to GDP & Total value of stock traded to GDP & World Bank indicators\\
+			Market capitalization to GDP & Market capitalization of listed domestic companies to GDP & World Bank indicators\\
+			Turnover ratio of stock traded & Total value of shares traded divided by the average market capitalization & World Bank indicators \\
+			Inflation & Annual log change in the CPI & World Bank indicators\\
+			GDP growth rate &Annual percentage change in the GDP & World Bank indicators\\
+			GDP per capita & GDP per capita in thousand U\$ & World Bank indicators\\ 
+			Economic risk &Annual (December) index of economic risk &International Country Risk Guide\\
+			Exchange rate risk &Annual (December) index of exchange rate risk &International Country Risk Guide\\
+			Financial risk &Annual (December) index of financial risk &International Country Risk Guide\\
+			Law and order &Annual (December) index of law and order &International Country Risk Guide\\
+			Political risk &Annual (December) index of political risk &International Country Risk Guide\\
+		\end{longtable}%
+	%}
+%\end{longtable}

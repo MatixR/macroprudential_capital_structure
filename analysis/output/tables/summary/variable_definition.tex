@@ -1,0 +1,45 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+%\begin{longtable}[]
+	\centering
+	%\resizebox{\textwidth}{!}{%
+		\begin{longtable}{p{1.7in}p{2.6in}p{1.7in}}
+				\label{tab:definition}\\
+			\multicolumn{3}{c}{Table \ref{tab:definition} - Variable definitions and data sources}\\
+			\hline 
+			Variable      & Definition & Source \\
+			\hline \endfirsthead
+			
+				\multicolumn{3}{c}{Table \ref{tab:definition} - Variable definitions and data sources \textit{(Continued)}}\\
+			\hline 
+			Variable      & Definition & Source \\
+			\hline \endhead
+			
+			\hline
+			\multicolumn{3}{r}{{\textit{Continued}}}\\ 
+			\endfoot
+			\hline
+			\endlastfoot
+			Financial leverage      & Ratio of non-equity liabilities to total assets & Orbis \\
+		
+			Reserve req. on local currency & Average of quarterly index of changes in reserve requirements on local currency & \cite{cerutti2017changes}\\
+			Capital requirement & Average of quarterly index of changes in capital requirements & \cite{cerutti2017changes}\\
+			Reserve req. on local currency spillover & Sum of international reserve requirement on local currency differences weighted by local asset shares& \cite{cerutti2017changes}\\
+			Capital requirement spillover & Average of quarterly index of changes in capital requirements  & \cite{cerutti2017changes}\\
+			Tax rate & Taxes and other mandatory contributions after accounting  for deductions and exemptions to total commercial profit & World Bank Doing Business indicators\\
+			Tax rate spillover & Sum of international corporate tax rate  differences weighted by local asset shares& World Bank Doing Business indicators\\
+			Tangibility& Ratio of fixed assets to total assets & Orbis\\
+			Log of fixed assets& logarithm of fixed assets & Orbis\\
+			Profitability& Ratio of EBITDA to total assets & Orbis\\
+			Risk & Standard deviation of the firm's ratio of EBITDA to total assets over the period 2008-2014& Orbis\\
+			Opportunity & Median of the annual growth rate of sales per country and industry& Orbis\\
+			Private credit to GDP & Ratio of credit to the private sector to GDP & World Bank indicators\\	
+			Inflation & Annual log change in the CPI & World Bank indicators\\
+			GDP growth rate &Annual percentage change in the GDP & World Bank indicators\\
+			 Policy rate &Central Bank Policy Rate, Percent per annum & IMF International Financial Statistics \\
+			Exchange rate risk &Annual (December) index of exchange rate risk &International Country Risk Guide\\
+			Law and order &Annual (December) index of law and order &International Country Risk Guide\\
+			Political risk &Annual (December) index of political risk &International Country Risk Guide\\
+		\end{longtable}%
+	%}
+%\end{longtable}
