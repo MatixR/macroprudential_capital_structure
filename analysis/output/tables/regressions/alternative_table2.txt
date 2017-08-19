@@ -1,31 +1,32 @@
-Effect of macroprudential policies on firm's financial leverage: alternative measures						
-		(1)	(2)	(3)	(4)	(5)
-		Financial	Adjusted	Debt	Long-term	Short-term
-VARIABLES	LABELS	leverage	leverage	leverage	debt	debt
-						
-c_rr_local_y	Reserve req. on local currency	-0.330*	-0.539**	-1.687***	-1.129**	-0.346
-		(0.179)	(0.244)	(0.436)	(0.461)	(0.528)
-c_ltv_cap_y	LTV ratio limits	0.068	-0.694	-0.502	-0.534	0.839
-		(0.299)	(0.449)	(0.834)	(0.880)	(0.979)
-c_cap_req_y	Capital requirement	-0.544***	-0.285	0.638	0.744	0.577
-		(0.198)	(0.254)	(0.516)	(0.598)	(0.617)
-c_sscb_res_y	Capital buffer - real estate	0.938**	0.996*	4.540***	4.788***	0.742
-		(0.413)	(0.580)	(1.010)	(1.113)	(1.231)
-int_c_rr_local_y	Reserve req. on local currency*tax	0.375**	0.356	1.890***	1.429***	0.525
-		(0.183)	(0.241)	(0.436)	(0.457)	(0.528)
-int_c_ltv_cap_y	LTV ratio limits*tax	-0.057	0.778*	0.088	-0.031	-1.016
-		(0.313)	(0.470)	(0.868)	(0.912)	(1.032)
-int_c_cap_req_y	Capital requirement*tax	0.596***	0.337	-0.405	-0.425	-0.757
-		(0.205)	(0.266)	(0.538)	(0.625)	(0.647)
-int_c_sscb_res_y	Capital buffer - real estate*tax	-1.039**	-0.783	-5.058***	-5.072***	-1.488
-		(0.435)	(0.608)	(1.050)	(1.154)	(1.277)
-tax_rate	Tax rate	0.197**	0.319***	1.966***	1.556***	0.802***
-		(0.081)	(0.104)	(0.224)	(0.259)	(0.271)
-						
-Observations		828,172	638,383	552,167	363,643	427,562
-R-squared		0.32	0.33	0.36	0.41	0.36
-Number of firms		173,322	143,443	113,986	76,316	85,378
-Industry fixed effects		Yes	Yes	Yes	Yes	Yes
-Multinational*year fixed effects		Yes	Yes	Yes	Yes	Yes
-Robust standard errors in parentheses						
-*** p<0.01, ** p<0.05, * p<0.1						
+Effect of macroprudential policies on firm's financial leverage				
+		(1)	(2)	(3)
+		Adjusted	Long-term	Short-term
+VARIABLES	LABELS	leverage	debt	debt
+				
+c_rr_local_y_ds	Reserve req. on local currency spillover	-0.083***	-0.002	0.307***
+		(0.032)	(0.058)	(0.076)
+c_cap_req_y_ds	Capital requirement spillover	-0.041	-0.099	-0.092
+		(0.031)	(0.063)	(0.084)
+vol_c_rr_local_y	Reserve req. on local currency*risk	-0.584***	0.675***	-0.285
+		(0.195)	(0.199)	(0.207)
+vol_c_cap_req_y	Capital requirement*risk	0.055	0.444***	-0.380**
+		(0.135)	(0.157)	(0.175)
+tax_rate_ds	Tax rate spillover	-0.013	-0.047	0.165
+		(0.052)	(0.103)	(0.149)
+fixed_total_w	Tangibility	-0.014***	-0.016***	-0.026***
+		(0.002)	(0.005)	(0.004)
+log_fixedasset_w	Log of fixed assets	0.853***	2.449***	1.591***
+		(0.069)	(0.120)	(0.115)
+profitability_w	Profitability	-0.004***	-0.002	-0.006***
+		(0.001)	(0.001)	(0.001)
+opportunity_w	Opportunity	0.100***	-0.057	-0.070
+		(0.026)	(0.044)	(0.056)
+risk_w	Risk	0.162***	-0.086**	-0.023
+		(0.027)	(0.039)	(0.037)
+				
+Observations		377,824	188,018	242,368
+Number of multinationals		26,969	18,790	19,954
+Multinational fixed effects		Yes	Yes	Yes
+Country*year fixed effects		Yes	Yes	Yes
+Robust standard errors in parentheses				
+*** p<0.01, ** p<0.05, * p<0.1				
