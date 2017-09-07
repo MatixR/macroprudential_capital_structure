@@ -174,13 +174,7 @@ local vars "private_credit_GDP market_cap_GDP political_risk exchange_rate_risk 
 replace `var'=`var'_i 
 drop `var'_i
  }
- //=======================================
-//====== Interaction term with tax ======
-//=======================================
 
-foreach var of varlist `2'{
-gen int_`var'= `var'*tax_rate 
-}
 //===============================
 //====== Cleaning outliers ======
 //===============================
@@ -194,12 +188,12 @@ winsor liability_g, gen(liability_g_w) p(0.01)
 lab var liability_g_w "Liability growth rate"
 winsor adj_leverage, gen(adj_leverage_w) p(0.01)
 lab var adj_leverage_w "Adjusted financial leverage"
-winsor longterm_debt, gen(longterm_debt_w) p(0.01)
+winsor longterm_debt, gen(longterm_debt_w) p(0.05)
 lab var longterm_debt_w "Long term debt"
-winsor loans_leverage, gen(loans_leverage_w) p(0.01)
+winsor loans_leverage, gen(loans_leverage_w) p(0.05)
 lab var loans_leverage_w "Short term debt"
-winsor debt_leverage, gen(debt_leverage_w) p(0.01)
-lab var debt_leverage_w "Long- short-term leverage"
+winsor debt_leverage, gen(debt_leverage_w) p(0.05)
+lab var debt_leverage_w "Debt leverage"
 
 * Independent variables
 winsor fixed_total, gen(fixed_total_w) p(0.01)
@@ -215,12 +209,20 @@ lab var opportunity_w "Opportunity"
 winsor agg_profitability, gen(agg_profitability_w) p(0.01)
 lab var agg_profitability_w "Aggregate profitability"
 winsor risk, gen(risk_w) p(0.01)
-lab var risk_w "Volatility of profits"
+lab var risk_w "Risk"
 winsor log_fixedasset, gen(log_fixedasset_w) p(0.01)
 lab var log_fixedasset_w "Log of fixed assets"
 winsor log_sales, gen(log_sales_w) p(0.01)
 lab var log_sales_w "Log of sales"
 
+ //=======================================
+//====== Interaction term with tax ======
+//=======================================
+
+foreach var of varlist `2'{
+gen int_`var'= `var'*tax_rate 
+gen vol_`var'= `var'*risk_w
+}
 
 //=============================
 //====== Label variables ======
@@ -287,6 +289,7 @@ lab var l4_`var' "`: var label `var'' (-4)"
 * Tax macroprudential interaction variables
 foreach var of varlist c_*_y{
 lab var int_`var' "`: var label `var''*tax"
+lab var vol_`var' "`: var label `var''*risk"
 }
 * World Bank
 lab var gdp_growth_rate "GDP growth rate"
@@ -324,6 +327,16 @@ drop if year == 2007
 egen double multinational_year = group(id_P year)
 egen double country_year = group(country_id year)
 
+bysort id id_P: gen help1 = 1 if _n == 1
+replace help1 = 0 if missing(help1)
+bysort id (id_P): gen subsidiary_multinatinal_ID = sum(help1)
+bysort id: egen mover_indicator = mean(subsidiary_multinatinal_ID)
+drop help1 subsidiary_multinatinal_ID
+
+foreach var of varlist *_ds{
+replace `var'_s=`var' if missing(`var'_s) 
+replace `var'_p=0 if missing(`var'_p)
+}
 
 save "\cleaning\output\dataset_`1'.dta", replace
 *saveold "\\Client\C$\Users\User\work\master_thesis\analysis\input\orbis_multinationals.dta", version(13) replace
