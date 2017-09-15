@@ -1,28 +1,46 @@
-\begin{tabular}{lccc}
-\multicolumn{4}{c}{Effect of macroprudential policies on firm's financial leverage} \\ \hline
- & (1) & (2) & (3) \\
- & Adjusted & Long-term & Short-term \\
-VARIABLES & leverage & debt & debt \\ \hline
+\begin{longtable}{lccc}\\
+		\label{reg:alternative}\\
+\multicolumn{4}{c}{Table \ref{reg:alternative} - Regression results, alternative leverage measures} \\
+	\multicolumn{4}{c}{(\textit{Dependent variable}: specific for each column)}\\ \hline \hline
+ & (1) & (2) & (3) \\ 
+  & Adjusted & Long-term & Short-term \\
+ Model & leverage & debt & debt \\ \hline\endfirsthead
+ 
+ \multicolumn{4}{c}{Table \ref{reg:alternative} - Regression results, alternative leverage measures} \\
+ \multicolumn{4}{c}{(\textit{Dependent variable}: specific for each column)\textit{(Continued)}}\\ \hline \hline
+ & (1) & (2) & (3) \\ 
+  & Adjusted & Long-term & Short-term \\
+ Model & leverage & debt & debt \\ \hline\endhead
+ 
+  \hline
+ \multicolumn{4}{r}{{\textit{(Continued)}}}\\ \endfoot
+ 
+ \endlastfoot
+ 
+
  &  &  &  \\
-Reserve req. on local currency spillover & -0.083*** & -0.002 & 0.307*** \\
+ Effects of macroprudential policies  &  &  &  \\
+\quad Reserve req. on local currency spillover ($\beta_{2,rr}$) & -0.083*** & -0.002 & 0.307*** \\
  & (0.032) & (0.058) & (0.076) \\
-Capital requirement spillover & -0.041 & -0.099 & -0.092 \\
+\quad Capital requirement spillover ($\beta_{2,cr}$) & -0.041 & -0.099 & -0.092 \\
  & (0.031) & (0.063) & (0.084) \\
-Reserve req. on local currency*risk & -0.584*** & 0.675*** & -0.285 \\
+\quad Reserve req. on local currency*risk ($\beta_{3,rr}$) & -0.584*** & 0.675*** & -0.285 \\
  & (0.195) & (0.199) & (0.207) \\
-Capital requirement*risk & 0.055 & 0.444*** & -0.380** \\
+\quad Capital requirement*risk ($\beta_{3,cr}$) & 0.055 & 0.444*** & -0.380** \\
  & (0.135) & (0.157) & (0.175) \\
-Tax rate spillover & -0.013 & -0.047 & 0.165 \\
+  Effects of corporate tax &  &  &  \\
+\quad Tax rate spillover ($\alpha_{1}$) & -0.013 & -0.047 & 0.165 \\
  & (0.052) & (0.103) & (0.149) \\
-Tangibility & -0.014*** & -0.016*** & -0.026*** \\
+   Firm characteristics &  &  &  \\
+\quad Tangibility & -0.014*** & -0.016*** & -0.026*** \\
  & (0.002) & (0.005) & (0.004) \\
-Log of fixed assets & 0.853*** & 2.449*** & 1.591*** \\
+\quad Log of fixed assets & 0.853*** & 2.449*** & 1.591*** \\
  & (0.069) & (0.120) & (0.115) \\
-Profitability & -0.004*** & -0.002 & -0.006*** \\
+\quad Profitability & -0.004*** & -0.002 & -0.006*** \\
  & (0.001) & (0.001) & (0.001) \\
-Opportunity & 0.100*** & -0.057 & -0.070 \\
+\quad Opportunity & 0.100*** & -0.057 & -0.070 \\
  & (0.026) & (0.044) & (0.056) \\
-Risk & 0.162*** & -0.086** & -0.023 \\
+\quad Risk & 0.162*** & -0.086** & -0.023 \\
  & (0.027) & (0.039) & (0.037) \\
  &  &  &  \\
 Observations & 377,824 & 188,018 & 242,368 \\
@@ -31,4 +49,4 @@ Multinational fixed effects & Yes & Yes & Yes \\
  Country*year fixed effects & Yes & Yes & Yes \\ \hline
 \multicolumn{4}{c}{ Robust standard errors in parentheses} \\
 \multicolumn{4}{c}{ *** p$<$0.01, ** p$<$0.05, * p$<$0.1} \\
-\end{tabular}
+\end{longtable}
