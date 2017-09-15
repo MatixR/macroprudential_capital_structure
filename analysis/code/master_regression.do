@@ -8,7 +8,6 @@
 //=========================
 cd "S:"
 use "\cleaning\output\dataset_orbis100_2.dta", clear
-set more off 
 timer clear
 
 * Table 1

@@ -1,64 +1,39 @@
 Effect of macroprudential policies on firm's financial leverage: extensions					
 		(1)	(2)	(3)	(4)
-		Benchmark	No negative	Small and medium	Shifting to parent
-VARIABLES	LABELS	model	profits	firms	versus other countries
+		Benchmark	No negative	Small and	Spillover from
+		model	profits	medium firms	parent versus
+VARIABLES	LABELS				other subsidiaries
 					
-c_rr_local_y	Reserve req. on local currency	-0.310*	-0.300*	-0.221	0.155
-		(0.170)	(0.176)	(0.390)	(0.432)
-c_rr_foreign_y	Reserve req. on foreign currency	-0.613	137.282**		2.403
-		(7.068)	(55.420)		(7.444)
-c_ltv_cap_y	LTV ratio limits	0.153	0.214	-0.392	-0.166
-		(0.300)	(0.311)	(0.774)	(0.532)
-c_cap_req_y	Capital requirement	-0.577***	-0.578***	-1.549***	-0.172
-		(0.201)	(0.215)	(0.482)	(0.324)
-c_sscb_cons_y	Capital buffer - consumers	-3.994	-5.798	5.647	-2.542
-		(4.403)	(4.580)	(5.975)	(7.464)
-c_sscb_oth_y	Capital buffer - others	7.581	9.705	-10.235	10.501
-		(5.797)	(6.507)	(10.049)	(9.531)
-c_sscb_res_y	Capital buffer - real estate	1.048**	1.180***	0.312	0.048
-		(0.421)	(0.439)	(1.087)	(0.809)
-int_c_rr_local_y	Reserve req. on local currency*tax	0.383**	0.401**	0.278	0.203
-		(0.181)	(0.189)	(0.416)	(0.252)
-int_c_rr_foreign_y	Reserve req. on foreign currency*tax	9.039**	-140.230**		-2.402
-		(4.318)	(58.047)		(3.110)
-int_c_ltv_cap_y	LTV ratio limits*tax	-0.160	-0.211	0.305	0.187
-		(0.314)	(0.325)	(0.777)	(0.436)
-int_c_cap_req_y	Capital requirement*tax	0.623***	0.621***	1.616***	0.479
-		(0.209)	(0.222)	(0.498)	(0.307)
-int_c_sscb_cons_y	Capital buffer - consumers*tax	5.020	7.236	-6.164	3.393
-		(5.655)	(5.871)	(7.568)	(9.478)
-int_c_sscb_oth_y	Capital buffer - others*tax	-8.369	-10.905	11.214	-11.865
-		(6.845)	(7.657)	(11.529)	(11.115)
-int_c_sscb_res_y	Capital buffer - real estate*tax	-1.186***	-1.315***	-0.548	-0.937
-		(0.442)	(0.461)	(1.137)	(0.608)
-tax_rate	Tax rate	0.192**	0.196**	-0.036	0.218*
-		(0.083)	(0.082)	(0.177)	(0.117)
-c_rr_local_y_ds_p	Reserve req. on local currency spillover to parent				-0.595
-					(0.400)
-c_ltv_cap_y_ds_p	LTV ratio limits spillover to parent				0.097
-					(0.352)
-c_cap_req_y_ds_p	Capital requirement spillover to parent				-0.172
-					(0.192)
-c_sscb_cons_y_ds_p	Capital buffer - consumers spillover to parent				1.013
-					(1.166)
-c_sscb_oth_y_ds_p	Capital buffer - others spillover to parent				0.363
-					(2.134)
-c_sscb_res_y_ds_p	Capital buffer - real estate spillover to parent				0.834
-					(0.588)
-c_rr_local_y_ds_s	Reserve req. on local currency spillover to other subsidiaries				-0.185
-					(0.366)
-c_rr_foreign_y_ds_s	Reserve req. on foreign currency spillover to other subsidiaries				57.097***
-					(5.967)
-c_ltv_cap_y_ds_s	LTV ratio limits spillover to other subsidiaries				-0.059
-					(0.348)
-c_cap_req_y_ds_s	Capital requirement spillover to other subsidiaries				-0.359**
-					(0.164)
-c_sscb_res_y_ds_s	Capital buffer - real estate spillover to other subsidiaries				0.739
-					(0.574)
+c_rr_local_y	Reserve req. on local currency	-0.330*	-0.338*	-0.005	-0.326*
+		(0.179)	(0.185)	(0.416)	(0.183)
+c_ltv_cap_y	LTV ratio limits	0.068	0.089	-0.052	0.056
+		(0.299)	(0.309)	(0.741)	(0.300)
+c_cap_req_y	Capital requirement	-0.544***	-0.518**	-1.650***	-0.519***
+		(0.198)	(0.210)	(0.474)	(0.200)
+c_sscb_res_y	Capital buffer - real estate	0.938**	0.987**	1.060	0.928**
+		(0.413)	(0.429)	(0.977)	(0.413)
+int_c_rr_local_y	Reserve req. on local currency*tax	0.375**	0.399**	0.145	0.376**
+		(0.183)	(0.191)	(0.428)	(0.182)
+int_c_ltv_cap_y	LTV ratio limits*tax	-0.057	-0.066	-0.046	-0.054
+		(0.313)	(0.324)	(0.742)	(0.314)
+int_c_cap_req_y	Capital requirement*tax	0.596***	0.566***	1.706***	0.592***
+		(0.205)	(0.218)	(0.491)	(0.205)
+int_c_sscb_res_y	Capital buffer - real estate*tax	-1.039**	-1.078**	-1.295	-1.040**
+		(0.435)	(0.451)	(1.025)	(0.436)
+tax_rate	Tax rate	0.197**	0.200**	0.038	0.199**
+		(0.081)	(0.081)	(0.169)	(0.081)
+c_rr_local_y_ds_p	Reserve req. on local currency spillover to parent				-0.022
+					(0.146)
+c_ltv_cap_y_ds_p	LTV ratio limits spillover to parent				0.048
+					(0.097)
+c_cap_req_y_ds_p	Capital requirement spillover to parent				-0.104
+					(0.116)
+c_sscb_res_y_ds_p	Capital buffer - real estate spillover to parent				0.045
+					(0.131)
 					
-Observations		828,172	638,555	250,311	642,436
-R-squared		0.32	0.33	0.33	0.36
-Number of firms		173,322	157,565	75,869	145,506
+Observations		828,172	638,555	250,311	828,172
+R-squared		0.32	0.33	0.33	0.32
+Number of firms		173,322	157,565	75,869	173,322
 Industry fixed effects		Yes	Yes	Yes	Yes
 Multinational*year fixed effects		Yes	Yes	Yes	Yes
 Robust standard errors in parentheses					
