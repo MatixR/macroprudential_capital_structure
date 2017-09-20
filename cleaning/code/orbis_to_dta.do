@@ -106,14 +106,14 @@ import delimited "\input\orbis\txt_files\Industry - Global financials and ratios
 * Keep variables of interest
 #delimit;
 keep ïbvdidnumber consolidationcode closingdate numberofmonths 
-exchangeratefromoriginalcurrency fixedassets intangiblefixedassets 
-tangiblefixedassets cashcashequivalent totalassets noncurrentliabilities 
-longtermdebt currentliabilities loans numberofemployees sales ebitda debtors;
+fixedassets intangiblefixedassets tangiblefixedassets 
+cashcashequivalent totalassets noncurrentliabilities 
+longtermdebt currentliabilities loans 
+numberofemployees sales ebitda debtors;
 #delimit cr
 
 * Rename variables
 rename ïbvdidnumber id
-rename exchangeratefromoriginalcurrency exchrate
 rename fixedassets fias 
 rename intangiblefixedassets ifas
 rename tangiblefixedassets tfas 
@@ -166,7 +166,7 @@ drop dup nmis
 sort id year numberofmonths
 by id year: gen dup = cond(_N==1,1,_n)
 by id year: keep if dup == _N
-drop dup
+drop dup numberofmonths
 
 * Save financial data
 save "\input\orbis\financials", replace 
@@ -196,6 +196,9 @@ drop if missing(nacerev2corecode4digits)
 rename nacerev2corecode4digits nace
 rename ïbvdidnumber id
 
+* Sector two digitis
+gen nace2 = int(nace/100)
+
 * Save industry file
 save "\input\orbis\sector", replace
 
@@ -216,13 +219,25 @@ gen double id = _n
 
 * Merge variables
 merge 1:1 id using `tmp1'
-drop id
+drop id _merge
 
 * Rename variables
 rename ïbvdidnumber id
 rename listeddelistedunlisted listed
 rename delisteddate delisted_date
 rename ipodate ipo_date
+
+* Get year from IPO date
+tostring ipo_date, generate(ipo_date_str)
+gen ipo_year = substr(ipo_date_str, 1,4)
+destring ipo_year, replace
+drop ipo_date_str ipo_date
+
+* Get year from delisted date
+tostring delisted_date, generate(delisted_date_str)
+gen delisted_year = substr(delisted_date_str, 1,4)
+destring delisted_year, replace
+drop delisted_date_str delisted_date
 
 * Save listed file
 save "\input\orbis\listed", replace

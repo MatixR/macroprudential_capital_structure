@@ -41,8 +41,8 @@ do "\cleaning\code\orbis_to_dta"
 //====== Arguments ========
 //=========================
 cd "S:"
-global track_index "orbis100_2"
-global sample_percent=100
+global track_index "orbis5"
+global sample_percent=5
 global MPP_vars "tax_rate *_y"
 
 //================================
