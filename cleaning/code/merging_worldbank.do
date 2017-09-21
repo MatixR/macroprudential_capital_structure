@@ -1,7 +1,7 @@
-* Master Thesis Tilburg 2017
+* Project: Macroprudential Policies and Capital Structure (Master Thesis Tilburg 2017)
 * Author: Lucas Avezum 
 
-* This file merges World Bank controls datasets to Amadeus sample
+* This file merges World Bank controls datasets to Orbis sample
 set more off
 
 //========================================
@@ -33,9 +33,7 @@ drop if id==1
 rename v `a'
 
 save "\cleaning\temp\Control`a'", replace
-
 }
-
 //========================================
 //===== Merge World Bank Database  =======
 //========================================
@@ -74,7 +72,6 @@ egen country_id = group(country)
 xtset country_id year
 gen logcpi = log(cpi)
 bysort country_id (year):gen inflation = D.logcpi if year == year[_n-1]+1
-lab var inflation "Inflation"
 drop logcpi country_id
 
 * Write country variable in uppercase
@@ -86,20 +83,16 @@ drop id
 save "\cleaning\temp\worldbank", replace
 
 foreach a in cpi credit_financial_GDP deflator gdp_growth_rate gdp_per_capita market_cap_GDP private_credit_GDP stock_traded_GDP tax_rate turnover {
-
 erase "\cleaning\temp\Control`a'.dta"
 }
 
-//===========================================================
-//===== Merge World Bank Database to Financia dataset  ======
-//===========================================================
+//============================================================
+//===== Merge World Bank database to Financial dataset  ======
+//============================================================
 
 use "\cleaning\temp\merged_`1'.dta", clear
 sort country year
-#delimit;
-merge m:1 country year using 
-"\cleaning\temp\worldbank.dta";
-#delimit cr
+merge m:1 country year using "\cleaning\temp\worldbank.dta"
 keep if _merge==3
 drop _merge
 save "\cleaning\temp\merged_`1'.dta", replace

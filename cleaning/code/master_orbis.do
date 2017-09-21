@@ -10,9 +10,6 @@
 *
 * 3) choose macroprudential instruments to create debt shifting variable 
 *
-*   a) options for GMPI:
-*     MPI BORROWER FINANCIAL LTV LTV_CAP DTI DP CTC LEV SIFI INTER CONC FC RR RR_REV CG TAX
-*
 *   b) options for IBRN: 
 *     Reserve requirements - foreign loan: rr_local_y
 *     Reserve requirements - foreign loan: rr_foreign_y
@@ -25,11 +22,7 @@
 *     Sector specific capital buffer - consumer: sscb_cons_y
 *     Sector specific capital buffer - others: sscb_oth_y
 *
-*   For all cumulative:  cum_*
-*   For specific lags: l#_*
 *   For all variables: *_y
-*   Example: l2_cum_rr_local_y is the two quarters lag cumulative 
-*            index for reserve requirement 
 
 //==========================
 //====== Clean Orbis ========
@@ -54,14 +47,12 @@ do "\cleaning\code\merging_orbis"
 "$track_index" $sample_percent ;
 #delimit cr
 
-//========================================
-//====== Merge to GMPI and IBRN ==========
-//========================================
-
-do "\cleaning\code\merging_IBRN"
+//===============================
+//====== Merge to IBRN ==========
+//===============================
 
 #delimit;
-do "\cleaning\code\merging_MPI" 
+do "\cleaning\code\merging_IBRN"
 "$track_index" ;
 #delimit cr
 
