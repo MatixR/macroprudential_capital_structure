@@ -1,11 +1,11 @@
-* Master Thesis Tilburg 2017
+* Project: Macroprudential Policies and Capital Structure (Master Thesis Tilburg 2017)
 * Author: Lucas Avezum 
 
 * This file merges international country risk guide (PRS) controls datasets to Orbis sample
 set more off
 
 //=================================
-//====== Clean PRS Database  ======
+//====== Clean PRS database  ======
 //=================================
 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
@@ -31,7 +31,7 @@ save "\cleaning\temp\Control`a'.dta", replace
 }
 
 //=================================
-//===== Merge PRS Database  =======
+//===== Merge PRS variables =======
 //=================================
 * Include country variable 
 import excel using "\input\economic_risk.xlsx", sheet("Sheet1") firstrow clear
@@ -92,11 +92,12 @@ rename financial_risk_i financial_risk
 gen exchange_rate_risk_i = 10-exchange_rate_risk
 drop exchange_rate_risk
 rename exchange_rate_risk_i exchange_rate_risk
-//===========================================
-//===== Merge PRS Database to Amadeus  ======
-//===========================================
 
-use "\cleaning\temp\merged_MPI_WB_DS_`1'", clear
+//============================================
+//===== Merge PRS variables to database ======
+//============================================
+
+use "\cleaning\temp\merged_`1'.dta", clear
 sort country year
 #delimit;
 merge m:1 country year using 
@@ -104,4 +105,4 @@ merge m:1 country year using
 #delimit cr
 keep if _merge==3
 drop _merge
-save "\cleaning\temp\merged_MPI_WB_DS_`1'.dta", replace
+save "\cleaning\temp\merged_`1'.dta", replace

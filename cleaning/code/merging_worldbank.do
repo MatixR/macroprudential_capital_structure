@@ -5,10 +5,10 @@
 set more off
 
 //========================================
-//====== Clean World Bank Database  ======
+//====== Clean World Bank database  ======
 //========================================
 
-foreach a in cpi credit_financial_GDP deflator gdp_growth_rate gdp_per_capita market_cap_GDP private_credit_GDP stock_traded_GDP tax_rate turnover {
+foreach a in cpi gdp_growth_rate gdp_per_capita private_credit_GDP tax_rate{
 insheet using "\input\\`a'.csv", clear
 
 * Drop lines and collumns not used
@@ -35,7 +35,7 @@ rename v `a'
 save "\cleaning\temp\Control`a'", replace
 }
 //========================================
-//===== Merge World Bank Database  =======
+//===== Merge World Bank variables =======
 //========================================
 * Include country variable 
 insheet using "\input\cpi.csv", clear
@@ -58,7 +58,7 @@ drop _merge
 save "\cleaning\temp\worldbank", replace
 
 * Join all indexes in one file 
-foreach a in credit_financial_GDP deflator gdp_growth_rate gdp_per_capita market_cap_GDP private_credit_GDP stock_traded_GDP tax_rate turnover {
+foreach a in cpi gdp_growth_rate gdp_per_capita private_credit_GDP tax_rate {
 #delimit;
 merge 1:1 id year using 
 "\cleaning\temp\Control`a'";
@@ -82,13 +82,13 @@ order country year
 drop id
 save "\cleaning\temp\worldbank", replace
 
-foreach a in cpi credit_financial_GDP deflator gdp_growth_rate gdp_per_capita market_cap_GDP private_credit_GDP stock_traded_GDP tax_rate turnover {
+foreach a in cpi gdp_growth_rate gdp_per_capita private_credit_GDP tax_rate {
 erase "\cleaning\temp\Control`a'.dta"
 }
 
-//============================================================
-//===== Merge World Bank database to Financial dataset  ======
-//============================================================
+//===================================================
+//===== Merge World Bank variables to database ======
+//===================================================
 
 use "\cleaning\temp\merged_`1'.dta", clear
 sort country year
