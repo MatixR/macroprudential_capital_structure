@@ -34,9 +34,8 @@ do "\cleaning\code\orbis_to_dta"
 //====== Arguments ========
 //=========================
 cd "S:"
-global track_index "orbis5"
-global sample_percent=5
-global MPP_vars "tax_rate *_y"
+global track_index "orbis"
+global sample_percent=100
 
 //================================
 //====== Sample and Merge ========
@@ -56,6 +55,15 @@ do "\cleaning\code\merging_IBRN"
 "$track_index" ;
 #delimit cr
 
+//============================================
+//====== Merge to Barth et al. 2008 ==========
+//============================================
+
+#delimit;
+do "\cleaning\code\merging_barth"
+"$track_index" ;
+#delimit cr
+
 //==============================================
 //====== Merge to World Bank controls ==========
 //==============================================
@@ -63,15 +71,6 @@ do "\cleaning\code\merging_IBRN"
 #delimit;
 do "\cleaning\code\merging_worldbank" 
 "$track_index" ;
-#delimit cr
-
-//================================================
-//====== Create debt shifting variables ==========
-//================================================
-
-#delimit;
-do "\cleaning\code\debt_shifting_creator" 
-"$track_index" "$MPP_vars" ;
 #delimit cr
 
 //=======================================
@@ -89,5 +88,18 @@ do "\cleaning\code\merging_PRS"
 
 #delimit;
 do "\cleaning\code\variables_creator"
-"$track_index" "$MPP_vars";
+"$track_index";
 #delimit cr
+
+//================================================
+//====== Create debt shifting variables ==========
+//================================================
+
+#delimit;
+do "\cleaning\code\debt_shifting_creator" 
+"$track_index";
+#delimit cr
+
+
+
+
