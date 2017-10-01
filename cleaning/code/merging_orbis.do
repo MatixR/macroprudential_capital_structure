@@ -9,7 +9,7 @@ set more off
 //==============================
 
 use "\input\orbis\financials", clear
-set seed 12345
+set seed 666
 * Sample % of data
 sort id
 preserve
@@ -58,13 +58,14 @@ drop _merge
 * Create listed information in time accounting for IPO and delisted dates
 replace listed = "Unlisted" if ipo_year>year & !missing(ipo_year)
 replace listed = "Listed" if delisted_year>year & !missing(delisted_year)
+replace listed = "Unlisted" if ipo_year>year & !missing(ipo_year) & delisted_year>year & !missing(delisted_year)
 
 //===================================
 //===== First cleaning of data ======
 //===================================
 
 * Drop listed information dates
-drop ipo_date ipo_year delisted_year delisted_date 
+drop ipo_year delisted_year 
 
 * Remove financials and utilities firms
 keep if type_id == "C"
