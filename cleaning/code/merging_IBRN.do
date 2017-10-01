@@ -18,15 +18,10 @@ destring `var', replace
 * Drop variables not used
 drop cum_* *PruC* AF
 
-* Create lagged variable
-sort ifscode year quarter
-foreach var of varlist sscb_res-rr_local{
-bysort ifscode (year quarter): gen l_`var' = `var'[_n-4] 
-}
 * Create index = 100 at 2007
 drop if year < 2007
 sort ifscode year quarter 
-foreach var of varlist sscb_res-rr_local l_*{
+foreach var of varlist sscb_res-rr_local {
 replace `var'=0 if year == 2007
 by ifscode (year quarter): gen c_`var'=sum(`var')
 }
@@ -42,7 +37,7 @@ order year year_1q year_2q year_3q
 sort ifscode year quarter
 
 * Create year average of each index  
-foreach var of varlist c_*{
+foreach var of varlist c_* {
 bysort ifscode year_1q: egen `var'_1q = mean(`var')
 bysort ifscode year_2q: egen `var'_2q = mean(`var')
 bysort ifscode year_3q: egen `var'_3q = mean(`var')
@@ -118,9 +113,9 @@ drop  _merge
 drop if missing(quarter)
 replace country = upper(country)
 
-//==============================================
-//===== Merge IBRN to Financials dataset  ======
-//==============================================
+//===========================
+//===== Merge dataset  ======
+//===========================
 
 save "\cleaning\temp\IBRN.dta", replace
 use "\cleaning\temp\merged_`1'.dta", clear
