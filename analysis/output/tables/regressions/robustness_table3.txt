@@ -1,0 +1,55 @@
+Effect of macroprudential policies on firm's financial leverage: profitability considerations			
+		(1)	(2)
+VARIABLES	LABELS		
+			
+c_cap_req_y	Capital requirement	0.088	0.182
+		(0.100)	(0.225)
+c_rr_local_y	Reserve requirement	-0.117*	-0.119
+		(0.067)	(0.175)
+tax_c_cap_req_y_i	Capital requirement*tax	-0.116	-0.207
+		(0.100)	(0.216)
+tax_c_rr_local_y_i	Reserve requirement*tax	0.013	0.007
+		(0.063)	(0.149)
+c_cap_req_y_ds	Capital requirement spillover	-0.070*	-0.130
+		(0.041)	(0.086)
+c_rr_local_y_ds	Reserve requirement spillover	0.075***	0.069
+		(0.024)	(0.058)
+vol_c_cap_req_y_i	Capital requirement*risk	-0.204**	-0.177
+		(0.103)	(0.109)
+vol_c_rr_local_y_i	Reserve requirement*risk	0.149*	-0.057
+		(0.088)	(0.114)
+tax_rate_i	Tax rate	0.144	0.214
+		(0.142)	(0.320)
+tax_rate_i_ds	Tax rate spillover	0.668***	0.787***
+		(0.146)	(0.288)
+risk_w	Risk	-0.041	0.085
+		(0.096)	(0.081)
+fixed_total_i_w	Tangibility	-0.030***	-0.024**
+		(0.008)	(0.010)
+log_fixedasset_i_w	Log of fixed assets	2.369***	1.478***
+		(0.224)	(0.257)
+profitability_i_w	Profitability	-0.003	-0.004
+		(0.003)	(0.003)
+opportunity_w	Opportunity	-0.018	-0.070
+		(0.062)	(0.117)
+inflation	Inflation rate	-0.209	0.851
+		(0.633)	(1.346)
+gdp_growth_rate	GDP growth rate	-2.257***	-1.282
+		(0.440)	(0.829)
+private_credit_GDP_i	Private credit to GDP	0.085	0.712***
+		(0.095)	(0.199)
+political_risk_i	Political Risk	-0.707***	-0.501
+		(0.251)	(0.510)
+exchange_rate_risk_i	Exchange rate risk	-0.081	0.141
+		(0.079)	(0.153)
+law_order_i	Law and order	5.201***	5.452***
+		(1.010)	(2.061)
+			
+Observations		184,566	53,602
+Number of multinationals		20,539	11,470
+Year fixed effects		Yes	Yes
+Multinational fixed effects		Yes	Yes
+Country*year fixed effects		No	No
+Multinational*year fixed effects		No	No
+Robust standard errors in parentheses			
+*** p<0.01, ** p<0.05, * p<0.1			

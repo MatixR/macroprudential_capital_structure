@@ -87,9 +87,10 @@ bysort multinationals (id_P id): gen subsidiary_ID = sum(help1)
 drop help1
 bysort multinationals: egen mean_subsidiary_ID = mean(subsidiary_ID)
 
-* Create multinational*year indicator
+* Create fixed-effects indicators
 egen double multinational_year = group(id_P year)
 egen double country_year = group(country_id year)
+egen double countries = group(country_id)
 
 * Create movers indicator
 bysort id id_P: gen help1 = 1 if _n == 1
@@ -111,6 +112,9 @@ bysort multinational_year: gen multinational = 0 if help3 == 1
 replace multinational = 1 if missing(multinational)
 drop help1 help2 help3
 
+* Keep only multinationals
+keep if multinational == 1
+
 * Label and changing unit of tax variable
 gen help1 = tax_rate/100
 replace tax_rate = help1
@@ -118,6 +122,15 @@ drop help1
 
 * Create average of asset per firm
 bysort id: egen avg_toas = mean(toas)
+
+* Replace barth variable from 2011 survey in years 2008, 2009 and 2010
+gen tag = 1 if year == 2008 | year == 2009 | year == 2010
+foreach var of varlist b_*{
+bysort id: egen avg_`var' = mean(`var') if year != 2007
+replace `var' = avg_`var' if tag==1
+drop avg_`var'
+}
+drop tag
 
 //=================================
 //====== Dependent Variables ======
@@ -149,64 +162,68 @@ replace debt_leverage =. if debt_leverage > 1 | debt_leverage < 0
 
 * Create tangibility variable - fixed asset
 gen fixed_total = fias/toas
-lab var fixed_total "Tangibility"
 
 * Create tangibility variable - tangible fixed asset
 gen tangible_total = tfas/toas
-lab var tangible_total "Adjusted tangibility"
 
 * Create intangibility variable - intangible asset
 gen intangible_total = ifas/toas
-lab var intangible_total "Intangibility"
 
 * Create firm size variable - sales
 gen log_sales = log(sales)
-lab var log_sales "Log of sales"
 
 * Create firm size variable - fixed asset
 gen log_fixedasset = log(fias)
-lab var log_fixedasset "Log of fixed assets"
 
 * Create profitability variable
 gen profitability = ebitda/toas
-lab var profitability "Profitability"
 
 * Create aggregate profitability variable
 bysort country_id year multinationals: egen total_profit = total(ebitda)
 bysort country_id year multinationals: egen total_asset = total(toas)
 gen agg_profitability = total_profit/total_asset
-lab var agg_profitability "Aggregate profitability"
 drop total_profit total_asset
 
 * Create growth opportunity variable
 bysort firms (year): gen sales_growth = D.log_sales if year == year[_n-1]+1
+bysort firms (year): replace sales_growth = log_sales[1]-log_sales[2] if year == 2007
 bysort country_id nace year: egen opportunity = median(sales_growth)
-lab var opportunity "Growth opportunities"
 drop sales_growth
 
 * Create risk of firm variable
 bysort firms (year): egen risk = sd(profitability)
-lab var risk "Volatility of profits"
 
 //================================================
 //====== Control Variables at Country Level ======
 //================================================
 
-* Changing GDP per capita to thousands
+* Merge IBRN and Barth dataset for new capital requirement variable
+gen cap_req = b_ovr_str if year == 2007
+bysort firms (year): replace cap_req = cap_req[1]+ c_cap_req_y 
+* Change GDP per capita to thousands
 gen help1 = gdp_per_capita/1000
 replace gdp_per_capita = help1
 drop help1
 lab var gdp_per_capita "GDP per capita"
 
-* Changing variables to GDP to percentage
+* Change variables to GDP to percentage
 foreach var in gdp_growth_rate private_credit_GDP {
 gen help1 = `var'/100
 replace `var' = help1
 drop help1
 }
-//========================================
-//====== Create index = 100 at 2007 ======
-//========================================
+
+* Change growth rate relative to 2008
+gen inflation_i2 = inflation
+gen logcpi = log(cpi)
+bysort firms (year): replace inflation_i2 = logcpi[1]-logcpi[2] if year == 2007 & year == year[_n+1]-1
+drop logcpi
+gen gdp_growth_rate_i2 = gdp_growth_rate
+bysort firms (year): replace gdp_growth_rate_i2 = -gdp_growth_rate[2]/(1+gdp_growth_rate[2]) if year == 2007 & year == year[_n+1]-1
+
+//=================================================
+//====== Create index = 100 at 2007 and 2008 ======
+//=================================================
 sort firms year
 #delimit;
 local vars1 "private_credit_GDP political_risk exchange_rate_risk law_order 
@@ -216,9 +233,24 @@ local vars1 "private_credit_GDP political_risk exchange_rate_risk law_order
 			profitability agg_profitability";
 #delimit cr
  foreach var of local vars1{
- bysort firms (year): gen `var'_i = `var'/`var'[1]
+ bysort firms (year): gen `var'_i = `var'/`var'[1] if year[1]==2007
+ bysort firms (year): gen `var'_i2 = `var'/`var'[2] if year[2]==2008
  }
  
+ foreach var of varlist c_rr_local_y  c_cap_req_y{
+  bysort firms (year): gen `var'_i2 = `var'-`var'[2] if year[2]==2008
+ }
+//=====================================
+//====== Create growth variable ======
+//=====================================
+ * Firm variables
+ foreach var of local vars1{
+ bysort firms (year): gen `var'_g = (`var'/`var'[_n-1])-1 if year == year[_n-1]+1
+}
+* MPI indexes
+foreach var of varlist c_rr_local_y  c_cap_req_y{
+  bysort firms (year): gen `var'_g = `var'-`var'[_n-1] if year == year[_n-1]+1
+ }
 //=====================================
 //====== Create average variable ======
 //=====================================
@@ -236,26 +268,44 @@ foreach var of local vars2{
 //===============================
 //====== Cleaning outliers ======
 //===============================
-* Index variables
+* No transformation variables
 #delimit;
 local vars3 "debt_leverage leverage adj_leverage longterm_debt loans_leverage 
              fixed_total tangible_total log_fixedasset log_sales 
+			 profitability agg_profitability risk opportunity";
+#delimit cr
+foreach var of local vars3{
+winsor `var', gen(`var'_w) p(0.01)
+}
+
+* Index variables
+#delimit;
+local vars3 "leverage adj_leverage  
+             fixed_total tangible_total log_fixedasset log_sales 
 			 profitability agg_profitability";
 #delimit cr
-
 foreach var of local vars3{
-winsor `var'_i , gen(`var'_w) p(0.01)
+winsor `var'_i , gen(`var'_i_w) p(0.01)
+winsor `var'_i2 , gen(`var'_i2_w) p(0.01)
+winsor `var'_g , gen(`var'_g_w) p(0.01)
 }
-foreach var of varlist risk opportunity{
-winsor `var' , gen(`var'_w) p(0.01)
+
+#delimit;
+local vars4 "debt_leverage longterm_debt loans_leverage";
+#delimit cr
+foreach var of local vars4{
+winsor `var'_i , gen(`var'_i_w) p(0.05)
+winsor `var'_i2 , gen(`var'_i2_w) p(0.05)
+winsor `var'_g , gen(`var'_g_w) p(0.05)
 }
+
 * Averaged variables
 #delimit;
-local vars4 "debt_leverage leverage adj_leverage longterm_debt loans_leverage 
+local vars5 "debt_leverage leverage adj_leverage longterm_debt loans_leverage 
              fixed_total tangible_total log_fixedasset log_sales 
 			 profitability agg_profitability opportunity";
 #delimit cr
-foreach var of local vars4{
+foreach var of local vars5{
 winsor `var'_a , gen(`var'_a_w) p(0.01)
 }
 
@@ -263,14 +313,24 @@ winsor `var'_a , gen(`var'_a_w) p(0.01)
 //====== Interaction term with tax ======
 //=======================================
 
-foreach var of varlist c_rr_local_y  c_cap_req_y cap_str ovr_str int_str{
-gen tax_`var'= `var'*tax_rate_i 
-gen vol_`var'= `var'*risk_w
-gen taxvol_`var'= `var'*risk_w*tax_rate_i
+foreach var of varlist c_rr_local_y  c_cap_req_y{
+gen tax_`var'_i= `var'*tax_rate_i 
+gen vol_`var'_i= `var'*risk_w
+
+gen tax_`var'_i2= `var'_i2*tax_rate_i2 
+gen vol_`var'_i2= `var'_i2*risk_w
+
+gen tax_`var'_g= `var'_g*tax_rate_g 
+gen vol_`var'_g= `var'_g*risk_w
 }
-foreach var of varlist cap_str ovr_str int_str{
+
+gen tax_cap_req= cap_req*tax_rate 
+gen vol_cap_req= cap_req*risk_w
+
+foreach var of varlist b_*{
+gen tax_`var'= `var'*tax_rate 
+gen vol_`var'= `var'*risk_w
 gen tax_`var'_a= `var'*tax_rate_a 
-gen taxvol_`var'_a= `var'*risk_w*tax_rate_a
 }
 
 //=============================
@@ -284,11 +344,23 @@ lab var longterm_debt "Long term debt"
 lab var loans_leverage "Short term debt"
 lab var debt_leverage "Debt leverage"
 
-lab var leverage_w "Financial leverage"
-lab var adj_leverage_w "Adjusted financial leverage"
-lab var longterm_debt_w "Long term debt"
-lab var loans_leverage_w "Short term debt"
-lab var debt_leverage_w "Debt leverage"
+lab var leverage_i_w "Financial leverage"
+lab var adj_leverage_i_w "Adjusted financial leverage"
+lab var longterm_debt_i_w "Long term debt"
+lab var loans_leverage_i_w "Short term debt"
+lab var debt_leverage_i_w "Debt leverage"
+
+lab var leverage_i2_w "Financial leverage"
+lab var adj_leverage_i2_w "Adjusted financial leverage"
+lab var longterm_debt_i2_w "Long term debt"
+lab var loans_leverage_i2_w "Short term debt"
+lab var debt_leverage_i2_w "Debt leverage"
+
+lab var leverage_g_w "Financial leverage"
+lab var adj_leverage_g_w "Adjusted financial leverage"
+lab var longterm_debt_g_w "Long term debt"
+lab var loans_leverage_g_w "Short term debt"
+lab var debt_leverage_g_w "Debt leverage"
 
 lab var leverage_a_w "Financial leverage"
 lab var adj_leverage_a_w "Adjusted financial leverage"
@@ -297,15 +369,6 @@ lab var loans_leverage_a_w "Short term debt"
 lab var debt_leverage_a_w "Debt leverage"
 
 * Independent variables
-lab var fixed_total "Tangibility"
-lab var profitability "Profitability"
-lab var tangible_total "Adjusted tangibility"
-lab var opportunity "Opportunity"
-lab var agg_profitability "Aggregate profitability"
-lab var risk "Risk"
-lab var log_fixedasset "Log of fixed assets"
-lab var log_sales "Log of sales"
-
 lab var fixed_total_w "Tangibility"
 lab var profitability_w "Profitability"
 lab var tangible_total_w "Adjusted tangibility"
@@ -314,6 +377,27 @@ lab var agg_profitability_w "Aggregate profitability"
 lab var risk_w "Risk"
 lab var log_fixedasset_w "Log of fixed assets"
 lab var log_sales_w "Log of sales"
+
+lab var fixed_total_i_w "Tangibility"
+lab var profitability_i_w "Profitability"
+lab var tangible_total_i_w "Adjusted tangibility"
+lab var agg_profitability_i_w "Aggregate profitability"
+lab var log_fixedasset_i_w "Log of fixed assets"
+lab var log_sales_i_w "Log of sales"
+
+lab var fixed_total_i2_w "Tangibility"
+lab var profitability_i2_w "Profitability"
+lab var tangible_total_i2_w "Adjusted tangibility"
+lab var agg_profitability_i2_w "Aggregate profitability"
+lab var log_fixedasset_i2_w "Log of fixed assets"
+lab var log_sales_i2_w "Log of sales"
+
+lab var fixed_total_g_w "Tangibility"
+lab var profitability_g_w "Profitability"
+lab var tangible_total_g_w "Adjusted tangibility"
+lab var agg_profitability_g_w "Aggregate profitability"
+lab var log_fixedasset_g_w "Log of fixed assets"
+lab var log_sales_g_w "Log of sales"
 
 lab var fixed_total_a_w "Tangibility"
 lab var profitability_a_w "Profitability"
@@ -334,37 +418,69 @@ lab var c_concrat_y "Concentration limit"
 lab var c_ibex_y "Interbank exposure limit"
 lab var c_ltv_cap_y "LTV ratio limits" 
 lab var c_rr_foreign_y "Reserve req. on foreign currency"
-lab var c_rr_local_y "Reserve req. on local currency"
+lab var c_rr_local_y "Reserve requirement"
+
+lab var c_cap_req_y_i2 "Capital requirement" 
+lab var c_rr_local_y_i2 "Reserve requirement"
+
+lab var c_cap_req_y_g "Capital requirement" 
+lab var c_rr_local_y_g "Reserve requirement"
+
 * Barth et al 2008
-lab var cap_str "Overall capital strigency"
-lab var ovr_str "Initial capital stringency"
-lab var int_str "Capital regulatory index"
+lab var b_ovr_rest "Restrictions on banking activities"
+lab var b_ovr_cong "Financial conglomerates restrictiveness"
+lab var b_lim_for "Limitations on foreign bank"
+lab var b_frac_den "Entry applications denied"
+lab var b_cap_str "Capital regulatory index"
+lab var b_ovr_str "Overall capital strigency"
+lab var b_int_str "Initial capital stringency"
+lab var b_off_sup "Official supervisory power"
+lab var b_pri_mon "Private Monitoring"
+lab var b_mor_haz "Moral hazard"
+lab var b_conc_dep "Bank concentration in deposits"
+lab var b_conc_ass "Bank concentration in assets"
+lab var b_for_sha "Foreign-owned banks"
+lab var b_gov_sha "Government-owned banks"
+
+* Merged capital requirement
+lab var cap_req "Capital requirement"
 
 * Tax macroprudential interaction variables
-foreach var of varlist c_rr_local_y  c_cap_req_y cap_str ovr_str int_str{
+foreach var of varlist c_rr_local_y  c_cap_req_y{
+lab var tax_`var'_i "`: var label `var''*tax"
+lab var vol_`var'_i "`: var label `var''*risk"
+
+lab var tax_`var'_i2 "`: var label `var''*tax"
+lab var vol_`var'_i2 "`: var label `var''*risk"
+
+lab var tax_`var'_g "`: var label `var''*tax"
+lab var vol_`var'_g "`: var label `var''*risk"
+}
+foreach var of varlist b_*{
 lab var tax_`var' "`: var label `var''*tax"
 lab var vol_`var' "`: var label `var''*risk"
-lab var taxvol_`var' "`: var label `var''*risk*tax"
-}
-foreach var of varlist cap_str ovr_str int_str{
 lab var tax_`var'_a "`: var label `var''*tax"
-lab var taxvol_`var'_a "`: var label `var''*risk*tax"
 }
 * World Bank
 lab var gdp_per_capita "GDP per capita"
 lab var private_credit_GDP "Private credit to GDP"
 lab var interest_rate "Policy rate"
 lab var tax_rate "Tax rate"
-
 lab var gdp_growth_rate "GDP growth rate"
 lab var inflation "Inflation rate"
+
 lab var gdp_per_capita_i "GDP per capita"
 lab var private_credit_GDP_i "Private credit to GDP"
 lab var interest_rate_i "Policy rate"
 lab var tax_rate_i "Tax rate"
+lab var gdp_growth_rate_i2 "GDP growth rate"
+lab var inflation_i2 "Inflation rate"
 
-lab var gdp_growth_rate_a "GDP growth rate"
-lab var inflation_a "Inflation rate"
+lab var gdp_per_capita_g "GDP per capita"
+lab var private_credit_GDP_g "Private credit to GDP"
+lab var interest_rate_g "Policy rate"
+lab var tax_rate_g "Tax rate"
+
 lab var gdp_per_capita_a "GDP per capita"
 lab var private_credit_GDP_a "Private credit to GDP"
 lab var interest_rate_a "Policy rate"
@@ -378,6 +494,10 @@ lab var law_order "Law and order"
 lab var exchange_rate_risk_i "Exchange rate risk"
 lab var political_risk_i "Political Risk"
 lab var law_order_i "Law and order"
+
+lab var exchange_rate_risk_g "Exchange rate risk"
+lab var political_risk_g "Political Risk"
+lab var law_order_g "Law and order"
 
 lab var exchange_rate_risk_a "Exchange rate risk"
 lab var political_risk_a "Political Risk"

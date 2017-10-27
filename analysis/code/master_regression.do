@@ -6,17 +6,26 @@
 //=========================
 //====== Arguments ========
 //=========================
+ssc install reghdfe
+ssc install outreg2
 cd "S:"
-use "\cleaning\output\dataset_orbis100_2.dta", clear
-timer clear
-
 * Table 1
+use "\cleaning\output\dataset_orbis.dta", clear
 do "\analysis\code\regression_benchmark"
 
-* Tables 2 and 3
-do "\analysis\code\regression_alt_dep_vars"
+* Table 2
+use "\cleaning\output\dataset_orbis.dta", clear
+do "\analysis\code\robustness_other_year_base"
 
-* Tables 4 and 5
-do "\analysis\code\regression_extensions"
+* Table 3
+use "\cleaning\output\dataset_orbis.dta", clear
+do "\analysis\code\regression_barth"
+
+* Table 2 and 3
+use "\cleaning\output\dataset_orbis.dta", clear
+do "\analysis\code\regression_merged_data"
+
+
+
 
 timer list

@@ -39,7 +39,7 @@ reghdfe `dependent' `independent' `independent_tax'
                     `independent_ds' 
 					 tax_rate_i         tax_rate_i_ds 
                     `firm_control' `country_control' 			         
-					  if multinational ==1& year != 2007,
+					  if balance_panel == 8 & multinational ==1,
 				      absorb(multinationals year) keepsingletons
                       vce(cluster multinationals);
 local Number_group: di %15.0fc `e(N_clust)';
@@ -64,7 +64,7 @@ reghdfe `dependent' `independent' `independent_tax'
                     `independent_ds' `independent_vol' 
 					 tax_rate_i         tax_rate_i_ds 
                     `firm_control' `country_control'
-					  if  multinational ==1 & year != 2007,
+					 if balance_panel == 8 & multinational ==1,
 				      absorb(multinationals year) keepsingletons
                       vce(cluster multinationals);
 local Number_group: di %15.0fc `e(N_clust)';
@@ -89,7 +89,7 @@ sort country_year multinationals subsidiary_ID
 reghdfe `dependent' `independent_ds' `independent_vol' 
                      tax_rate_i_ds 
                      `firm_control'          			         
-					  if multinational ==1 & year != 2007,
+					  if balance_panel == 8 & multinational ==1,
 				      absorb(country_year multinationals) keepsingletons
                       vce(cluster multinationals);
 local Number_group: di %15.0fc `e(N_clust)';
@@ -111,7 +111,7 @@ ctitle(" ") title("Effect of macroprudential policies on firm's financial levera
 #delimit; 
 reghdfe `dependent' `independent_vol' 
                      `firm_control'         			         
-					  if multinational ==1 & year != 2007,
+					  if balance_panel == 8 & multinational ==1,
 				      absorb(country_year multinational_year) keepsingletons
                       vce(cluster multinationals);
 local Number_group: di %15.0fc `e(N_clust)';

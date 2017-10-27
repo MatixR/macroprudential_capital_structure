@@ -1,57 +1,55 @@
-Effect of macroprudential policies on firm's financial leverage				
-		(1)	(2)	(3)
-VARIABLES	LABELS			
-				
-c_rr_local_y	Reserve req. on local currency	0.095		
-		(0.083)		
-c_cap_req_y	Capital requirement	-0.266**		
-		(0.124)		
-int_c_rr_local_y	Reserve req. on local currency*tax	-0.016		
-		(0.080)		
-int_c_cap_req_y	Capital requirement*tax	0.308**		
-		(0.127)		
-c_rr_local_y_ds	Reserve req. on local currency spillover	-0.071**	-0.056**	
-		(0.028)	(0.027)	
-c_cap_req_y_ds	Capital requirement spillover	-0.025	-0.015	
-		(0.027)	(0.026)	
-vol_c_rr_local_y	Reserve req. on local currency*risk		-0.322**	-0.337*
-			(0.157)	(0.172)
-vol_c_cap_req_y	Capital requirement*risk		-0.250**	-0.399***
-			(0.123)	(0.140)
-tax_rate	Tax rate	0.095**		
-		(0.042)		
-tax_rate_ds	Tax rate spillover	0.015	-0.014	
-		(0.030)	(0.045)	
-fixed_total_w	Tangibility	-0.013***	-0.013***	-0.014***
-		(0.002)	(0.002)	(0.003)
-log_fixedasset_w	Log of fixed assets	0.880***	0.892***	0.947***
-		(0.064)	(0.062)	(0.068)
-profitability_w	Profitability	-0.004***	-0.004***	-0.004***
-		(0.001)	(0.001)	(0.001)
-opportunity_w	Opportunity	0.111***	0.106***	0.148***
-		(0.019)	(0.022)	(0.031)
-risk_w	Risk	0.081***	0.105***	0.121***
-		(0.022)	(0.023)	(0.024)
-inflation	Inflation	0.060		
-		(0.180)		
-gdp_growth_rate	GDP growth rate	0.142		
-		(0.105)		
-private_credit_GDP	Private credit to GDP	0.032		
-		(0.027)		
-interest_rate	Policy rate	-0.070**		
-		(0.033)		
-political_risk	Political Risk	-0.076		
-		(0.068)		
-exchange_rate_risk	Exchange rate risk	-0.119***		
-		(0.020)		
-law_order	Law and order	2.533*		
-		(1.299)		
-				
-Observations		417,845	455,053	406,332
-Number of multinationals		27,460	29,453	19,044
-Year fixed effects		Yes	No	No
-Multinational fixed effects		Yes	Yes	No
-Country*year fixed effects		No	Yes	Yes
-Multinational*year fixed effects		No	No	Yes
-Robust standard errors in parentheses				
-*** p<0.01, ** p<0.05, * p<0.1				
+Effect of macroprudential policies on firm's financial leverage					
+		(1)	(2)	(3)	(4)
+VARIABLES	LABELS				
+					
+c_cap_req_y	Capital requirement	-0.165***	-0.149***		
+		(0.051)	(0.051)		
+c_rr_local_y	Reserve requirement	-0.069**	-0.053		
+		(0.035)	(0.035)		
+tax_c_cap_req_y_i	Capital requirement*tax	0.196***	0.197***		
+		(0.050)	(0.050)		
+tax_c_rr_local_y_i	Reserve requirement*tax	0.080**	0.081**		
+		(0.033)	(0.033)		
+c_cap_req_y_ds	Capital requirement spillover	-0.033**	-0.032**	-0.018	
+		(0.015)	(0.015)	(0.015)	
+c_rr_local_y_ds	Reserve requirement spillover	-0.022**	-0.021**	-0.017*	
+		(0.009)	(0.009)	(0.009)	
+vol_c_cap_req_y_i	Capital requirement*risk		-0.190***	-0.177**	-0.264***
+			(0.071)	(0.069)	(0.077)
+vol_c_rr_local_y_i	Reserve requirement*risk		-0.165*	-0.152*	-0.176*
+			(0.092)	(0.090)	(0.099)
+tax_rate_i	Tax rate	0.046	0.043		
+		(0.051)	(0.051)		
+tax_rate_i_ds	Tax rate spillover	0.225***	0.224***	0.070	
+		(0.067)	(0.067)	(0.064)	
+risk_w	Risk	0.073*	0.084**	0.090**	0.118***
+		(0.041)	(0.040)	(0.040)	(0.040)
+fixed_total_i_w	Tangibility	-0.005	-0.005	-0.005	-0.005
+		(0.004)	(0.004)	(0.004)	(0.004)
+log_fixedasset_i_w	Log of fixed assets	0.973***	0.971***	0.969***	1.024***
+		(0.101)	(0.101)	(0.101)	(0.110)
+profitability_i_w	Profitability	-0.006***	-0.006***	-0.006***	-0.007***
+		(0.002)	(0.002)	(0.002)	(0.002)
+opportunity_w	Opportunity	0.097***	0.098***	0.102***	0.135***
+		(0.021)	(0.021)	(0.022)	(0.030)
+inflation	Inflation rate	0.319	0.293		
+		(0.248)	(0.245)		
+gdp_growth_rate	GDP growth rate	0.224*	0.230**		
+		(0.117)	(0.117)		
+private_credit_GDP_i	Private credit to GDP	0.049	0.047		
+		(0.033)	(0.033)		
+political_risk_i	Political Risk	-0.167*	-0.161*		
+		(0.092)	(0.092)		
+exchange_rate_risk_i	Exchange rate risk	-0.085***	-0.087***		
+		(0.020)	(0.020)		
+law_order_i	Law and order	0.183	0.166		
+		(0.232)	(0.231)		
+					
+Observations		367,003	367,003	367,014	367,014
+Number of multinationals		23,194	23,194	23,194	23,194
+Year fixed effects		Yes	Yes	No	No
+Multinational fixed effects		Yes	Yes	Yes	No
+Country*year fixed effects		No	No	Yes	Yes
+Multinational*year fixed effects		No	No	No	Yes
+Robust standard errors in parentheses					
+*** p<0.01, ** p<0.05, * p<0.1					

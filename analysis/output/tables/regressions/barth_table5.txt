@@ -1,0 +1,47 @@
+Effect of macroprudential policies on firm's financial leverage		
+		(1)
+VARIABLES	LABELS	
+		
+cap_str	Overall capital strigency	0.025**
+		(0.010)
+tax_cap_str	Overall capital strigency*tax	-0.069***
+		(0.015)
+cap_str_ds	Overall capital strigency spillover	0.010
+		(0.007)
+o.tax_rate	Tax rate = o,	-
+		
+tax_rate_ds	Tax rate spillover	0.624***
+		(0.108)
+fixed_total_w	Tangibility	-0.262***
+		(0.007)
+log_fixedasset_w	Log of fixed assets	0.014***
+		(0.001)
+profitability_w	Profitability	-0.135***
+		(0.007)
+opportunity_w	Opportunity	-0.002
+		(0.023)
+risk_w	Risk	0.025***
+		(0.007)
+inflation	Inflation rate	-3.846***
+		(0.270)
+gdp_growth_rate	GDP growth rate	-0.596***
+		(0.089)
+private_credit_GDP	Private credit to GDP	0.047***
+		(0.012)
+interest_rate	Policy rate	-0.002
+		(0.003)
+political_risk	Political Risk	0.007***
+		(0.001)
+exchange_rate_risk	Exchange rate risk	-0.101***
+		(0.036)
+law_order	Law and order	-0.055***
+		(0.006)
+		
+Observations		82,391
+Number of multinationals		12,029
+Year fixed effects		Yes
+Multinational fixed effects		Yes
+Country*year fixed effects		No
+Multinational*year fixed effects		No
+Robust standard errors in parentheses		
+*** p<0.01, ** p<0.05, * p<0.1		

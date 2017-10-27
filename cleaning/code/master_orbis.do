@@ -34,9 +34,9 @@ do "\cleaning\code\orbis_to_dta"
 //====== Arguments ========
 //=========================
 cd "S:"
-global track_index "orbis"
+global track_index "orbis_barth"
 global sample_percent=100
-
+ssc install winsor
 //================================
 //====== Sample and Merge ========
 //================================
@@ -96,7 +96,7 @@ do "\cleaning\code\variables_creator"
 //================================================
 
 #delimit;
-do "\cleaning\code\debt_shifting_creator" 
+do "\cleaning\code\debt_shifting_creator_barth" 
 "$track_index";
 #delimit cr
 

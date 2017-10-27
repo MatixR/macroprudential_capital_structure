@@ -1,0 +1,51 @@
+Effect of macroprudential policies on firm's financial leverage				
+		(1)	(2)	(3)
+VARIABLES	LABELS			
+				
+cap_str	Overall capital strigency	-0.005		
+		(0.007)		
+tax_cap_str	Overall capital strigency*tax	-0.001		
+		(0.005)		
+vol_cap_str	Overall capital strigency*risk		0.011***	0.011***
+			(0.003)	(0.003)
+cap_str_ds_a	Overall capital strigency spillover	0.008	0.000	
+		(0.007)	(0.005)	
+tax_rate_a	Tax rate	0.167***		
+		(0.036)		
+tax_rate_a_ds_a	Tax rate spillover		-0.551***	
+			(0.115)	
+fixed_total_a_w	Tangibility	-0.262***	-0.257***	-0.255***
+		(0.007)	(0.007)	(0.007)
+log_fixedasset_a_w	Log of fixed assets	0.012***	0.012***	0.012***
+		(0.001)	(0.001)	(0.001)
+profitability_a_w	Profitability	-0.076***	-0.086***	-0.087***
+		(0.006)	(0.006)	(0.006)
+opportunity_a_w	Opportunity	0.011	-0.026	-0.017
+		(0.030)	(0.027)	(0.027)
+risk_w	Risk	-0.022***	-0.099***	-0.101***
+		(0.005)	(0.021)	(0.021)
+inflation_a	Inflation rate	-1.756***		
+		(0.374)		
+gdp_growth_rate_a	GDP growth rate	-0.381***		
+		(0.142)		
+private_credit_GDP_a	Private credit to GDP	0.035***		
+		(0.010)		
+interest_rate_a	Policy rate	-0.024***		
+		(0.003)		
+political_risk_a	Political Risk	0.005***		
+		(0.000)		
+exchange_rate_risk_a	Exchange rate risk	-0.066***		
+		(0.006)		
+law_order_a	Law and order	-0.048***		
+		(0.003)		
+o.tax_rate_a_ds_a	Tax rate spillover = o,	-		
+				
+				
+Observations		98,631	112,005	112,005
+Number of multinationals		13,659	15,684	15,684
+Year fixed effects		Yes	No	No
+Multinational fixed effects		Yes	Yes	No
+Country*year fixed effects		No	Yes	Yes
+Multinational*year fixed effects		No	No	Yes
+Robust standard errors in parentheses				
+*** p<0.01, ** p<0.05, * p<0.1				

@@ -37,15 +37,13 @@ tempfile tmp2
 
 * Keep only looped variables
 #delimit;
-keep tax_rate tax_rate_i tax_rate_a tax_rate_i2 tax_rate_g
-c_rr_local_y_i2  c_cap_req_y_i2 cap_req c_rr_local_y_g  c_cap_req_y_g
-c_rr_local_y c_cap_req_y cap_str ovr_str int_str 
+keep tax_rate tax_rate_a b_*
 debt_shifting_group subsidiary_time_ID id year parent
 asset_share avg_asset_share; 
 #delimit cr
 
 * Create debt shifting variable among all firms of multinational
- foreach a of varlist tax_rate tax_rate_i tax_rate_g tax_rate_i2 c_rr_local_y_g  c_cap_req_y_g c_rr_local_y c_rr_local_y_i2 cap_req c_cap_req_y c_cap_req_y_i2 *_str{
+ foreach a of varlist tax_rate b_gov_sha-b_for_sha{
 quiet summ subsidiary_time_ID
 forvalues k = 1/`r(max)'{
 bysort debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*asset_share[`k']
@@ -55,7 +53,7 @@ quiet drop help*
 }
 
 * Create average debt shifting variable among all firms of multinational for Barth data
-foreach a of varlist tax_rate_a *_str{
+foreach a of varlist tax_rate_a b_gov_sha-b_for_sha{
 quiet summ subsidiary_time_ID
 forvalues k = 1/`r(max)'{
 bysort debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*avg_asset_share[`k']
@@ -72,7 +70,7 @@ bysort debt_shifting_group: egen parent_indicator = mean(parent)
 keep if parent_indicator > 0
 
 * Create debt shifting variable only with parent firm
-foreach a of varlist tax_rate tax_rate_i tax_rate_i2 c_rr_local_y_g  c_cap_req_y_g tax_rate_g c_rr_local_y c_rr_local_y_i2 cap_req c_cap_req_y c_cap_req_y_i2 *_str{
+foreach a of varlist tax_rate b_gov_sha-b_for_sha{
 bysort debt_shifting_group (parent): gen help1 = `a'[_N]*asset_share[_N]
 bysort debt_shifting_group (parent): gen help2 = `a'*asset_share[_N]
 quiet gen `a'_ds_p= help2-help1
@@ -80,7 +78,7 @@ quiet drop help*
 }
 
 * Create average debt shifting variable only with parent firm for Barth data
-foreach a of varlist tax_rate_a *_str{
+foreach a of varlist tax_rate_a b_gov_sha-b_for_sha{
 bysort debt_shifting_group (parent): gen help1 = `a'[_N]*avg_asset_share[_N]
 bysort debt_shifting_group (parent): gen help2 = `a'*avg_asset_share[_N]
 quiet gen `a'_ds_p_a= help2-help1
@@ -99,15 +97,13 @@ keep if parent == 0
 
 * Keep only looped variables
 #delimit;
-keep tax_rate tax_rate_i tax_rate_a tax_rate_i2
-c_rr_local_y_i2  c_cap_req_y_i2 cap_req c_rr_local_y_g  c_cap_req_y_g tax_rate_g
-c_rr_local_y c_cap_req_y cap_str ovr_str int_str 
+keep tax_rate tax_rate_a b_*
 debt_shifting_group subsidiary_time_ID id year parent
 asset_share avg_asset_share; 
 #delimit cr
 
 * Debt shift only among subsidiaries
-foreach a of varlist tax_rate tax_rate_i tax_rate_i2 c_rr_local_y_g  c_cap_req_y_g tax_rate_g c_rr_local_y c_rr_local_y_i2 cap_req c_cap_req_y c_cap_req_y_i2 *_str{
+foreach a of varlist tax_rate b_gov_sha-b_for_sha{
 quiet summ subsidiary_time_ID
 forvalues k = 1/`r(max)'{
 bysort debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*asset_share[`k']
@@ -117,7 +113,7 @@ quiet drop help*
 }
 
 * Average debt shift only among subsidiaries for Barth datas
-foreach a of varlist tax_rate_a *_str{
+foreach a of varlist tax_rate_a b_gov_sha-b_for_sha{
 quiet summ subsidiary_time_ID
 forvalues k = 1/`r(max)'{
 bysort debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*avg_asset_share[`k']
@@ -144,7 +140,7 @@ foreach var of varlist *_ds{
 replace `var'_s=`var' if missing(`var'_s) 
 replace `var'_p=0 if missing(`var'_p)
 }
-foreach var of varlist *_str_ds{
+foreach var of varlist b_*_ds{
 replace `var'_s_a=`var' if missing(`var'_s_a) 
 replace `var'_p_a=0 if missing(`var'_p_a)
 }
@@ -155,12 +151,12 @@ replace tax_rate_a_ds_p_a=0 if missing(tax_rate_a_ds_p_a)
 //====== Label variables ======
 //============================= 
  
-foreach var of varlist tax_rate tax_rate_i tax_rate_i2 c_rr_local_y_g  c_cap_req_y_g tax_rate_g c_rr_local_y cap_req c_cap_req_y c_rr_local_y_i2  c_cap_req_y_i2 cap_str ovr_str int_str{
+foreach var of varlist tax_rate b_gov_sha-b_for_sha{
 lab var `var'_ds "`: var label `var'' spillover"
 lab var `var'_ds_p "`: var label `var'' spillover to parent"
 lab var `var'_ds_s "`: var label `var'' spillover to other subsidiaries"
 }
-foreach var of varlist tax_rate_a cap_str ovr_str int_str{
+foreach var of varlist tax_rate_a b_gov_sha-b_for_sha{
 lab var `var'_ds_a "`: var label `var'' spillover"
 lab var `var'_ds_p_a "`: var label `var'' spillover to parent"
 lab var `var'_ds_s_a "`: var label `var'' spillover to other subsidiaries"

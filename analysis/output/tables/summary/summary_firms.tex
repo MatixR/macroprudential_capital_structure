@@ -1,44 +1,36 @@
-\begin{longtable}{lccccc}\\
-	\label{tab:number of firms}\\
-	\multicolumn{6}{c}{Table \ref{tab:number of firms} - Summary statistics of leverage, macroprudential indexes and controls}\\ \hline \hline\\
-                                                           
- Variable   &   Observations &    Mean &          SD&         Min&         Max\\
-
-\hline \endfirsthead
-
-	\multicolumn{6}{c}{Table \ref{tab:number of firms} - Summary statistics of leverage, macroprudential indexes and controls (\textit{Continued})}\\ \hline \hline\\
-
-Variable   &   Observations &    Mean &          SD&         Min&         Max\\
-
-\hline \endhead
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Summary statistics of firm level variables}
+\begin{tabular}{l*{1}{ccccc}}
+\hline\hline
+                    &\multicolumn{5}{c}{}                                            \\
+                    &       count&        mean&          sd&         min&         max\\
 \hline
-\multicolumn{6}{r}{{\textit{(Continued)}}}\\ \endfoot
-
-\endlastfoot
-
-Panel A: main variables         &      &        &        &        &       \\
-\quad Financial leverage  &      461,820&        1.07&        0.81&        0.00&        7.87\\
-\quad Reserve req. on local currency&      461820&       -0.11&        0.18&       -1.50&        2.00\\
-\quad Capital requirement &      461,820&        0.15&        0.18&        0.00&        0.50\\
-\quad Tax rate            &      461,808&        0.96&        0.08&        0.62&        1.37\\
-\quad Reserve req. on local currency spillover&      461820&       -0.03&        0.13&       -2.15&        1.41\\
-\quad Capital requirement spillover&      461820&        0.00&        0.05&       -0.50&        0.48\\
-\quad Tax rate spillover  &      461,820&        0.03&        0.10&       -0.52&        0.70\\
-         &      &        &        &        &       \\
-Panel B: firm-level controls         &      &        &        &        &       \\
-\quad Tangibility         &      461,820&        1.54&        2.49&        0.00&       19.25\\
-\quad Log of fixed assets &      461,820&        1.00&        0.09&        0.64&        1.50\\
-\quad Profitability       &      461,820&        0.71&        3.61&      -19.02&       18.64\\
-\quad Opportunity         &      461,820&       -0.03&        0.09&       -0.33&        0.22\\
-\quad Risk                &      461,820&        0.09&        0.16&        0.00&        3.21\\
-         &      &        &        &        &       \\
-Panel C: country-level controls         &      &        &        &        &       \\
-\quad Inflation           &      461,780&        0.02&        0.02&       -0.01&        0.22\\
-\quad GDP growth rate     &      461,820&        0.00&        0.03&       -0.15&        0.10\\
-\quad Private credit to GDP&      461,805&        1.05&        0.13&        0.39&        1.59\\
-\quad Policy rate         &      424,099&        0.37&        0.31&        0.00&        1.34\\
-\quad Political Risk      &      461,820&        0.95&        0.05&        0.84&        1.11\\
-\quad Exchange rate risk  &      461,820&        0.99&        0.10&        0.10&        1.11\\
-\quad Law and order       &      461,820&        1.00&        0.01&        0.67&        1.33\\
-\hline
-\end{longtable}
+Financial leverage  &      492166&        0.59&        0.27&        0.00&        1.00\\
+Adjusted financial leverage&      343359&        0.52&        0.28&        0.00&        1.00\\
+Debt leverage       &      431856&        0.12&        0.19&        0.00&        1.00\\
+Long term debt      &      441916&        0.07&        0.15&        0.00&        1.00\\
+Short term debt     &      471801&        0.05&        0.11&        0.00&        1.00\\
+Overall capital strigency&       66078&        7.36&        1.21&        4.00&       10.00\\
+Initial capital stringency&       66078&        5.45&        1.09&        2.00&        7.00\\
+Capital regulatory index&       66078&        1.91&        0.53&        1.00&        3.00\\
+Tax rate            &      492149&        0.54&        0.11&        0.18&        1.37\\
+Overall capital strigency spillover&      492166&        0.05&        0.49&       -5.65&        6.00\\
+Initial capital stringency spillover&      492166&        0.03&        0.42&       -4.79&        4.82\\
+Capital regulatory index spillover&      492166&        0.01&        0.17&       -2.00&        2.00\\
+Tax rate spillover  &      492166&        0.02&        0.10&       -0.52&        0.70\\
+Tangibility         &      492166&        0.32&        0.29&        0.00&        1.00\\
+Log of fixed assets &      492166&       14.52&        2.69&        4.32&       18.30\\
+Profitability       &      492166&        0.09&        0.17&       -1.96&        1.28\\
+Opportunity         &      492166&       -0.03&        0.09&       -0.33&        0.22\\
+Risk                &      492166&        0.09&        0.17&        0.00&        3.30\\
+Inflation rate      &      492124&        0.02&        0.02&       -0.01&        0.22\\
+GDP growth rate     &      492166&        0.00&        0.03&       -0.15&        0.10\\
+Private credit to GDP&      492148&        1.00&        0.32&        0.12&        1.98\\
+Policy rate         &      451067&        1.40&        1.19&        0.02&       12.54\\
+Political Risk      &      492166&       77.85&        7.07&       52.00&       92.50\\
+Exchange rate risk  &      492166&        9.47&        0.90&        1.00&       10.00\\
+Law and order       &      492166&        4.97&        0.65&        2.00&        6.00\\
+\hline\hline
+\end{tabular}
+\end{table}
