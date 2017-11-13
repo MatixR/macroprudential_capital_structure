@@ -26,6 +26,10 @@ use "\cleaning\output\dataset_orbis.dta", clear
 do "\analysis\code\regression_merged_data"
 
 
+* Table 2 and 3
+use "\cleaning\output\dataset_orbis_barth.dta", clear
+do "\analysis\code\regression_barth"
+
 
 
 timer list

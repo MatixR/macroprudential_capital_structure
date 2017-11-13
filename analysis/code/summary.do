@@ -59,18 +59,20 @@ title("Summary statistics of firm level variables");
 #delimit cr
 
 * Summary table of average variables for Barth data analysis
-use "\cleaning\output\dataset_orbis.dta", clear
+use "\cleaning\output\dataset_orbis_barth.dta", clear
 set more off
 #delimit;
-drop if missing(leverage,fixed_total_w, ovr_str,
+drop if missing(leverage,fixed_total_w,
 log_fixedasset_w, profitability_w, opportunity_w, risk_w);
 drop if missing(inflation, gdp_growth_rate, private_credit_GDP, 
 political_risk, exchange_rate_risk, law_order);
 #delimit cr
 #delimit;
 estpost tabstat leverage  
-ovr_str tax_rate
-ovr_str_ds tax_rate_ds
+b_ovr_rest b_lim_for b_frac_den  
+b_int_str b_off_sup tax_rate
+b_ovr_rest_ds b_lim_for_ds b_frac_den_ds 
+b_int_str_ds b_off_sup_ds tax_rate_ds
 fixed_total_w log_fixedasset_w profitability_w opportunity_w risk_w
 inflation gdp_growth_rate private_credit_GDP interest_rate
 political_risk exchange_rate_risk law_order, 

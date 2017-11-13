@@ -9,15 +9,15 @@ drop if missing(inflation, gdp_growth_rate, private_credit_GDP, political_risk, 
 * Macroprudential variables
 #delimit;
 local dependent       "leverage";	        					  			   
-local independent     "b_ovr_rest  
-                       b_lim_for b_frac_den  
-					   b_int_str b_off_sup";
-local independent_ds  "b_ovr_rest_ds  
-                       b_lim_for_ds b_frac_den_ds 
-					   b_int_str_ds b_off_sup_ds ";
-local independent_tax "tax_b_ovr_rest 
-                       tax_b_lim_for tax_b_frac_den 
-					   tax_b_int_str tax_b_off_sup";
+local independent     "b_ovr_rest b_ovr_cong    
+					   b_int_str b_off_sup
+					   b_pri_mon b_mor_haz";
+local independent_ds  "b_ovr_rest_ds  b_ovr_cong_ds
+					   b_int_str_ds b_off_sup_ds 
+					   b_pri_mon_ds b_mor_haz_ds";
+local independent_tax "tax_b_ovr_rest tax_b_ovr_cong
+					   tax_b_int_str tax_b_off_sup
+					   tax_b_pri_mon tax_b_mor_haz";
 local independent_vol    "";
 #delimit cr
 * Control variables			  
@@ -51,8 +51,7 @@ outreg2 using "\analysis\output\tables\regressions\benchmark_table1_barth.tex",
 addtext("Number of multinationals","`Number_group'"
 	   ,"Year fixed effects", Yes
 	   ,"Multinational fixed effects", Yes
-	   ,"Multinational*year fixed effects", No
-	   ,"Industry fixed effects", No) 
+	   ,"Multinational*year fixed effects", No) 
 label tex(frag) nocons bdec(3) sdec(3) noni nor2 
 sortvar(`independent'     `independent_ds'
         `independent_tax'  `independent_vol' 
@@ -75,8 +74,7 @@ outreg2 using "\analysis\output\tables\regressions\benchmark_table1_barth.tex",
 addtext("Number of multinationals","`Number_group'"
 	   ,"Year fixed effects", Yes
 	   ,"Multinational fixed effects", Yes
-	   ,"Multinational*year fixed effects", No
-	   ,"Industry fixed effects", No) 
+	   ,"Multinational*year fixed effects", No) 
 label tex(frag) nocons bdec(3) sdec(3) noni nor2 
 sortvar(`independent'     `independent_ds'
         `independent_tax'  `independent_vol' 

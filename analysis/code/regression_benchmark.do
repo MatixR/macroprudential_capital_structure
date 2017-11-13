@@ -31,7 +31,8 @@ local country_control "inflation gdp_growth_rate private_credit_GDP_i political_
 cap erase "\analysis\output\tables\regressions\benchmark_table1.tex"
 cap erase "\analysis\output\tables\regressions\benchmark_table1.txt"
 
-
+gen tag = 1 if year == 2008 | year == 2009 | year == 2010 | year == 2011 | year == 2012
+replace tag = 0 if missing(tag)
 * Column 1. Multinationals and year FE -  Test debt shift theory
 sort  firms year
 #delimit;
@@ -39,7 +40,7 @@ reghdfe `dependent' `independent' `independent_tax'
                     `independent_ds' 
 					 tax_rate_i         tax_rate_i_ds 
                     `firm_control' `country_control' 			         
-					  if multinational ==1& year != 2007,
+					  if multinational ==1& tag == 1,
 				      absorb(multinationals year) keepsingletons
                       vce(cluster multinationals);
 local Number_group: di %15.0fc `e(N_clust)';
@@ -64,7 +65,7 @@ reghdfe `dependent' `independent' `independent_tax'
                     `independent_ds' `independent_vol' 
 					 tax_rate_i         tax_rate_i_ds 
                     `firm_control' `country_control'
-					  if  multinational ==1 & year != 2007,
+					  if  multinational ==1 & tag == 1,
 				      absorb(multinationals year) keepsingletons
                       vce(cluster multinationals);
 local Number_group: di %15.0fc `e(N_clust)';
@@ -89,7 +90,7 @@ sort country_year multinationals subsidiary_ID
 reghdfe `dependent' `independent_ds' `independent_vol' 
                      tax_rate_i_ds 
                      `firm_control'          			         
-					  if multinational ==1 & year != 2007,
+					  if multinational ==1 & tag == 1,
 				      absorb(country_year multinationals) keepsingletons
                       vce(cluster multinationals);
 local Number_group: di %15.0fc `e(N_clust)';
@@ -111,7 +112,7 @@ ctitle(" ") title("Effect of macroprudential policies on firm's financial levera
 #delimit; 
 reghdfe `dependent' `independent_vol' 
                      `firm_control'         			         
-					  if multinational ==1 & year != 2007,
+					  if multinational ==1 & tag == 1,
 				      absorb(country_year multinational_year) keepsingletons
                       vce(cluster multinationals);
 local Number_group: di %15.0fc `e(N_clust)';
