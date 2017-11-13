@@ -1,12 +1,22 @@
-* Project: Macroprudential Policies and Capital Structure (Master Thesis Tilburg 2017)
-* Author: Lucas Avezum 
+//----------------------------------------------------------------------------//
+// Project: Bank Regulation and Capital Structure                             //
+// Author: Lucas Avezum, Tilburg University                                   //
+// Date: 13/11/2017                                                           //
+// Description: this file opens and converts the raw datasets from Orbis from //
+//              txt to dta format                                             //
+//----------------------------------------------------------------------------//
 
-* This file opens and convert the datasets from Orbis from txt to dta format
+//============================================================================//
+// Code setup                                                                 //
+//============================================================================//
+
+* General 
+cd "S:"      
 set more off
 
-//============================
-//===== Ownership links ======
-//============================
+//============================================================================//
+// Ownership links                                                            //
+//============================================================================//
 
 * Open entities file
 import delimited "\input\orbis\txt_files\Entities.txt", varnames(1) clear
@@ -56,10 +66,7 @@ drop _merge
 
 * Merge subsidiary information
 rename subsidiarybvdid bvdid
-#delimit;
-merge 1:1 bvdid using 
-"\input\orbis\entities";
-#delimit cr
+merge 1:1 bvdid using "\input\orbis\entities"
 keep if _merge==3
 drop _merge
 rename bvdid id
@@ -68,10 +75,7 @@ rename entitytype type_id
 
 * Merge parent information
 rename shareholderbvdid bvdid
-#delimit;
-merge m:1 bvdid using 
-"\input\orbis\entities";
-#delimit cr
+merge m:1 bvdid using "\input\orbis\entities"
 keep if _merge==3
 drop _merge
 rename bvdid id_P
@@ -80,10 +84,7 @@ rename entitytype type_id_P
 
 * Merge intermediate information
 rename id_I bvdid
-#delimit;
-merge m:1 bvdid using 
-"\input\orbis\entities";
-#delimit cr
+merge m:1 bvdid using "\input\orbis\entities"
 drop if _merge==2
 drop _merge
 rename bvdid id_I
@@ -97,20 +98,18 @@ gen year = `a'
 save "\input\orbis\links_`a'", replace 
 }
 
-//=======================
-//===== Financials ======
-//=======================
+//============================================================================//
+// Financial information                                                      //
+//============================================================================//
 
-import delimited "\input\orbis\txt_files\Industry - Global financials and ratios - USD.txt",clear varnames(1) colrange(:62)
+import delimited "\input\orbis\txt_files\Industry - Global financials and ratios - USD.txt",///
+       clear varnames(1) colrange(:62)
 
 * Keep variables of interest
-#delimit;
-keep ïbvdidnumber consolidationcode closingdate numberofmonths 
-fixedassets intangiblefixedassets tangiblefixedassets 
-cashcashequivalent totalassets noncurrentliabilities 
-longtermdebt currentliabilities loans 
-numberofemployees sales ebitda debtors;
-#delimit cr
+keep ïbvdidnumber consolidationcode closingdate numberofmonths fixedassets ///
+     intangiblefixedassets tangiblefixedassets cashcashequivalent          ///
+	 totalassets noncurrentliabilities longtermdebt currentliabilities     ///
+	 loans numberofemployees sales ebitda debtors
 
 * Rename variables
 rename ïbvdidnumber id
@@ -153,10 +152,8 @@ by id: replace year = year-1 if gap>1 & dup==1
 drop dup gap
 
 * Drop duplicate observations with most missing values 
-#delimit;
-egen nmis = rowmiss(fias ifas tfas cash toas ncli ltdb culi loans workers
-sales ebitda debtors);
-#delimit cr
+egen nmis = rowmiss(fias ifas tfas cash toas ncli ltdb culi loans workers ///
+                    sales ebitda debtors)
 sort id year nmis
 by id year: gen dup = cond(_N==1,1,_n)
 keep if dup == 1
@@ -171,18 +168,20 @@ drop dup numberofmonths
 * Save financial data
 save "\input\orbis\financials", replace 
 
-//===============================
-//===== Sector information ======
-//===============================
+//============================================================================//
+// Sector information                                                         //
+//============================================================================//
 
 * Import firm indexes   
-import delimited "\input\orbis\txt_files\Industry classifications.txt", varnames(1) colrange(:2) clear
+import delimited "\input\orbis\txt_files\Industry classifications.txt", ///
+       varnames(1) colrange(:2) clear
 tempfile tmp
 gen double id = _n
 save `tmp'
 
 * Import indexes 4 digit NACE rev.2
-import delimited "\input\orbis\txt_files\Industry classifications.txt", varnames(1) colrange(8:8) clear
+import delimited "\input\orbis\txt_files\Industry classifications.txt", ///
+       varnames(1) colrange(8:8) clear
 gen double id = _n
 
 * Merge variables
@@ -202,18 +201,20 @@ gen nace2 = int(nace/100)
 * Save industry file
 save "\input\orbis\sector", replace
 
-//========================================
-//===== Listed/Unlisted information ======
-//========================================
+//============================================================================//
+// Listed/Unlisted information                                                //
+//============================================================================//
 
 * Import firm indexes   
-import delimited "\input\orbis\txt_files\Legal info.txt", varnames(1) colrange(:1) clear
+import delimited "\input\orbis\txt_files\Legal info.txt", ///
+       varnames(1) colrange(:1) clear
 gen double id = _n
 tempfile tmp1
 save `tmp1'
 
 * Import listed information 
-import delimited "\input\orbis\txt_files\Legal info.txt", varnames(1) colrange(14:18) clear
+import delimited "\input\orbis\txt_files\Legal info.txt", ///
+       varnames(1) colrange(14:18) clear
 drop delistedcomment mainexchange
 gen double id = _n
 

@@ -1,12 +1,22 @@
-* Project: Macroprudential Policies and Capital Structure (Master Thesis Tilburg 2017)
-* Author: Lucas Avezum 
+//----------------------------------------------------------------------------//
+// Project: Bank Regulation and Capital Structure                             //
+// Author: Lucas Avezum, Tilburg University                                   //
+// Date: 13/11/2017                                                           //
+// Description: this file merges the World Bank Survey on Bank Regulation to  //
+//              the Orbis sample                                              //
+//----------------------------------------------------------------------------//
 
-* This file merges Barth et al 2008 dataset of capital strigency to Orbis sample
-set more off 
+//============================================================================//
+// Code setup                                                                 //
+//============================================================================//
 
-//============================
-//===== Create columns  ======
-//============================
+* General 
+cd "S:"      
+set more off
+
+//============================================================================//
+// Create columns                                                             //
+//============================================================================//
 
 import excel using "\input\barth.xls", sheet("All Average Scaled Index") clear
 rename * v#, renumber
@@ -221,9 +231,10 @@ rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_gov_sha
 
-//===========================
-//===== Merge Columns  ======
-//===========================
+//============================================================================//
+// Merge columns                                                              //
+//============================================================================//
+
 merge m:1 id using `tmp1'
 keep if _merge == 3
 drop _merge
@@ -280,9 +291,10 @@ merge 1:1 id survey using `tmp14'
 keep if _merge == 3
 drop _merge
 
-//============================
-//===== Clean Database  ======
-//============================
+//============================================================================//
+// Clean dataset                                                              //
+//============================================================================//
+
 * Assign year to surveys
 gen year = 2007 if survey == 3
 replace year = 2011 if survey == 4 
@@ -303,9 +315,9 @@ foreach var of varlist b_*{
 destring `var', replace
 }
 
-//==============================
-//===== Merge to dataset  ======
-//==============================
+//============================================================================//
+// Merge to main dataset                                                      //
+//============================================================================//
 
 save "\cleaning\temp\barth.dta", replace
 use "\cleaning\temp\merged_`1'.dta", clear
@@ -314,6 +326,3 @@ merge m:1 country year using "\cleaning\temp\barth.dta"
 drop if _merge == 2
 drop _merge
 save "\cleaning\temp\merged_`1'", replace
-
-
-

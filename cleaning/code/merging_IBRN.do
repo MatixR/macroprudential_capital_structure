@@ -1,12 +1,22 @@
-* Project: Macroprudential Policies and Capital Structure (Master Thesis Tilburg 2017)
-* Author: Lucas Avezum 
+//----------------------------------------------------------------------------//
+// Project: Bank Regulation and Capital Structure                             //
+// Author: Lucas Avezum, Tilburg University                                   //
+// Date: 13/11/2017                                                           //
+// Description: merges IBRN MPI quarterly index and IMF policy interest rate  //
+//              datasets to Orbis sample                                      //
+//----------------------------------------------------------------------------//
 
-* This file merges IBRN MPI quarterly index and IMF policy interest rate datasets to Orbis sample
-set more off 
+//============================================================================//
+// Code setup                                                                 //
+//============================================================================//
 
-//=================================
-//===== Clean IBRN Database  ======
-//=================================
+* General 
+cd "S:"      
+set more off
+
+//============================================================================//
+// Clean IBRN dataset                                                         //
+//============================================================================//
 
 import excel using "\input\IBRN.xlsx", sheet("Data") firstrow clear
 
@@ -50,9 +60,9 @@ replace `var'_y = `var'_3q if quarter == 3
 keep country biscode ifscode year *_y quarter
 preserve
 
-//==============================================
-//===== Clean IMF Interest Rate Database  ======
-//==============================================
+//============================================================================//
+// Clean IMF interest rate dataset                                            //
+//============================================================================//
 
 insheet using "\input\interest_rate.csv", clear
 tempfile tmp1
@@ -76,15 +86,16 @@ rename countrycode ifscode
 keep year ifscode interest_rate_y
 save `tmp1'
 
-//==============================
-//===== Merge datasets =========
-//==============================
+//============================================================================//
+// Merge datasets                                                             //
+//============================================================================//
 
 restore
 preserve
 tempfile tmp2
 * Merge European data
-drop if !inlist(ifscode,122,124,132,134,136,137,138,172,174,178,181,182,184,423,936,939,941,946,961)
+drop if !inlist(ifscode,122,124,132,134,136,137,138,172,174,178,181,182,184,///
+                        423,936,939,941,946,961)
 * Account for Slovakia joining after 2008
 gen help1 = 1 if ifscode == 936 & year<=2008
 drop if help1 == 1
@@ -99,7 +110,8 @@ drop _merge
 save `tmp3'
 restore
 * Merge remaining countries
-drop if inlist(ifscode,122,124,132,134,136,137,138,172,174,178,181,182,184,423,939,941,946,961)
+drop if inlist(ifscode,122,124,132,134,136,137,138,172,174,178,181,182,184,///
+                       423,939,941,946,961)
 * Account for Slovakia joining after 2008
 gen help1 = 1 if ifscode == 936 & year>2008
 drop if help1 == 1
@@ -113,9 +125,9 @@ drop  _merge
 drop if missing(quarter)
 replace country = upper(country)
 
-//===========================
-//===== Merge dataset  ======
-//===========================
+//============================================================================//
+// Merge to main dataset                                                      //
+//============================================================================//
 
 save "\cleaning\temp\IBRN.dta", replace
 use "\cleaning\temp\merged_`1'.dta", clear

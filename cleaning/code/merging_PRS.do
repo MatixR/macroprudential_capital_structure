@@ -1,12 +1,21 @@
-* Project: Macroprudential Policies and Capital Structure (Master Thesis Tilburg 2017)
-* Author: Lucas Avezum 
+//----------------------------------------------------------------------------//
+// Project: Bank Regulation and Capital Structure                             //
+// Author: Lucas Avezum, Tilburg University                                   //
+// Date: 13/11/2017                                                           //
+// Description: this file merges PRS controls to Orbis sample                 //
+//----------------------------------------------------------------------------//
 
-* This file merges international country risk guide (PRS) controls datasets to Orbis sample
+//============================================================================//
+// Code setup                                                                 //
+//============================================================================//
+
+* General 
+cd "S:"      
 set more off
 
-//=================================
-//====== Clean PRS database  ======
-//=================================
+//============================================================================//
+// Clean PRS dataset                                                          //
+//============================================================================//
 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
 import excel using "\input\\`a'.xlsx", sheet("Sheet1") firstrow clear
@@ -27,12 +36,12 @@ drop year_aux year_help
 rename v `a'
 
 save "\cleaning\temp\Control`a'.dta", replace
-
 }
 
-//=================================
-//===== Merge PRS variables =======
-//=================================
+//============================================================================//
+// Merge PRS variables                                                        //
+//============================================================================//
+
 * Include country variable 
 import excel using "\input\economic_risk.xlsx", sheet("Sheet1") firstrow clear
 keep Country
@@ -43,10 +52,7 @@ by id: gen dup = cond(_N==1,0,_n)
 keep if dup==0 
 drop dup
 rename Country country
-#delimit;
-merge 1:m id using 
-"\cleaning\temp\Controleconomic_risk";
-#delimit cr
+merge 1:m id using "\cleaning\temp\Controleconomic_risk"
 sort id year
 drop _merge
 
@@ -54,10 +60,7 @@ save "\cleaning\temp\PRS.dta", replace
 
 * Join all indexes in one file 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
-#delimit;
-merge 1:1 id year using 
-"\cleaning\temp\Control`a'";
-#delimit cr
+merge 1:1 id year using "\cleaning\temp\Control`a'"
 sort id year
 drop _merge
 save "\cleaning\temp\PRS.dta", replace
@@ -72,7 +75,6 @@ drop id
 save "\cleaning\temp\PRS.dta", replace
 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
-
 erase "\cleaning\temp\Control`a'.dta"
 }
 
@@ -93,16 +95,13 @@ gen exchange_rate_risk_i = 10-exchange_rate_risk
 drop exchange_rate_risk
 rename exchange_rate_risk_i exchange_rate_risk
 
-//============================================
-//===== Merge PRS variables to database ======
-//============================================
+//============================================================================//
+// Merge PRS variables to main dataset                                        //
+//============================================================================//
 
 use "\cleaning\temp\merged_`1'.dta", clear
 sort country year
-#delimit;
-merge m:1 country year using 
-"\cleaning\temp\PRS";
-#delimit cr
+merge m:1 country year using "\cleaning\temp\PRS"
 keep if _merge==3
 drop _merge
 save "\cleaning\temp\merged_`1'.dta", replace

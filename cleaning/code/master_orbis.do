@@ -1,105 +1,68 @@
-* Master Thesis Tilburg 2017
-* Author: Lucas Avezum 
+//----------------------------------------------------------------------------//
+// Project: Bank Regulation and Capital Structure                             //
+// Author: Lucas Avezum, Tilburg University                                   //
+// Date: 13/11/2017                                                           //
+// Description: this file runs all the cleaning files separately and return   //
+//              the final datasets in the output folder                       //
+//----------------------------------------------------------------------------//
 
-* This code runs all the cleaning files and return the final datasets
-*
-* Guideline to run master file:
-* 1) choose a track index to avoid saving on previous files
-*
-* 2) choose percentage of database to sample
-*
-* 3) choose macroprudential instruments to create debt shifting variable 
-*
-*   b) options for IBRN: 
-*     Reserve requirements - foreign loan: rr_local_y
-*     Reserve requirements - foreign loan: rr_foreign_y
-*     LTV ratio limit: ltv_cap_y
-*     Interbank exposure limit: ibex_y
-*     Concentration limit: concrat_y
-*     Capital requirement: cap_req_y
-*     Sector specific capital buffer: sscb_y
-*     Sector specific capital buffer - residential: sscb_res_y 
-*     Sector specific capital buffer - consumer: sscb_cons_y
-*     Sector specific capital buffer - others: sscb_oth_y
-*
-*   For all variables: *_y
+//============================================================================//
+// Code setup                                                                 //
+//============================================================================//
 
-//==========================
-//====== Clean Orbis ========
-//==========================
-* Run only once
-do "\cleaning\code\orbis_to_dta"
+* General 
+cd "S:"      
+set more off
 
-//=========================
-//====== Arguments ========
-//=========================
-cd "S:"
-global track_index "orbis_barth"
-global sample_percent=100
-ssc install winsor
-//================================
-//====== Sample and Merge ========
-//================================
+* Particular
+global track_index "orbis_barth" // Set index to files to track them
+global sample=100                // Set sample size
 
-#delimit;
-do "\cleaning\code\merging_orbis"
-"$track_index" $sample_percent ;
-#delimit cr
+//============================================================================//
+// Convert to dta                                                             //
+//============================================================================//
 
-//===============================
-//====== Merge to IBRN ==========
-//===============================
+do "\cleaning\code\orbis_to_dta" // Convert Orbis txt files in dta 
 
-#delimit;
-do "\cleaning\code\merging_IBRN"
-"$track_index" ;
-#delimit cr
+//============================================================================//
+// Sample and merge                                                           //
+//============================================================================//
 
-//============================================
-//====== Merge to Barth et al. 2008 ==========
-//============================================
+do "\cleaning\code\merging_orbis" /// Merge Orbis files  
+   "$track_index" $sample         /// and take $sample sample out of it
+   
+//============================================================================//
+// Merge to IBRN and interest rate                                            //
+//============================================================================//
 
-#delimit;
-do "\cleaning\code\merging_barth"
-"$track_index" ;
-#delimit cr
+do "\cleaning\code\merging_IBRN" "$track_index" 
 
-//==============================================
-//====== Merge to World Bank controls ==========
-//==============================================
+//============================================================================//
+// Merge to World Bank Survey on Bank Regulation                              //
+//============================================================================//
 
-#delimit;
-do "\cleaning\code\merging_worldbank" 
-"$track_index" ;
-#delimit cr
+do "\cleaning\code\merging_barth" "$track_index" 
 
-//=======================================
-//====== Merge to PRS controls ==========
-//=======================================
+//============================================================================//
+// Merge to World Bank controls                                               //
+//============================================================================//
 
-#delimit;
-do "\cleaning\code\merging_PRS"
-"$track_index" ;
-#delimit cr
+do "\cleaning\code\merging_worldbank" "$track_index" 
 
-//=====================================================================
-//====== Manipulate raw data to create variables of interest ==========
-//=====================================================================
+//============================================================================//
+// Merge to PRS controls                                                      //
+//============================================================================//
 
-#delimit;
-do "\cleaning\code\variables_creator"
-"$track_index";
-#delimit cr
+do "\cleaning\code\merging_PRS" "$track_index"
 
-//================================================
-//====== Create debt shifting variables ==========
-//================================================
+//============================================================================//
+// Clean dataset                                                              //
+//============================================================================//
 
-#delimit;
-do "\cleaning\code\debt_shifting_creator_barth" 
-"$track_index";
-#delimit cr
+do "\cleaning\code\variables_creator" "$track_index"
 
+//============================================================================//
+// Create spillover variables                                                 //
+//============================================================================//
 
-
-
+do "\cleaning\code\debt_shifting_creator_barth" "$track_index"

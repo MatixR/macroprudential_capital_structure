@@ -1,12 +1,21 @@
-* Project: Macroprudential Policies and Capital Structure (Master Thesis Tilburg 2017)
-* Author: Lucas Avezum 
+//----------------------------------------------------------------------------//
+// Project: Bank Regulation and Capital Structure                             //
+// Author: Lucas Avezum, Tilburg University                                   //
+// Date: 13/11/2017                                                           //
+// Description: this file merges World Bank controls to Orbis sample          //
+//----------------------------------------------------------------------------//
 
-* This file merges World Bank controls datasets to Orbis sample
+//============================================================================//
+// Code setup                                                                 //
+//============================================================================//
+
+* General 
+cd "S:"      
 set more off
 
-//========================================
-//====== Clean World Bank database  ======
-//========================================
+//============================================================================//
+// Clean World Bank dataset                                                   //
+//============================================================================//
 
 foreach a in cpi gdp_growth_rate gdp_per_capita private_credit_GDP tax_rate{
 insheet using "\input\\`a'.csv", clear
@@ -34,9 +43,11 @@ rename v `a'
 
 save "\cleaning\temp\Control`a'", replace
 }
-//========================================
-//===== Merge World Bank variables =======
-//========================================
+
+//============================================================================//
+// Merge World Bank variables                                                 //
+//============================================================================//
+
 * Include country variable 
 insheet using "\input\cpi.csv", clear
 keep v1
@@ -48,10 +59,7 @@ keep if dup==0
 drop dup
 drop if id==1
 rename v1 country
-#delimit;
-merge 1:m id using 
-"\cleaning\temp\Controlcpi";
-#delimit cr
+merge 1:m id using "\cleaning\temp\Controlcpi"
 sort id year
 drop _merge
 
@@ -59,10 +67,7 @@ save "\cleaning\temp\worldbank", replace
 
 * Join all indexes in one file 
 foreach a in cpi gdp_growth_rate gdp_per_capita private_credit_GDP tax_rate {
-#delimit;
-merge 1:1 id year using 
-"\cleaning\temp\Control`a'";
-#delimit cr
+merge 1:1 id year using "\cleaning\temp\Control`a'"
 sort id year
 drop _merge
 save "\cleaning\temp\worldbank", replace
@@ -86,9 +91,9 @@ foreach a in cpi gdp_growth_rate gdp_per_capita private_credit_GDP tax_rate {
 erase "\cleaning\temp\Control`a'.dta"
 }
 
-//===================================================
-//===== Merge World Bank variables to database ======
-//===================================================
+//============================================================================//
+// Merge World Bank variables to main dataset                                 //
+//============================================================================//
 
 use "\cleaning\temp\merged_`1'.dta", clear
 sort country year

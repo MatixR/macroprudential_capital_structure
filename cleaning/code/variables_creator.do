@@ -1,21 +1,29 @@
-* Project: Macroprudential Policies and Capital Structure (Master Thesis Tilburg 2017)
-* Author: Lucas Avezum 
+//----------------------------------------------------------------------------//
+// Project: Bank Regulation and Capital Structure                             //
+// Author: Lucas Avezum, Tilburg University                                   //
+// Date: 13/11/2017                                                           //
+// Description: this file manipulate raw data to create variables of interest //
+//----------------------------------------------------------------------------//
 
-* This file manipulate raw data to create variables of interest
+//============================================================================//
+// Code setup                                                                 //
+//============================================================================//
+
+* General 
+cd "S:"      
 set more off
 
+* Particular
+ssc install winsor            // install winsor package
 use "\cleaning\temp\merged_`1'.dta", clear
-
 sort id year
-egen double firms = group(id)
-
-* Set panel format
+egen double firms = group(id) // Create numeric ID
 order firms
-xtset firms year
+xtset firms year              // Set panel format
 
-//========================
-//====== Indicators ======
-//========================
+//============================================================================//
+// Create indicators                                                          //
+//============================================================================//
 
 * Create index of balance panel data
 bysort firms (year): egen balance_panel = count(year)
@@ -115,7 +123,7 @@ drop help1 help2 help3
 * Keep only multinationals
 keep if multinational == 1
 
-* Label and changing unit of tax variable
+* Change unit of tax variable
 gen help1 = tax_rate/100
 replace tax_rate = help1
 drop help1
@@ -132,9 +140,9 @@ drop avg_`var'
 }
 drop tag
 
-//=================================
-//====== Dependent Variables ======
-//=================================
+//============================================================================//
+// Create dependent variables                                                 //
+//============================================================================//
 
 * Create financial leverage variable
 gen leverage = (ncli+culi)/toas
@@ -156,9 +164,9 @@ replace loans_leverage =. if loans_leverage > 1 | loans_leverage < 0
 gen debt_leverage = (ltdb+loans)/(toas)
 replace debt_leverage =. if debt_leverage > 1 | debt_leverage < 0 
 
-//=============================================
-//====== Control Variables at Firm Level ======
-//=============================================
+//============================================================================//
+// Create control variables at firm level                                     //
+//============================================================================//
 
 * Create tangibility variable - fixed asset
 gen fixed_total = fias/toas
@@ -193,13 +201,10 @@ drop sales_growth
 * Create risk of firm variable
 bysort firms (year): egen risk = sd(profitability)
 
-//================================================
-//====== Control Variables at Country Level ======
-//================================================
+//============================================================================//
+// Create control variables at country level                                  //
+//============================================================================//
 
-* Merge IBRN and Barth dataset for new capital requirement variable
-gen cap_req = b_ovr_str if year == 2007
-bysort firms (year): replace cap_req = cap_req[1]+ c_cap_req_y 
 * Change GDP per capita to thousands
 gen help1 = gdp_per_capita/1000
 replace gdp_per_capita = help1
@@ -213,302 +218,75 @@ replace `var' = help1
 drop help1
 }
 
-* Change growth rate relative to 2008
-gen inflation_i2 = inflation
-gen logcpi = log(cpi)
-bysort firms (year): replace inflation_i2 = logcpi[1]-logcpi[2] if year == 2007 & year == year[_n+1]-1
-drop logcpi
-gen gdp_growth_rate_i2 = gdp_growth_rate
-bysort firms (year): replace gdp_growth_rate_i2 = -gdp_growth_rate[2]/(1+gdp_growth_rate[2]) if year == 2007 & year == year[_n+1]-1
+//============================================================================//
+// Clean outliers                                                             //
+//============================================================================//
 
-//=================================================
-//====== Create index = 100 at 2007 and 2008 ======
-//=================================================
-sort firms year
 #delimit;
-local vars1 "private_credit_GDP political_risk exchange_rate_risk law_order 
-            interest_rate tax_rate gdp_per_capita
-            debt_leverage leverage adj_leverage longterm_debt loans_leverage 
+local vars "debt_leverage leverage adj_leverage longterm_debt loans_leverage 
             fixed_total tangible_total log_fixedasset log_sales 
-			profitability agg_profitability";
+			profitability agg_profitability risk opportunity";
 #delimit cr
- foreach var of local vars1{
- bysort firms (year): gen `var'_i = `var'/`var'[1] if year[1]==2007
- bysort firms (year): gen `var'_i2 = `var'/`var'[2] if year[2]==2008
- }
- 
- foreach var of varlist c_rr_local_y  c_cap_req_y{
-  bysort firms (year): gen `var'_i2 = `var'-`var'[2] if year[2]==2008
- }
-//=====================================
-//====== Create growth variable ======
-//=====================================
- * Firm variables
- foreach var of local vars1{
- bysort firms (year): gen `var'_g = (`var'/`var'[_n-1])-1 if year == year[_n-1]+1
-}
-* MPI indexes
-foreach var of varlist c_rr_local_y  c_cap_req_y{
-  bysort firms (year): gen `var'_g = `var'-`var'[_n-1] if year == year[_n-1]+1
- }
-//=====================================
-//====== Create average variable ======
-//=====================================
-#delimit;
-local vars2 "private_credit_GDP political_risk exchange_rate_risk law_order 
-            interest_rate tax_rate gdp_per_capita inflation gdp_growth_rate
-            debt_leverage leverage adj_leverage longterm_debt loans_leverage 
-            fixed_total tangible_total log_fixedasset log_sales 
-			profitability agg_profitability opportunity";
-#delimit cr
-foreach var of local vars2{
- bysort firms (year): egen `var'_a = mean(`var')
- }
- 
-//===============================
-//====== Cleaning outliers ======
-//===============================
-* No transformation variables
-#delimit;
-local vars3 "debt_leverage leverage adj_leverage longterm_debt loans_leverage 
-             fixed_total tangible_total log_fixedasset log_sales 
-			 profitability agg_profitability risk opportunity";
-#delimit cr
-foreach var of local vars3{
+foreach var of local vars{
 winsor `var', gen(`var'_w) p(0.01)
 }
 
-* Index variables
-#delimit;
-local vars3 "leverage adj_leverage  
-             fixed_total tangible_total log_fixedasset log_sales 
-			 profitability agg_profitability";
-#delimit cr
-foreach var of local vars3{
-winsor `var'_i , gen(`var'_i_w) p(0.01)
-winsor `var'_i2 , gen(`var'_i2_w) p(0.01)
-winsor `var'_g , gen(`var'_g_w) p(0.01)
-}
-
-#delimit;
-local vars4 "debt_leverage longterm_debt loans_leverage";
-#delimit cr
-foreach var of local vars4{
-winsor `var'_i , gen(`var'_i_w) p(0.05)
-winsor `var'_i2 , gen(`var'_i2_w) p(0.05)
-winsor `var'_g , gen(`var'_g_w) p(0.05)
-}
-
-* Averaged variables
-#delimit;
-local vars5 "debt_leverage leverage adj_leverage longterm_debt loans_leverage 
-             fixed_total tangible_total log_fixedasset log_sales 
-			 profitability agg_profitability opportunity";
-#delimit cr
-foreach var of local vars5{
-winsor `var'_a , gen(`var'_a_w) p(0.01)
-}
-
-//=======================================
-//====== Interaction term with tax ======
-//=======================================
-
-foreach var of varlist c_rr_local_y  c_cap_req_y{
-gen tax_`var'_i= `var'*tax_rate_i 
-gen vol_`var'_i= `var'*risk_w
-
-gen tax_`var'_i2= `var'_i2*tax_rate_i2 
-gen vol_`var'_i2= `var'_i2*risk_w
-
-gen tax_`var'_g= `var'_g*tax_rate_g 
-gen vol_`var'_g= `var'_g*risk_w
-}
-
-gen tax_cap_req= cap_req*tax_rate 
-gen vol_cap_req= cap_req*risk_w
-
-foreach var of varlist b_*{
-gen tax_`var'= `var'*tax_rate 
-gen vol_`var'= `var'*risk_w
-gen tax_`var'_a= `var'*tax_rate_a 
-}
-
-//=============================
-//====== Label variables ======
-//=============================
+//============================================================================//
+// Label variables                                                            //
+//============================================================================//
 
 * Dependent variables
-lab var leverage "Financial leverage"
-lab var adj_leverage "Adjusted financial leverage"
-lab var longterm_debt "Long term debt"
+lab var leverage       "Financial leverage"
+lab var adj_leverage   "Adjusted financial leverage"
+lab var longterm_debt  "Long term debt"
 lab var loans_leverage "Short term debt"
-lab var debt_leverage "Debt leverage"
-
-lab var leverage_i_w "Financial leverage"
-lab var adj_leverage_i_w "Adjusted financial leverage"
-lab var longterm_debt_i_w "Long term debt"
-lab var loans_leverage_i_w "Short term debt"
-lab var debt_leverage_i_w "Debt leverage"
-
-lab var leverage_i2_w "Financial leverage"
-lab var adj_leverage_i2_w "Adjusted financial leverage"
-lab var longterm_debt_i2_w "Long term debt"
-lab var loans_leverage_i2_w "Short term debt"
-lab var debt_leverage_i2_w "Debt leverage"
-
-lab var leverage_g_w "Financial leverage"
-lab var adj_leverage_g_w "Adjusted financial leverage"
-lab var longterm_debt_g_w "Long term debt"
-lab var loans_leverage_g_w "Short term debt"
-lab var debt_leverage_g_w "Debt leverage"
-
-lab var leverage_a_w "Financial leverage"
-lab var adj_leverage_a_w "Adjusted financial leverage"
-lab var longterm_debt_a_w "Long term debt"
-lab var loans_leverage_a_w "Short term debt"
-lab var debt_leverage_a_w "Debt leverage"
+lab var debt_leverage  "Debt leverage"
 
 * Independent variables
-lab var fixed_total_w "Tangibility"
-lab var profitability_w "Profitability"
-lab var tangible_total_w "Adjusted tangibility"
-lab var opportunity_w "Opportunity"
+lab var fixed_total_w       "Tangibility"
+lab var profitability_w     "Profitability"
+lab var tangible_total_w    "Adjusted tangibility"
+lab var opportunity_w       "Opportunity"
 lab var agg_profitability_w "Aggregate profitability"
-lab var risk_w "Risk"
-lab var log_fixedasset_w "Log of fixed assets"
-lab var log_sales_w "Log of sales"
+lab var risk_w              "Risk"
+lab var log_fixedasset_w    "Log of fixed assets"
+lab var log_sales_w         "Log of sales"
 
-lab var fixed_total_i_w "Tangibility"
-lab var profitability_i_w "Profitability"
-lab var tangible_total_i_w "Adjusted tangibility"
-lab var agg_profitability_i_w "Aggregate profitability"
-lab var log_fixedasset_i_w "Log of fixed assets"
-lab var log_sales_i_w "Log of sales"
-
-lab var fixed_total_i2_w "Tangibility"
-lab var profitability_i2_w "Profitability"
-lab var tangible_total_i2_w "Adjusted tangibility"
-lab var agg_profitability_i2_w "Aggregate profitability"
-lab var log_fixedasset_i2_w "Log of fixed assets"
-lab var log_sales_i2_w "Log of sales"
-
-lab var fixed_total_g_w "Tangibility"
-lab var profitability_g_w "Profitability"
-lab var tangible_total_g_w "Adjusted tangibility"
-lab var agg_profitability_g_w "Aggregate profitability"
-lab var log_fixedasset_g_w "Log of fixed assets"
-lab var log_sales_g_w "Log of sales"
-
-lab var fixed_total_a_w "Tangibility"
-lab var profitability_a_w "Profitability"
-lab var tangible_total_a_w "Adjusted tangibility"
-lab var opportunity_a_w "Opportunity"
-lab var agg_profitability_a_w "Aggregate profitability"
-lab var log_fixedasset_a_w "Log of fixed assets"
-lab var log_sales_a_w "Log of sales"
-
-* Macroprudential indexes
-* IBRN
-lab var c_sscb_res_y "Capital buffer - real estate"
-lab var c_sscb_cons_y "Capital buffer - consumers" 
-lab var c_sscb_oth_y "Capital buffer - others" 
-lab var c_sscb_y "Capital buffer - overall" 
-lab var c_cap_req_y "Capital requirement" 
-lab var c_concrat_y "Concentration limit"
-lab var c_ibex_y "Interbank exposure limit"
-lab var c_ltv_cap_y "LTV ratio limits" 
-lab var c_rr_foreign_y "Reserve req. on foreign currency"
-lab var c_rr_local_y "Reserve requirement"
-
-lab var c_cap_req_y_i2 "Capital requirement" 
-lab var c_rr_local_y_i2 "Reserve requirement"
-
-lab var c_cap_req_y_g "Capital requirement" 
-lab var c_rr_local_y_g "Reserve requirement"
-
-* Barth et al 2008
+* Bank Regulation Survey
 lab var b_ovr_rest "Restrictions on banking activities"
 lab var b_ovr_cong "Financial conglomerates restrictiveness"
-lab var b_lim_for "Limitations on foreign bank"
+lab var b_lim_for  "Limitations on foreign bank"
 lab var b_frac_den "Entry applications denied"
-lab var b_cap_str "Capital regulatory index"
-lab var b_ovr_str "Overall capital strigency"
-lab var b_int_str "Initial capital stringency"
-lab var b_off_sup "Official supervisory power"
-lab var b_pri_mon "Private Monitoring"
-lab var b_mor_haz "Moral hazard"
+lab var b_cap_str  "Capital regulatory index"
+lab var b_ovr_str  "Overall capital strigency"
+lab var b_int_str  "Initial capital stringency"
+lab var b_off_sup  "Official supervisory power"
+lab var b_pri_mon  "Private Monitoring"
+lab var b_mor_haz  "Moral hazard"
 lab var b_conc_dep "Bank concentration in deposits"
 lab var b_conc_ass "Bank concentration in assets"
-lab var b_for_sha "Foreign-owned banks"
-lab var b_gov_sha "Government-owned banks"
+lab var b_for_sha  "Foreign-owned banks"
+lab var b_gov_sha  "Government-owned banks"
 
-* Merged capital requirement
-lab var cap_req "Capital requirement"
-
-* Tax macroprudential interaction variables
-foreach var of varlist c_rr_local_y  c_cap_req_y{
-lab var tax_`var'_i "`: var label `var''*tax"
-lab var vol_`var'_i "`: var label `var''*risk"
-
-lab var tax_`var'_i2 "`: var label `var''*tax"
-lab var vol_`var'_i2 "`: var label `var''*risk"
-
-lab var tax_`var'_g "`: var label `var''*tax"
-lab var vol_`var'_g "`: var label `var''*risk"
-}
-foreach var of varlist b_*{
-lab var tax_`var' "`: var label `var''*tax"
-lab var vol_`var' "`: var label `var''*risk"
-lab var tax_`var'_a "`: var label `var''*tax"
-}
 * World Bank
-lab var gdp_per_capita "GDP per capita"
+lab var gdp_per_capita     "GDP per capita"
 lab var private_credit_GDP "Private credit to GDP"
-lab var interest_rate "Policy rate"
-lab var tax_rate "Tax rate"
-lab var gdp_growth_rate "GDP growth rate"
-lab var inflation "Inflation rate"
-
-lab var gdp_per_capita_i "GDP per capita"
-lab var private_credit_GDP_i "Private credit to GDP"
-lab var interest_rate_i "Policy rate"
-lab var tax_rate_i "Tax rate"
-lab var gdp_growth_rate_i2 "GDP growth rate"
-lab var inflation_i2 "Inflation rate"
-
-lab var gdp_per_capita_g "GDP per capita"
-lab var private_credit_GDP_g "Private credit to GDP"
-lab var interest_rate_g "Policy rate"
-lab var tax_rate_g "Tax rate"
-
-lab var gdp_per_capita_a "GDP per capita"
-lab var private_credit_GDP_a "Private credit to GDP"
-lab var interest_rate_a "Policy rate"
-lab var tax_rate_a "Tax rate"
+lab var interest_rate      "Policy rate"
+lab var tax_rate           "Tax rate"
+lab var gdp_growth_rate    "GDP growth rate"
+lab var inflation          "Inflation rate"
 
 * PRS
 lab var exchange_rate_risk "Exchange rate risk"
-lab var political_risk "Political Risk"
-lab var law_order "Law and order"
-
-lab var exchange_rate_risk_i "Exchange rate risk"
-lab var political_risk_i "Political Risk"
-lab var law_order_i "Law and order"
-
-lab var exchange_rate_risk_g "Exchange rate risk"
-lab var political_risk_g "Political Risk"
-lab var law_order_g "Law and order"
-
-lab var exchange_rate_risk_a "Exchange rate risk"
-lab var political_risk_a "Political Risk"
-lab var law_order_a "Law and order"
+lab var political_risk     "Political Risk"
+lab var law_order          "Law and order"
 
 * Other remaining labeling
-lab var parent "Parent"
+lab var parent       "Parent"
 lab var intermediate "Intermediate"
 
-//==========================
-//====== Save dataset ======
-//==========================
+//============================================================================//
+// Save dataset                                                               //
+//============================================================================//
 
 save "\cleaning\output\dataset_`1'.dta", replace
