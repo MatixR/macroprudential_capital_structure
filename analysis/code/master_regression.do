@@ -1,35 +1,38 @@
-* Master Thesis Tilburg 2017
-* Author: Lucas Avezum 
+//----------------------------------------------------------------------------//
+// Project: Bank Regulation and Capital Structure                             //
+// Author: Lucas Avezum, Tilburg University                                   //
+// Date: 24/11/2017                                                           //
+// Description: this file runs all the regressions tables                     //
+//----------------------------------------------------------------------------//
 
-* This code runs all the regression 
+//============================================================================//
+// Code setup                                                                 //
+//============================================================================//
 
-//=========================
-//====== Arguments ========
-//=========================
-ssc install reghdfe
-ssc install outreg2
-cd "S:"
-* Table 1
-use "\cleaning\output\dataset_orbis.dta", clear
+* General 
+if "`c(hostname)'" != "EG3523" {
+global STATAPATH "S:"
+}
+else if "`c(hostname)'" == "EG3523" {
+global STATAPATH "C:/Users/u1273941/Research/Projects/macroprudential_capital_structure"
+}
+cd "$STATAPATH"     
+set more off
+
+* Particular
+ssc install reghdfe, replace
+ssc install estout, replace
+ssc install outreg2, replace
+ 
+//============================================================================//
+// Tables                                                                     //
+//============================================================================//
+
+* Summary statistics
+use "\cleaning\output\dataset_bank_regulation.dta", clear
+do "\analysis\code\summary"
+
+* Benchmark regression
+use "\cleaning\output\dataset_bank_regulation.dta", clear
 do "\analysis\code\regression_benchmark"
 
-* Table 2
-use "\cleaning\output\dataset_orbis.dta", clear
-do "\analysis\code\robustness_other_year_base"
-
-* Table 3
-use "\cleaning\output\dataset_orbis.dta", clear
-do "\analysis\code\regression_barth"
-
-* Table 2 and 3
-use "\cleaning\output\dataset_orbis.dta", clear
-do "\analysis\code\regression_merged_data"
-
-
-* Table 2 and 3
-use "\cleaning\output\dataset_orbis_barth.dta", clear
-do "\analysis\code\regression_barth"
-
-
-
-timer list
