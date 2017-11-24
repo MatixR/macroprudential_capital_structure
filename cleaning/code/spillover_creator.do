@@ -10,11 +10,17 @@
 // Code setup                                                                 //
 //============================================================================//
 
-* General 
-cd "S:"      
+* General  
+if "`c(hostname)'" != "EG3523" {
+global STATAPATH "S:"
+}
+else if "`c(hostname)'" == "EG3523" {
+global STATAPATH "C:/Users/u1273941/Research/Projects/macroprudential_capital_structure"
+}
+cd "$STATAPATH"     
 set more off
 
-use "\cleaning\output\dataset_`1'.dta", clear
+use "cleaning/output/dataset_`1'.dta", clear
 
 //============================================================================//
 // Create spillover variables                                                 //
@@ -28,10 +34,6 @@ sort debt_shifting_group
 by debt_shifting_group: egen total_asset_multinational = total(toas)
 gen asset_share = toas/total_asset_multinational
 
-* Create average asset share of each firm within multinational
-by debt_shifting_group: egen avg_total_asset_multinational = total(avg_toas)
-gen avg_asset_share = avg_toas/avg_total_asset_multinational
-
 * Create subsidiary per multinational time indicator
 bysort debt_shifting_group: gen subsidiary_time_ID = _n
 
@@ -41,11 +43,7 @@ preserve
 tempfile tmp2
 
 * Keep only looped variables
-#delimit;
-keep tax_rate tax_rate_a b_*
-debt_shifting_group subsidiary_time_ID id year parent
-asset_share avg_asset_share; 
-#delimit cr
+keep tax_rate b_* debt_shifting_group subsidiary_time_ID id year parent asset_share 
 
 * Create debt shifting variable among all firms of multinational
  foreach a of varlist tax_rate b_gov_sha-b_for_sha{
@@ -84,11 +82,7 @@ tempfile tmp4
 keep if parent == 0
 
 * Keep only looped variables
-#delimit;
-keep tax_rate tax_rate_a b_*
-debt_shifting_group subsidiary_time_ID id year parent
-asset_share avg_asset_share; 
-#delimit cr
+keep tax_rate  b_* debt_shifting_group subsidiary_time_ID id year parent asset_share
 
 * Debt shift only among subsidiaries
 foreach a of varlist tax_rate b_gov_sha-b_for_sha{
@@ -102,7 +96,7 @@ quiet drop help*
 
 sort id year
 merge 1:1 id year using `tmp3'
-drop _merge subsidiary_time_ID parent_indicator debt_shifting_group asset_share avg_asset_share
+drop _merge subsidiary_time_ID parent_indicator debt_shifting_group asset_share 
 save `tmp4'
 
 * Merge debt shift variable to remaining dataset
@@ -118,12 +112,6 @@ foreach var of varlist *_ds{
 replace `var'_s=`var' if missing(`var'_s) 
 replace `var'_p=0 if missing(`var'_p)
 }
-foreach var of varlist b_*_ds{
-replace `var'_s_a=`var' if missing(`var'_s_a) 
-replace `var'_p_a=0 if missing(`var'_p_a)
-}
-replace tax_rate_a_ds_s_a = tax_rate_a_ds_a if missing(tax_rate_a_ds_s_a) 
-replace tax_rate_a_ds_p_a=0 if missing(tax_rate_a_ds_p_a) 
 
 //============================================================================//
 // Label variables                                                            //
@@ -135,5 +123,8 @@ lab var `var'_ds_p "`: var label `var'' spillover to parent"
 lab var `var'_ds_s "`: var label `var'' spillover to other subsidiaries"
 }
 
-save "\cleaning\output\dataset_`1'.dta", replace
-
+foreach v of varlist * {
+	label variable `v' `"\hspace{0.1cm} `: variable label `v''"'
+	}
+	
+save "cleaning/output/dataset_`1'.dta", replace

@@ -10,12 +10,18 @@
 //============================================================================//
 
 * General 
-cd "S:"      
+if "`c(hostname)'" != "EG3523" {
+global STATAPATH "S:"
+}
+else if "`c(hostname)'" == "EG3523" {
+global STATAPATH "C:/Users/u1273941/Research/Projects/macroprudential_capital_structure"
+}
+cd "$STATAPATH"          
 set more off
 
 * Particular
 ssc install winsor            // install winsor package
-use "\cleaning\temp\merged_`1'.dta", clear
+use "cleaning/temp/merged_`1'.dta", clear
 sort id year
 egen double firms = group(id) // Create numeric ID
 order firms
@@ -289,4 +295,4 @@ lab var intermediate "Intermediate"
 // Save dataset                                                               //
 //============================================================================//
 
-save "\cleaning\output\dataset_`1'.dta", replace
+save "cleaning/output/dataset_`1'.dta", replace

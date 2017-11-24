@@ -10,7 +10,13 @@
 //============================================================================//
 
 * General 
-cd "S:"      
+if "`c(hostname)'" != "EG3523" {
+global STATAPATH "S:"
+}
+else if "`c(hostname)'" == "EG3523" {
+global STATAPATH "C:/Users/u1273941/Research/Projects/macroprudential_capital_structure"
+}
+cd "$STATAPATH"     
 set more off
 
 //============================================================================//
@@ -18,7 +24,7 @@ set more off
 //============================================================================//
 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
-import excel using "\input\\`a'.xlsx", sheet("Sheet1") firstrow clear
+import excel using "/input/`a'.xlsx", sheet("Sheet1") firstrow clear
 
 * Drop lines and collumns not used, rename variables and create ID
 drop if inlist(_n,_N)
@@ -35,7 +41,7 @@ gen year = year_aux + year_help
 drop year_aux year_help
 rename v `a'
 
-save "\cleaning\temp\Control`a'.dta", replace
+save "cleaning/temp/Control`a'.dta", replace
 }
 
 //============================================================================//
@@ -43,7 +49,7 @@ save "\cleaning\temp\Control`a'.dta", replace
 //============================================================================//
 
 * Include country variable 
-import excel using "\input\economic_risk.xlsx", sheet("Sheet1") firstrow clear
+import excel using "input/economic_risk.xlsx", sheet("Sheet1") firstrow clear
 keep Country
 drop if inlist(_n,_N)
 gen id = _n
@@ -52,18 +58,18 @@ by id: gen dup = cond(_N==1,0,_n)
 keep if dup==0 
 drop dup
 rename Country country
-merge 1:m id using "\cleaning\temp\Controleconomic_risk"
+merge 1:m id using "cleaning/temp/Controleconomic_risk"
 sort id year
 drop _merge
 
-save "\cleaning\temp\PRS.dta", replace
+save "cleaning/temp/PRS.dta", replace
 
 * Join all indexes in one file 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
-merge 1:1 id year using "\cleaning\temp\Control`a'"
+merge 1:1 id year using "cleaning/temp/Control`a'"
 sort id year
 drop _merge
-save "\cleaning\temp\PRS.dta", replace
+save "cleaning/temp/PRS.dta", replace
 }
 
 * Write country variable in uppercase
@@ -72,10 +78,10 @@ drop country
 rename country1 country 
 order country year
 drop id
-save "\cleaning\temp\PRS.dta", replace
+save "/cleaning/temp/PRS.dta", replace
 
 foreach a in economic_risk exchange_rate_risk financial_risk law_order political_risk {
-erase "\cleaning\temp\Control`a'.dta"
+erase "cleaning/temp/Control`a'.dta"
 }
 
 * Inverting indexes
@@ -99,9 +105,9 @@ rename exchange_rate_risk_i exchange_rate_risk
 // Merge PRS variables to main dataset                                        //
 //============================================================================//
 
-use "\cleaning\temp\merged_`1'.dta", clear
+use "cleaning/temp/merged_`1'.dta", clear
 sort country year
-merge m:1 country year using "\cleaning\temp\PRS"
+merge m:1 country year using "cleaning/temp/PRS"
 keep if _merge==3
 drop _merge
-save "\cleaning\temp\merged_`1'.dta", replace
+save "cleaning/temp/merged_`1'.dta", replace

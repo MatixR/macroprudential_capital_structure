@@ -11,14 +11,20 @@
 //============================================================================//
 
 * General 
-cd "S:"      
+if "`c(hostname)'" != "EG3523" {
+global STATAPATH "S:"
+}
+else if "`c(hostname)'" == "EG3523" {
+global STATAPATH "C:/Users/u1273941/Research/Projects/macroprudential_capital_structure"
+}
+cd "$STATAPATH"       
 set more off
 
 //============================================================================//
 // Create columns                                                             //
 //============================================================================//
 
-import excel using "\input\barth.xls", sheet("All Average Scaled Index") clear
+import excel using "input/barth.xls", sheet("All Average Scaled Index") clear
 rename * v#, renumber
 preserve
 
@@ -319,10 +325,10 @@ destring `var', replace
 // Merge to main dataset                                                      //
 //============================================================================//
 
-save "\cleaning\temp\barth.dta", replace
-use "\cleaning\temp\merged_`1'.dta", clear
+save "cleaning/temp/barth.dta", replace
+use "cleaning/temp/merged_`1'.dta", clear
 sort country year
-merge m:1 country year using "\cleaning\temp\barth.dta"
+merge m:1 country year using "cleaning/temp/barth.dta"
 drop if _merge == 2
 drop _merge
-save "\cleaning\temp\merged_`1'", replace
+save "cleaning/temp/merged_`1'", replace

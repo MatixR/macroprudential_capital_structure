@@ -10,7 +10,13 @@
 //============================================================================//
 
 * General 
-cd "S:"      
+if "`c(hostname)'" != "EG3523" {
+global STATAPATH "S:"
+}
+else if "`c(hostname)'" == "EG3523" {
+global STATAPATH "C:/Users/u1273941/Research/Projects/macroprudential_capital_structure"
+}
+cd "$STATAPATH"     
 set more off
 
 //============================================================================//
@@ -18,7 +24,7 @@ set more off
 //============================================================================//
 
 foreach a in cpi gdp_growth_rate gdp_per_capita private_credit_GDP tax_rate{
-insheet using "\input\\`a'.csv", clear
+insheet using "input/`a'.csv", clear
 
 * Drop lines and collumns not used
 drop in 1/2
@@ -41,7 +47,7 @@ drop year_aux year_help
 drop if id==1
 rename v `a'
 
-save "\cleaning\temp\Control`a'", replace
+save "cleaning/temp/Control`a'", replace
 }
 
 //============================================================================//
@@ -49,7 +55,7 @@ save "\cleaning\temp\Control`a'", replace
 //============================================================================//
 
 * Include country variable 
-insheet using "\input\cpi.csv", clear
+insheet using "input/cpi.csv", clear
 keep v1
 drop in 1/2
 gen id = _n
@@ -59,18 +65,18 @@ keep if dup==0
 drop dup
 drop if id==1
 rename v1 country
-merge 1:m id using "\cleaning\temp\Controlcpi"
+merge 1:m id using "cleaning/temp/Controlcpi"
 sort id year
 drop _merge
 
-save "\cleaning\temp\worldbank", replace
+save "cleaning/temp/worldbank", replace
 
 * Join all indexes in one file 
 foreach a in cpi gdp_growth_rate gdp_per_capita private_credit_GDP tax_rate {
-merge 1:1 id year using "\cleaning\temp\Control`a'"
+merge 1:1 id year using "cleaning/temp/Control`a'"
 sort id year
 drop _merge
-save "\cleaning\temp\worldbank", replace
+save "cleaning/temp/worldbank", replace
 }
 * Create inflation variable
 egen country_id = group(country)
@@ -85,19 +91,19 @@ drop country
 rename country1 country 
 order country year
 drop id
-save "\cleaning\temp\worldbank", replace
+save "cleaning/temp/worldbank", replace
 
 foreach a in cpi gdp_growth_rate gdp_per_capita private_credit_GDP tax_rate {
-erase "\cleaning\temp\Control`a'.dta"
+erase "cleaning/temp/Control`a'.dta"
 }
 
 //============================================================================//
 // Merge World Bank variables to main dataset                                 //
 //============================================================================//
 
-use "\cleaning\temp\merged_`1'.dta", clear
+use "cleaning/temp/merged_`1'.dta", clear
 sort country year
-merge m:1 country year using "\cleaning\temp\worldbank.dta"
+merge m:1 country year using "cleaning/temp/worldbank.dta"
 keep if _merge==3
 drop _merge
-save "\cleaning\temp\merged_`1'.dta", replace
+save "cleaning/temp/merged_`1'.dta", replace

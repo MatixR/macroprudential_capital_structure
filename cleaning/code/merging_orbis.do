@@ -10,7 +10,13 @@
 //============================================================================//
 
 * General 
-cd "S:"      
+if "`c(hostname)'" != "EG3523" {
+global STATAPATH "S:"
+}
+else if "`c(hostname)'" == "EG3523" {
+global STATAPATH "C:/Users/u1273941/Research/Projects/macroprudential_capital_structure"
+}
+cd "$STATAPATH"     
 set more off
 
 * Particular
@@ -20,7 +26,7 @@ set seed 666
 // Sample from financials information                                         //
 //============================================================================//
 
-use "\input\orbis\financials", clear
+use "input/orbis/financials", clear
 * Sample % of data
 sort id
 preserve
@@ -43,7 +49,7 @@ save `tmp1'
 
 foreach a in 2007 2008 2009 2010 2011 2012 2013 2014 2015{
 * Merge
-use "\input\orbis\links_`a'", clear
+use "input/orbis/links_`a'", clear
 merge 1:1 id year using `tmp1'
 drop if _merge == 1
 drop _merge
@@ -54,7 +60,7 @@ save `tmp1',replace
 // Merge sector information to sample                                         //
 //============================================================================//
 
-merge m:1 id using "\input\orbis\sector"
+merge m:1 id using "input/orbis/sector"
 drop if _merge == 2
 drop _merge
 
@@ -62,7 +68,7 @@ drop _merge
 // Merge information on listed to sample                                      //
 //============================================================================//
 
-merge m:1 id using "\input\orbis\listed"
+merge m:1 id using "input/orbis/listed"
 drop if _merge == 2
 drop _merge
 
@@ -88,4 +94,4 @@ drop if missing(toas)
 drop if toas == 0
 drop if toas < 0
 
-save "\cleaning\temp\merged_`1'", replace
+save "cleaning/temp/merged_`1'", replace

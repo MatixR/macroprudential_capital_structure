@@ -11,12 +11,18 @@
 //============================================================================//
 
 * General 
-cd "S:"      
+if "`c(hostname)'" != "EG3523" {
+global STATAPATH "S:"
+}
+else if "`c(hostname)'" == "EG3523" {
+global STATAPATH "C:/Users/u1273941/Research/Projects/macroprudential_capital_structure"
+}
+cd "$STATAPATH"     
 set more off
 
 * Particular
-global track_index "orbis_barth" // Set index to files to track them
-global sample=100                // Set sample size
+global track_index "bank_regulation" // Set index to files to track them
+global sample=100                    // Set sample size
 
 //============================================================================//
 // Convert to dta                                                             //
@@ -65,4 +71,4 @@ do "\cleaning\code\variables_creator" "$track_index"
 // Create spillover variables                                                 //
 //============================================================================//
 
-do "\cleaning\code\debt_shifting_creator_barth" "$track_index"
+do "\cleaning\code\spillover_creator" "$track_index"

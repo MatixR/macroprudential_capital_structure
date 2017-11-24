@@ -11,7 +11,13 @@
 //============================================================================//
 
 * General 
-cd "S:"      
+if "`c(hostname)'" != "EG3523" {
+global STATAPATH "S:"
+}
+else if "`c(hostname)'" == "EG3523" {
+global STATAPATH "C:/Users/u1273941/Research/Projects/macroprudential_capital_structure"
+}
+cd "$STATAPATH"     
 set more off
 
 //============================================================================//
@@ -19,7 +25,7 @@ set more off
 //============================================================================//
 
 * Open entities file
-import delimited "\input\orbis\txt_files\Entities.txt", varnames(1) clear
+import delimited "input/orbis/txt_files/Entities.txt", varnames(1) clear
 
 * Drop unsed variable
 drop name
@@ -33,11 +39,11 @@ keep if dup == 1
 drop dup
 
 * Save entities data
-save "\input\orbis\entities", replace
+save "input/orbis/entities", replace
 
 * Open links files and merge with entities
 foreach a in 2013 2014 2015{
-import delimited "\input\orbis\txt_files\Links_`a'.txt", varnames(1) clear 
+import delimited "input/orbis/txt_files/Links_`a'.txt", varnames(1) clear 
 
 * Create column for parent firms
 keep subsidiarybvdid shareholderbvdid typeofrelation
@@ -48,7 +54,7 @@ drop typeofrelation dup
 preserve
 
 * Create column for intermediate firms
-import delimited "\input\orbis\txt_files\Links_`a'.txt", varnames(1) clear
+import delimited "/input/orbis/txt_files/Links_`a'.txt", varnames(1) clear
 tempfile tmp
 keep subsidiarybvdid shareholderbvdid typeofrelation
 keep if typeofrelation == "ISH"
@@ -66,7 +72,7 @@ drop _merge
 
 * Merge subsidiary information
 rename subsidiarybvdid bvdid
-merge 1:1 bvdid using "\input\orbis\entities"
+merge 1:1 bvdid using "input/orbis/entities"
 keep if _merge==3
 drop _merge
 rename bvdid id
@@ -75,7 +81,7 @@ rename entitytype type_id
 
 * Merge parent information
 rename shareholderbvdid bvdid
-merge m:1 bvdid using "\input\orbis\entities"
+merge m:1 bvdid using "input/orbis/entities"
 keep if _merge==3
 drop _merge
 rename bvdid id_P
@@ -84,7 +90,7 @@ rename entitytype type_id_P
 
 * Merge intermediate information
 rename id_I bvdid
-merge m:1 bvdid using "\input\orbis\entities"
+merge m:1 bvdid using "input/orbis/entities"
 drop if _merge==2
 drop _merge
 rename bvdid id_I
@@ -95,14 +101,14 @@ rename entitytype type_id_I
 gen year = `a'
 
 * Save links data
-save "\input\orbis\links_`a'", replace 
+save "input/orbis/links_`a'", replace 
 }
 
 //============================================================================//
 // Financial information                                                      //
 //============================================================================//
 
-import delimited "\input\orbis\txt_files\Industry - Global financials and ratios - USD.txt",///
+import delimited "input/orbis/txt_files/Industry - Global financials and ratios - USD.txt",///
        clear varnames(1) colrange(:62)
 
 * Keep variables of interest
@@ -166,21 +172,21 @@ by id year: keep if dup == _N
 drop dup numberofmonths
 
 * Save financial data
-save "\input\orbis\financials", replace 
+save "input/orbis/financials", replace 
 
 //============================================================================//
 // Sector information                                                         //
 //============================================================================//
 
 * Import firm indexes   
-import delimited "\input\orbis\txt_files\Industry classifications.txt", ///
+import delimited "input/orbis/txt_files/Industry classifications.txt", ///
        varnames(1) colrange(:2) clear
 tempfile tmp
 gen double id = _n
 save `tmp'
 
 * Import indexes 4 digit NACE rev.2
-import delimited "\input\orbis\txt_files\Industry classifications.txt", ///
+import delimited "input/orbis/txt_files/Industry classifications.txt", ///
        varnames(1) colrange(8:8) clear
 gen double id = _n
 
@@ -199,21 +205,21 @@ rename ïbvdidnumber id
 gen nace2 = int(nace/100)
 
 * Save industry file
-save "\input\orbis\sector", replace
+save "input/orbis/sector", replace
 
 //============================================================================//
 // Listed/Unlisted information                                                //
 //============================================================================//
 
 * Import firm indexes   
-import delimited "\input\orbis\txt_files\Legal info.txt", ///
+import delimited "input/orbis/txt_files/Legal info.txt", ///
        varnames(1) colrange(:1) clear
 gen double id = _n
 tempfile tmp1
 save `tmp1'
 
 * Import listed information 
-import delimited "\input\orbis\txt_files\Legal info.txt", ///
+import delimited "input/orbis/txt_files/Legal info.txt", ///
        varnames(1) colrange(14:18) clear
 drop delistedcomment mainexchange
 gen double id = _n
@@ -241,5 +247,4 @@ destring delisted_year, replace
 drop delisted_date_str delisted_date
 
 * Save listed file
-save "\input\orbis\listed", replace
-
+save "input/orbis/listed", replace

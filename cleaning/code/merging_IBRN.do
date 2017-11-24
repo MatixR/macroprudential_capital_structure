@@ -11,14 +11,20 @@
 //============================================================================//
 
 * General 
-cd "S:"      
+if "`c(hostname)'" != "EG3523" {
+global STATAPATH "S:"
+}
+else if "`c(hostname)'" == "EG3523" {
+global STATAPATH "C:/Users/u1273941/Research/Projects/macroprudential_capital_structure"
+}
+cd "$STATAPATH"     
 set more off
 
 //============================================================================//
 // Clean IBRN dataset                                                         //
 //============================================================================//
 
-import excel using "\input\IBRN.xlsx", sheet("Data") firstrow clear
+import excel using "input/IBRN.xlsx", sheet("Data") firstrow clear
 
 * Destring variables
 foreach var of varlist _all{
@@ -64,7 +70,7 @@ preserve
 // Clean IMF interest rate dataset                                            //
 //============================================================================//
 
-insheet using "\input\interest_rate.csv", clear
+insheet using "input/interest_rate.csv", clear
 tempfile tmp1
 * Create identifiers for peridiocity
 gen year = substr(timeperiod,1,4)
@@ -94,8 +100,7 @@ restore
 preserve
 tempfile tmp2
 * Merge European data
-drop if !inlist(ifscode,122,124,132,134,136,137,138,172,174,178,181,182,184,///
-                        423,936,939,941,946,961)
+drop if !inlist(ifscode,122,124,132,134,136,137,138,172,174,178,181,182,184,423,936,939,941,946,961)
 * Account for Slovakia joining after 2008
 gen help1 = 1 if ifscode == 936 & year<=2008
 drop if help1 == 1
@@ -110,8 +115,7 @@ drop _merge
 save `tmp3'
 restore
 * Merge remaining countries
-drop if inlist(ifscode,122,124,132,134,136,137,138,172,174,178,181,182,184,///
-                       423,939,941,946,961)
+drop if inlist(ifscode,122,124,132,134,136,137,138,172,174,178,181,182,184,423,939,941,946,961)
 * Account for Slovakia joining after 2008
 gen help1 = 1 if ifscode == 936 & year>2008
 drop if help1 == 1
@@ -129,10 +133,10 @@ replace country = upper(country)
 // Merge to main dataset                                                      //
 //============================================================================//
 
-save "\cleaning\temp\IBRN.dta", replace
-use "\cleaning\temp\merged_`1'.dta", clear
+save "cleaning/temp/IBRN.dta", replace
+use "cleaning/temp/merged_`1'.dta", clear
 sort country_id year
-merge m:1 country_id year quarter using "\cleaning\temp\IBRN.dta"
+merge m:1 country_id year quarter using "cleaning/temp/IBRN.dta"
 keep if _merge==3
-drop _merge
-save "\cleaning\temp\merged_`1'", replace
+drop _merge c_*
+save "cleaning/temp/merged_`1'", replace
