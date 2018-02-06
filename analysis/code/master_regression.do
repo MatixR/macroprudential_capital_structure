@@ -1,7 +1,7 @@
 //----------------------------------------------------------------------------//
 // Project: Bank Regulation and Capital Structure                             //
 // Author: Lucas Avezum, Tilburg University                                   //
-// Date: 24/11/2017                                                           //
+// Date: 12/04/2017                                                           //
 // Description: this file runs all the regressions tables                     //
 //----------------------------------------------------------------------------//
 
@@ -23,6 +23,7 @@ set more off
 ssc install reghdfe, replace
 ssc install estout, replace
 ssc install outreg2, replace
+ssc install tuples, replace
  
 //============================================================================//
 // Tables                                                                     //
@@ -32,7 +33,22 @@ ssc install outreg2, replace
 use "\cleaning\output\dataset_bank_regulation.dta", clear
 do "\analysis\code\summary"
 
-* Benchmark regression
+* Table with distribution of sample across countries and years
+use "\cleaning\output\dataset_bank_regulation.dta", clear
+do "\analysis\code\distribution_country_year"
+
+* Table with correlation among bank regulation variables
+use "\cleaning\output\dataset_bank_regulation.dta", clear
+do "\analysis\code\correlation"
+
+* Benchmark regressions
 use "\cleaning\output\dataset_bank_regulation.dta", clear
 do "\analysis\code\regression_benchmark"
 
+* Robustness regressions 
+use "\cleaning\output\dataset_bank_regulation.dta", clear
+do "\analysis\code\regression_robustness"
+
+* Extension regressions 
+use "\cleaning\output\dataset_bank_regulation.dta", clear
+do "\analysis\code\regression_extension"

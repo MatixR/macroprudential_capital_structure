@@ -2,7 +2,7 @@
 // Project: Bank Regulation and Capital Structure                             //
 // Author: Lucas Avezum, Tilburg University                                   //
 // Date: 24/11/2017                                                           //
-// Description: this file runs the summary statistics table                   //
+// Description: this file runs the correlation table                          //
 //----------------------------------------------------------------------------//
 
 //============================================================================//
@@ -60,57 +60,46 @@ by multinational_year: replace number_countries_mult = number_countries_mult[_N]
 summarize number_firms_mult number_countries_mult   
 }          
 	
+	
+	* Bank Regulation Survey
+lab var b_sec_act_ba "Restrictions on securities activities"
+lab var b_ins_act_ba "Restrictions on insurance activities"
+lab var b_real_est_act_ba "Restrictions on real estate activities"
+lab var b_ovr_rest "Restrictions on banking activities"
+lab var b_bank_owns_fc "Bank owning nonfinancial firm"
+lab var b_firm_owns_fc "Nonfinancial firm owning bank"
+lab var b_financial_owns_fc "Financial firm owning bank"
+lab var b_ovr_cong "Financial conglomerates restrictiveness"
+lab var b_lim_for  "Limitations on foreign bank"
+lab var b_entry_req "Entry requirements"
+lab var b_frac_den "Entry applications denied"
+lab var b_dom_den "Domestic applications denied"
+lab var b_for_den "Foreign applications denied"
+lab var b_cap_str  "Capital regulatory strigengy"
+lab var b_ovr_str_cap  "Overall capital strigency"
+lab var b_int_str_cap  "Initial capital stringency"
+lab var b_off_sup  "Official supervisory power"
+lab var b_pri_mon  "Private monitoring"
+lab var b_dep_size  "Deposit insurance to bank asset"
+lab var b_ins_dep  "Funding with insured deposit"
+lab var b_mor_haz  "Moral hazard mitigation"
+lab var b_conc_dep "Bank concentration in deposits"
+lab var b_conc_ass "Bank concentration in assets"
+lab var b_for_sha  "Foreign-owned banks"
+lab var b_gov_sha  "Government-owned banks"
+lab var b_ext_aud_gov "Strength of external audit"
+lab var b_fin_trans_gov "Financial statement transparency"
+lab var b_acc_prac_gov "Accounting practices"
+lab var b_ext_rat_gov "External ratings"
+lab var b_ext_gov_ind "External governance"
 //============================================================================//
 //Table 1: Summary statistics by firm                                         //
 //============================================================================//
-estpost tabstat                                                              ///
-leverage `independent' `independent_ds'                                      ///
-tax_rate tax_rate_ds `firm_control' `country_control',                       ///                         
-statistics(count mean sd min p50 max) columns(statistics)                    ///
+estpost correlate                                                              ///
+`independent', matrix                                       ///
+                    ///
 
-esttab using "\analysis\output\tables\summary\summary.tex",                  ///
-  replace label noobs nomtitles nonumbers fragment booktabs gaps collabels(none) ///
-  cells("mean(fmt(2)) sd(fmt(2)) min(fmt(2)) p50(fmt(2)) max(fmt(2))")       ///
-  refcat(leverage "\emph{Dependent variables}"                               ///
-         b_ovr_rest "\emph{Bank regulation - direct}"                        ///
-         b_ovr_rest_ds "\emph{Bank regulation - spillover}"                  ///
-         tax_rate "\emph{Corporate tax}"                                     ///
-	     risk_w "\emph{Firm characteristics}"                                ///
-         inflation "\emph{Macroeconomic controls}", nolabel)		         ///
-     
-//============================================================================//
-//Table 2: Summary statistics by multinational                                //
-//============================================================================//
-
-* Create number of sectors per multinational
-by multinational_year nace2, sort: gen number_sectors_mult = _n == 1 
-by multinational_year: replace number_sectors_mult = sum(number_sectors_mult)
-by multinational_year: replace number_sectors_mult = number_sectors_mult[_N] 
-
-* Create total of asset per multinational
-gen total_toas_mult = total_asset_multinational/1000000
-
-* Create dummy for parent
-bysort multinationals year: egen parent_mult = total(parent)
-bysort multinational_year: keep if _n == 1
-
-lab var number_firms_mult     "Number of firms"
-lab var number_sectors_mult   "Industries"
-lab var number_countries_mult "Countries"
-lab var total_toas_mult       "Total asset (mn USD)"
-lab var parent_mult           "Parent"
-
-label variable number_sectors_mult `"\hspace{0.1cm} `: variable label number_sectors_mult'"'
-label variable number_countries_mult `"\hspace{0.1cm} `: variable label number_countries_mult'"'
-
-estpost tabstat                                                              ///
-parent_mult number_firms_mult                                                ///
-number_sectors_mult number_countries_mult,                                   ///                         
-statistics(count mean sd min p50 max) columns(statistics)                    ///
-
-esttab using "\analysis\output\tables\summary\summary_mult.tex",             ///
-  replace label noobs nomtitles nonumbers fragment booktabs gaps collabels(none) ///
-  cells("mean(fmt(2)) sd(fmt(2)) min(fmt(0)) p50(fmt(0)) max(fmt(0))")       ///
-  refcat(number_sectors_mult "Present in:", nolabel)		             
-     
-
+esttab using "\analysis\output\tables\summary\correl.tex",                  ///
+  replace label nomtitles nonumbers not unstack compress ///
+  noobs fragment booktabs gaps collabels(none) ///
+ 
