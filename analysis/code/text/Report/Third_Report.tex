@@ -1,0 +1,116 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,eurosym,geometry,ulem,caption,color,xcolor,multicol,setspace,sectsty,comment,footmisc,caption,natbib,pdflscape,subfigure,array,hyperref,verbatim,mathpazo,longtable,ntheorem,siunitx}
+%\usepackage[normalem]{ulem}
+\usepackage[pdftex]{graphicx}
+\graphicspath{{Imagens/}}
+\usepackage{fullpage}
+\usepackage{indentfirst}
+\usepackage{changepage}
+
+%\setlength{\pdfpagewidth}{8.5in} \setlength{\pdfpageheight}{11in}
+%\setlength{\textheight}{8.5in} \setlength{\topmargin}{0.0in}
+%\setlength{\headheight}{0.0in} \setlength{\headsep}{0.0in}
+%\setlength{\leftmargin}{0.5in}
+%\setlength{\oddsidemargin}{0.0in}
+%\setlength{\parindent}{2em}
+%\setlength{\parskip}{\baselineskip}%
+%\setlength{\textwidth}{6.5in}
+%\linespread{1.6}
+\newcommand*{\captionsource}[2]{%
+  \caption[{#1}]{%
+    #1%
+    \\\hspace{\linewidth}%
+    \textbf{Source:} #2%
+  }%
+}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\onehalfspacing
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}{Proposition}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\newtheorem{hyp}{Hypothesis}
+\newtheorem{subhyp}{Hypothesis}[hyp]
+\renewcommand{\thesubhyp}{\thehyp\alph{subhyp}}
+
+\newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\blue}[1]{{\color{blue} #1}}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+
+\geometry{left=1.2in,right=1.2in,top=1.2in,bottom=1.2in}
+\begin{document}
+	
+%	\begin{titlepage}
+		\title{\underline{Bank Regulation} and Capital Structure: Evidence from Multinationals}
+		\author{Lucas Avezum}
+		%\author{Lucas Avezum\thanks{abc} \and \and Harry Huizinga\thanks{abc} \and Louis Raes\thanks{abc}}
+		\date{\today}
+		\maketitle
+		%\begin{abstract}
+		%	\noindent This paper studies how macroprudential policies, specifically reserve and capital requirements, relate to non-financial firms' capital structure. We first present a model where macroprudential instruments affect banks' costs which in turn are transmitted to firms' leverage through their cost of debt. Using a firm-level dataset of multinationals hosted in 37 countries we are able to identify domestic and international effects. The empirical results show that tighter capital requirements reduce firms' leverage while multinationals have an extra incentive to lower debt levels in subsidiaries hosted in countries with relative higher reserve requirements. Moreover, the domestic effect is found to be stronger for riskier firms.  \\
+		%	\vspace{0in}\\
+			%\noindent\textbf{Keywords:} key1, key2, key3\\
+		%	\vspace{0in}\\
+			%\noindent\textbf{JEL Codes:} key1, key2, key3\\
+			
+		%	\bigskip
+	%	\end{abstract}
+	%	\setcounter{page}{0}
+	%	\thispagestyle{empty}
+%	\end{titlepage}
+%	\pagebreak \newpage
+	
+	
+	
+	
+	\doublespacing
+	
+
+
+	 
+	\section{Introduction} \label{sec:intro}
+	 Table \ref{reg:base_year} shows the results of the analysis with a few of the measures from \cite*{barth2013bank}. Those are: 
+	 \begin{itemize}
+	 	\item \underline{Restriction on banking activities}: the extent to which banks may engage in securities, insurance and real estate activities (higher values indicate more restrictive)
+	 	\item \underline{Financial conglomerates restrictiveness}: restrictions on banks' ownership of nonfinancial firms and on non-bank firms owning banks (higher values indicate more restrictive),
+	 	\item  \underline{Initial capital strigency}: whether certain funds may be used to initially capitalize a bank and whether they are official (higher values indicate greater stringency),
+	 	\item \underline{Official supervisory power}: whether the supervisory authorities have the authority to take specific actions to prevent and correct problems (higher values indicate greater power),
+	 	\item \underline{Private monitoring}: whether there incentives/ability for the private monitoring of firms (higher values indicating more private monitoring),
+	 	\item \underline{Moral hazard}: degree to which actions taken to mitigate moral hazard (higher values indicate greater mitigation of moral hazard).
+	 \end{itemize}
+	 
+	 Columns (1) and (2) include multinational and year fixed effects while columns (3) and (4) include multinational*year fixed effects, hence the spillover coefficient cannot be estimated. Moreover, columns (2) and (4) include the interaction of each of this variables with the tax variable.      
+ 		
+	 
+	 	\begin{small}
+	 	{\setstretch{1.0}
+	 		\input{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/benchmark_table1_barth_text}
+	 	}
+	 \end{small}
+ 
+	 \section{Results} \label{sec:results}
+	Most of the results look intuitive: coefficients for restrictions on banking activity and initial capital strigency are estimated to be negative while financial conglomerates restrictiveness, private monitoring and moral hazard get a positive sign. Only spillover from financial conglomerate is statistically significant. Moreover, adding the interaction remove the statistical significance of three variables (financial conglomerates restrictiveness, private monitoring and moral hazard) and change the sign of the coefficient for initial capital stringency and tax rate.
+	
+	Overall, the results seem interesting. We can restrict to the most parsimonious model given the strange results with the interaction term with tax. Also, for most of the indexes used, there are sub-indexes that we could expand the analysis.
+	
+	\singlespacing
+	\bibliography{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/code/text/bibliography/references}
+	\bibliographystyle{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/code/text/bibliography/te}
+	
+	
+	
+%	\clearpage
+	
+%	\onehalfspacing
+	
+
+	
+	
+
+\end{document} 

@@ -1,0 +1,142 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,eurosym,geometry,ulem,caption,color,xcolor,multicol,setspace,sectsty,comment,footmisc,caption,natbib,pdflscape,subfigure,array,hyperref,verbatim,mathpazo,longtable,ntheorem,siunitx}
+%\usepackage[normalem]{ulem}
+\usepackage[pdftex]{graphicx}
+\graphicspath{{Imagens/}}
+\usepackage{fullpage}
+\usepackage{indentfirst}
+\usepackage{changepage}
+
+%\setlength{\pdfpagewidth}{8.5in} \setlength{\pdfpageheight}{11in}
+%\setlength{\textheight}{8.5in} \setlength{\topmargin}{0.0in}
+%\setlength{\headheight}{0.0in} \setlength{\headsep}{0.0in}
+%\setlength{\leftmargin}{0.5in}
+%\setlength{\oddsidemargin}{0.0in}
+%\setlength{\parindent}{2em}
+%\setlength{\parskip}{\baselineskip}%
+%\setlength{\textwidth}{6.5in}
+%\linespread{1.6}
+\newcommand*{\captionsource}[2]{%
+  \caption[{#1}]{%
+    #1%
+    \\\hspace{\linewidth}%
+    \textbf{Source:} #2%
+  }%
+}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\onehalfspacing
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}{Proposition}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\newtheorem{hyp}{Hypothesis}
+\newtheorem{subhyp}{Hypothesis}[hyp]
+\renewcommand{\thesubhyp}{\thehyp\alph{subhyp}}
+
+\newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\blue}[1]{{\color{blue} #1}}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+
+\geometry{left=1.2in,right=1.2in,top=1.2in,bottom=1.2in}
+\begin{document}
+	
+%	\begin{titlepage}
+		\title{Macroprudential Policies and Capital Structure: Evidence from Multinationals}
+		\author{Lucas Avezum}
+		%\author{Lucas Avezum\thanks{abc} \and \and Harry Huizinga\thanks{abc} \and Louis Raes\thanks{abc}}
+		\date{\today}
+		\maketitle
+		%\begin{abstract}
+		%	\noindent This paper studies how macroprudential policies, specifically reserve and capital requirements, relate to non-financial firms' capital structure. We first present a model where macroprudential instruments affect banks' costs which in turn are transmitted to firms' leverage through their cost of debt. Using a firm-level dataset of multinationals hosted in 37 countries we are able to identify domestic and international effects. The empirical results show that tighter capital requirements reduce firms' leverage while multinationals have an extra incentive to lower debt levels in subsidiaries hosted in countries with relative higher reserve requirements. Moreover, the domestic effect is found to be stronger for riskier firms.  \\
+		%	\vspace{0in}\\
+			%\noindent\textbf{Keywords:} key1, key2, key3\\
+		%	\vspace{0in}\\
+			%\noindent\textbf{JEL Codes:} key1, key2, key3\\
+			
+		%	\bigskip
+	%	\end{abstract}
+	%	\setcounter{page}{0}
+	%	\thispagestyle{empty}
+%	\end{titlepage}
+%	\pagebreak \newpage
+	
+	
+	
+	
+	\doublespacing
+	
+
+
+	 
+	\section{Report on results} \label{sec:result}
+	 This report presents some  of the results following improvement suggestions. In section \ref{sec:benchmark} the same model that was in the thesis is shown. The differences come from updating the dataset and adjusting some details (such as keeping the sample constant across regressions and computing tightening and loosening as 1 unit instead of 0.25). The results changed slightly the magnitude but not the direction.
+	 
+	 In section \ref{sec:base_year} I changed the year base to 2008 as a robustness test. There are some small changes in the results that I believe to be driven by change in sample, but the coefficients of interest remain statistically significant and with expected sign.
+	 
+	 Lastly, section \ref{sec:barth} shows the results when we use the capital stringency 2011 survey from \cite*{barth2013bank}. This survey refers to the years 2008, 2009 and 2010, which are the only years included in the regressions. Unfortunately, the results do not follow what we would expect, despite being statistically significant in some specifications. I also tried to merge \cite{barth2013bank} and \cite{cerutti2017changes} but the results do not change.   	      
+ 		
+ 		\section{Thesis benchmark} \label{sec:benchmark}
+ 		
+ 	\begin{small}
+ 	{\setstretch{1.0}
+ 		\input{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/summary/summary_firms_index07}
+ 	}
+ \end{small}
+ 
+ 	\begin{small}
+ 	{\setstretch{1.0}
+ 		\input{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/benchmark_table1}
+ 	}
+ \end{small}
+ 
+	\section{Different base date} \label{sec:base_year}
+	
+		\begin{small}
+		{\setstretch{1.0}
+			\input{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/summary/summary_firms_index08}
+		}
+	\end{small}
+
+	 	\begin{small}
+	 	{\setstretch{1.0}
+	 		\input{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/robustness_table3_yearbase}
+	 	}
+	 \end{small}
+ 
+		\section{\cite{barth2013bank} dataset} \label{sec:barth}
+	 
+	 	\begin{small}
+	 	{\setstretch{1.0}
+	 		\input{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/summary/summary_firms_barth}
+	 	}
+	 \end{small}
+	 
+	 	\begin{small}
+	 	{\setstretch{1.0}
+	 		\input{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/robustness_table2_barth}
+	 	}
+	 \end{small}
+ 
+	
+	
+	\singlespacing
+	\bibliography{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/code/text/bibliography/references}
+	\bibliographystyle{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/code/text/bibliography/te}
+	
+	
+	
+%	\clearpage
+	
+%	\onehalfspacing
+	
+
+	
+	
+
+\end{document} 

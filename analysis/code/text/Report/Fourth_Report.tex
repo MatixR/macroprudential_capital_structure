@@ -1,0 +1,342 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,eurosym,geometry,ulem,caption,color,xcolor,multicol,setspace,sectsty,comment,footmisc,caption,natbib,pdflscape,subfigure,array,hyperref,verbatim,mathpazo,longtable,ntheorem,siunitx,booktabs,threeparttable}
+%\usepackage[normalem]{ulem}
+\usepackage[pdftex]{graphicx}
+\graphicspath{{Imagens/}}
+\usepackage{fullpage}
+\usepackage{indentfirst}
+\usepackage{changepage}
+
+%\setlength{\pdfpagewidth}{8.5in} \setlength{\pdfpageheight}{11in}
+%\setlength{\textheight}{8.5in} \setlength{\topmargin}{0.0in}
+%\setlength{\headheight}{0.0in} \setlength{\headsep}{0.0in}
+%\setlength{\leftmargin}{0.5in}
+%\setlength{\oddsidemargin}{0.0in}
+%\setlength{\parindent}{2em}
+%\setlength{\parskip}{\baselineskip}%
+%\setlength{\textwidth}{6.5in}
+%\linespread{1.6}
+\newcommand{\sym}[1]{\rlap{#1}}% Thanks to David Carlisle
+
+\newcommand*{\captionsource}[2]{%
+  \caption[{#1}]{%
+    #1%
+    \\\hspace{\linewidth}%
+    \textbf{Source:} #2%
+  }%
+}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+%***************************************************
+% Fix input with \midrule problem
+%***************************************************
+
+\makeatletter
+\newcommand\primitiveinput[1]
+{\@@input #1 }
+\makeatother
+
+%***************************************************
+% Custom subcaptions
+%***************************************************
+% Note/Source/Text after Tables
+\newcommand{\Figtext}[1]{%
+	\begin{tablenotes}[para,flushleft]
+		\hspace{6pt}
+		\hangindent=1.75em
+		#1
+	\end{tablenotes}
+}
+
+\newcommand{\Fignote}[1]{\Figtext{\emph{Note:~}~#1}}
+\newcommand{\Figsource}[1]{\Figtext{\emph{Source:~}~#1}}
+\newcommand{\Starnote}{\Figtext{* p < 0.1, ** p < 0.05, *** p < 0.01. Standard errors in parentheses.}}% Add significance note with \starnote
+
+%***************************************************
+% DO NOT KNOW
+%***************************************************
+
+
+\onehalfspacing
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}{Proposition}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\newtheorem{hyp}{Hypothesis}
+\newtheorem{subhyp}{Hypothesis}[hyp]
+\renewcommand{\thesubhyp}{\thehyp\alph{subhyp}}
+
+\newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\blue}[1]{{\color{blue} #1}}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+
+\geometry{left=1.2in,right=1.2in,top=1.2in,bottom=1.2in}
+\begin{document}
+	
+%	\begin{titlepage}
+		\title{\underline{Bank Regulation} and Capital Structure: Evidence from Multinationals}
+		\author{Lucas Avezum}
+		%\author{Lucas Avezum\thanks{abc} \and \and Harry Huizinga\thanks{abc} \and Louis Raes\thanks{abc}}
+		\date{\today}
+		\maketitle
+		%\begin{abstract}
+		%	\noindent This paper studies how macroprudential policies, specifically reserve and capital requirements, relate to non-financial firms' capital structure. We first present a model where macroprudential instruments affect banks' costs which in turn are transmitted to firms' leverage through their cost of debt. Using a firm-level dataset of multinationals hosted in 37 countries we are able to identify domestic and international effects. The empirical results show that tighter capital requirements reduce firms' leverage while multinationals have an extra incentive to lower debt levels in subsidiaries hosted in countries with relative higher reserve requirements. Moreover, the domestic effect is found to be stronger for riskier firms.  \\
+		%	\vspace{0in}\\
+			%\noindent\textbf{Keywords:} key1, key2, key3\\
+		%	\vspace{0in}\\
+			%\noindent\textbf{JEL Codes:} key1, key2, key3\\
+			
+		%	\bigskip
+	%	\end{abstract}
+	%	\setcounter{page}{0}
+	%	\thispagestyle{empty}
+%	\end{titlepage}
+%	\pagebreak \newpage
+	
+	
+	
+	
+	\doublespacing
+	
+\normalem
+
+	 
+	\section{Introduction} \label{sec:intro}
+	
+This is a brief report on the results when analyzing the effect of bank regulation on firms' capital structure using bank regulation measures from \cite*{barth2013bank}. First, I explain the indexes selected and the expected sign of the effect on financial leverage. Second, summary statistics are shown and lastly two sets of regressions are displayed, one including multinational and year fixed effects, and another considering those two categories multiplicatively. 
+
+	\subsection{Variables of interest} \label{sec:variables of interest}
+	 \begin{itemize}
+	 	\item \underline{Restriction on banking activities}: the extent to which banks may engage in securities, insurance and real estate activities (higher values indicate more restrictive). While in one hand restrictions on other activities might mean that more resources are allocated to loans, implying a positive sign of the estimated coefficient on leverage, on the other hand those same activities might be complementaries to the providing credit which could reduce the cost of debt to firms. Hence, the expected sign of the effect on leverage for this variable is ambiguous ($\beta_1\lessgtr0$).  
+	 	\item \underline{Financial conglomerates restrictiveness}: restrictions on banks' ownership of nonfinancial firms and on non-bank firms owning banks (higher values indicate more restrictive). Since equity investment on non-financial firms is restricted, banks have to rely more on debt instruments ($\beta_2>0$).
+	 	\item  \underline{Initial capital strigency}: whether certain funds may be used to initially capitalize a bank and whether they are official (higher values indicate greater stringency). Higher capital stringency implies greater cost of capital and exposure for banks, consequently, we expect the estimated coefficient to be negative ($\beta_3<0$).
+	 	\item \underline{Official supervisory power}: whether the supervisory authorities have the authority to take specific actions to prevent and correct problems (higher values indicate greater power). A greater power to intervene directly creates incentives to decrease risk-taking by banks, thus the effect on leverage should be negative ($\beta_4<0$).
+	 	\item \underline{Private monitoring}: whether there incentives/ability for the private monitoring of firms (higher values indicating more private monitoring). Better screening of borrowers reduces or eliminates adverse selection improving credit market conditions ($\beta_5>0$).
+	 	\item \underline{Moral hazard}: degree to which actions taken to mitigate moral hazard (higher values indicate greater mitigation of moral hazard). On one hand risk-taking might be reduced, leading to higher cost of debt, on the other hand firms and banks may perceived the institutional background to be safer ($\beta_6\lessgtr0$)
+	 \end{itemize}
+ 
+ For every measure we expect the respective spillover to have the coefficient with the same sign.   
+	 	\section{Data} \label{sec:data}
+	 	
+	 	Table \ref{tab:summary} shows summary statistics for the dependent variable, financial leverage, measured as total liabilities over total assets, the bank regulation variables from \cite{barth2013bank} and the respective spillovers measures (constructed following \cite{huizinga2008capital}) and firm and country-level controls.
+	 	
+	 	 	\begin{small}
+	 	{\setstretch{1.0}
+	 		\begin{longtable}{lrrrrr}\\
+	 			\label{tab:summary}\\
+	 			\multicolumn{6}{c}{Table \ref{tab:summary} - Summary statistics, bank regulation, leverage and controls}\\
+	 		 \hline \hline \addlinespace  & Mean & SD & Min & Med & Max  \\
+	 		   \endfirsthead
+	 			\multicolumn{6}{c}{Table \ref{tab:summary} - Summary statistics, bank regulation, leverage and controls}\\
+	 		 \hline \hline \addlinespace    & Mean & SD & Min & Med & Max  \\ \hline  \endhead
+	 			\hline
+	 			\multicolumn{6}{r}{{\textit{(Continued)}}}\\ \endfoot
+	 			\multicolumn{6}{l}{{Number of observations: 348.934}}\\ 	
+	 			\endlastfoot
+	 			\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/summary/summary.tex}
+	 			\hline 			
+	 		\end{longtable}	
+	 	}
+	 \end{small}
+ 
+	 	\section{Results} \label{sec:results}	
+	 	 
+	 		 Table \ref{reg:benchmark} shows the first set of results. Through columns 1 to 6 we include one bank regulation index at time with the respective spillover measure. Column 7 includes all the indexes. All regressions are estimated with multinational and year fixed effects to account. 
+	 		 
+	 		 Considering column 7, for all the variables of interest the coefficients were estimated with expected sign and statistically different than zero at the 5\% level (Official supervisory power and Moral hazard) or 1\% (the remaining variables). An increase of one unit in Restriction on banking activities reduces firms' leverage by 0.70 p.p on average.  Only the spillover measure from financial conglomerate restrictiveness appears to be statistically different than zero (at 1\% level). Assuming an multinational group composed of two firms with equal asset share, the effect of one unit in raise in Financial conglomerates restrictiveness increase financial leverage by 0.10p.p + 0.70p.p * 0.5 = 0.14p.p on average.
+	 		 
+	 		 Table \ref{reg:robust} shows the second set of results. Again, through columns 1 to 6 we include one bank regulation index at time. Column 7 includes all the indexes. All regressions are estimated with multinational*year fixed effects to account for time varying demand factors that might potentially drive firms' leverage, assuming that the debt decision is taken at the multinational level. The downside of this approach is that we cannot estimate the spillover effects as derived in our theory model. 
+	 		 
+	 		The results changed marginally when compared to the previous table with small increase in coefficients' magnitude for Restriction on banking activities, Financial conglomerates restrictiveness and Initial capital stringency (considering the results of column 7 in both tables). 
+	  
+\newgeometry{left=0.6in,right=0.6in,top=1.2in,bottom=1.2in}	    
+ 	\begin{landscape}	
+	 	\begin{small}
+	 	{\setstretch{1.0}
+\begin{longtable}{lccccccc}\\
+	\label{reg:benchmark}\\
+	\multicolumn{8}{c}{Table \ref{reg:benchmark} - Regression results, bank regulation and firms' capital structure}\\
+	\multicolumn{8}{c}{(\textit{Dependent variable}: financial leverage)}
+	\\ \hline \hline \addlinespace
+	Model & (1) & (2) & (3) & (4) & (5) & (6) & (7)  \\  \endfirsthead
+	\multicolumn{8}{c}{Table \ref{reg:benchmark} - Regression results, bank regulation and firms' capital structure }\\
+	\multicolumn{8}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+	\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6) & (7) \\ \hline \\ \endhead
+	\hline
+	\multicolumn{8}{r}{{\textit{(Continued)}}}\\ \endfoot
+	\multicolumn{8}{l}{{Notes: Robust standard errors (in parentheses) clustered at the multinational level.}}\\ 	
+	\endlastfoot
+			\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/benchmark_table.tex}
+				\hline 			
+	\end{longtable}	
+ 			}
+ 		\end{small}
+	\end{landscape}
+\restoregeometry
+
+	\doublespacing
+
+\newgeometry{left=0.6in,right=0.6in,top=1.2in,bottom=1.2in}
+
+ 	\begin{landscape}	
+	\begin{small}
+		{\setstretch{1.0}
+			\begin{longtable}{lccccccc}\\
+				\label{reg:robust}\\
+				\multicolumn{8}{c}{Table \ref{reg:robust} - Regression results, bank regulation and firms' capital structure}\\
+				\multicolumn{8}{c}{(\textit{Dependent variable}: financial leverage)}
+				\\ \hline \hline \addlinespace
+				Model & (1) & (2) & (3) & (4) & (5) & (6) & (7)  \\  \endfirsthead
+				\multicolumn{8}{c}{Table \ref{reg:robust} - Regression results, bank regulation and firms' capital structure }\\
+				\multicolumn{8}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+				\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6) & (7) \\ \hline \\ \endhead
+				\hline
+				\multicolumn{8}{r}{{\textit{(Continued)}}}\\ \endfoot
+				\multicolumn{8}{l}{{Notes: Robust standard errors (in parentheses) clustered at the multinational level.}}\\ 	
+				\endlastfoot
+				\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/robust_table.tex}
+				\hline 			
+			\end{longtable}	
+		}
+	\end{small}
+\end{landscape}
+
+\restoregeometry
+	
+
+	\doublespacing
+
+\newgeometry{left=0.6in,right=0.6in,top=1.2in,bottom=1.2in}
+
+\begin{landscape}	
+	\begin{small}
+		{\setstretch{1.0}
+			\begin{longtable}{lccccccc}\\
+				\label{reg:firm_fe}\\
+				\multicolumn{8}{c}{Table \ref{reg:robust} - Robustness check, no firms with negative profit}\\
+				\multicolumn{8}{c}{(\textit{Dependent variable}: financial leverage)}
+				\\ \hline \hline \addlinespace
+				Model & (1) & (2) & (3) & (4) & (5) & (6) & (7)  \\  \endfirsthead
+				\multicolumn{8}{c}{Table \ref{reg:robust} - Robustness check, no firms with negative profit}\\
+				\multicolumn{8}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+				\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6) & (7) \\ \hline \\ \endhead
+				\hline
+				\multicolumn{8}{r}{{\textit{(Continued)}}}\\ \endfoot
+				\multicolumn{8}{l}{{Notes: Robust standard errors (in parentheses) clustered at the multinational level.}}\\ 	
+				\endlastfoot
+				\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/no_profit_table.tex}
+				\hline 			
+			\end{longtable}	
+		}
+	\end{small}
+\end{landscape}
+
+\restoregeometry
+	
+		\doublespacing
+	
+	\newgeometry{left=0.6in,right=0.6in,top=1.2in,bottom=1.2in}
+	
+	\begin{landscape}	
+		\begin{small}
+			{\setstretch{1.0}
+				\begin{longtable}{lccccccc}\\
+					\label{reg:sector_fe}\\
+					\multicolumn{8}{c}{Table \ref{reg:robust} - Robustness check, no firms with negative profit}\\
+					\multicolumn{8}{c}{(\textit{Dependent variable}: financial leverage)}
+					\\ \hline \hline \addlinespace
+					Model & (1) & (2) & (3) & (4) & (5) & (6) & (7)  \\  \endfirsthead
+					\multicolumn{8}{c}{Table \ref{reg:robust} - Robustness check, no firms with negative profit}\\
+					\multicolumn{8}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+					\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6) & (7) \\ \hline \\ \endhead
+					\hline
+					\multicolumn{8}{r}{{\textit{(Continued)}}}\\ \endfoot
+					\multicolumn{8}{l}{{Notes: Robust standard errors (in parentheses) clustered at the multinational level.}}\\ 	
+					\endlastfoot
+					\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/no_profit_robust.tex}
+					\hline 			
+				\end{longtable}	
+			}
+		\end{small}
+	\end{landscape}
+	
+	\restoregeometry
+	
+		\doublespacing
+	
+	\newgeometry{left=0.6in,right=0.6in,top=1.2in,bottom=1.2in}
+	
+	\begin{landscape}	
+		\begin{small}
+			{\setstretch{1.0}
+				\begin{longtable}{lccccccc}\\
+					\label{reg:no merge table}\\
+					\multicolumn{8}{c}{Table \ref{reg:no merge table} - Robustness check, no merges}\\
+					\multicolumn{8}{c}{(\textit{Dependent variable}: financial leverage)}
+					\\ \hline \hline \addlinespace
+					Model & (1) & (2) & (3) & (4) & (5) & (6) & (7)  \\  \endfirsthead
+					\multicolumn{8}{c}{Table \ref{reg:no merge table} - Robustness check, no merges}\\
+					\multicolumn{8}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+					\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6) & (7) \\ \hline \\ \endhead
+					\hline
+					\multicolumn{8}{r}{{\textit{(Continued)}}}\\ \endfoot
+					\multicolumn{8}{l}{{Notes: Robust standard errors (in parentheses) clustered at the multinational level.}}\\ 	
+					\endlastfoot
+					\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/no_mover_table.tex}
+					\hline 			
+				\end{longtable}	
+			}
+		\end{small}
+	\end{landscape}
+	
+	\restoregeometry
+	
+		\doublespacing
+	
+	\newgeometry{left=0.6in,right=0.6in,top=1.2in,bottom=1.2in}
+	
+	\begin{landscape}	
+		\begin{small}
+			{\setstretch{1.0}
+				\begin{longtable}{lccccccc}\\
+					\label{reg:no merge robust}\\
+					\multicolumn{8}{c}{Table \ref{reg:no merge robust} - Robustness check, no merges}\\
+					\multicolumn{8}{c}{(\textit{Dependent variable}: financial leverage)}
+					\\ \hline \hline \addlinespace
+					Model & (1) & (2) & (3) & (4) & (5) & (6) & (7)  \\  \endfirsthead
+					\multicolumn{8}{c}{Table \ref{reg:no merge robust} - Robustness check, no merges}\\
+					\multicolumn{8}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+					\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6) & (7) \\ \hline \\ \endhead
+					\hline
+					\multicolumn{8}{r}{{\textit{(Continued)}}}\\ \endfoot
+					\multicolumn{8}{l}{{Notes: Robust standard errors (in parentheses) clustered at the multinational level.}}\\ 	
+					\endlastfoot
+					\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/no_mover_robust.tex}
+					\hline 			
+				\end{longtable}	
+			}
+		\end{small}
+	\end{landscape}
+	
+	\restoregeometry
+	
+	\singlespacing
+	\bibliography{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/code/text/bibliography/references}
+	\bibliographystyle{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/code/text/bibliography/te}
+	
+	
+	
+%	\clearpage
+	
+%	\onehalfspacing
+	
+
+	
+	
+
+\end{document} 

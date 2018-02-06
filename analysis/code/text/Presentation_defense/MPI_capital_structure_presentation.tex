@@ -1,0 +1,174 @@
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+\documentclass{beamer}
+% Replace the \documentclass declaration above
+% with the following two lines to typeset your 
+% lecture notes as a handout:
+%\documentclass{article}
+%\usepackage{beamerarticle}
+\newcommand\Fontvi{\fontsize{6}{7.2}\selectfont}
+\newcommand\Fontvii{\fontsize{9}{7.2}\selectfont}
+\usepackage{graphicx}
+\usepackage{natbib}
+% There are many different themes available for Beamer. A comprehensive
+% list with examples is given here:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+% You can uncomment the themes below if you would like to use a different
+% one:
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+\usetheme{Boadilla}
+%\usetheme{boxes}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{default}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+\title{Macroprudential Policies and Capital Structure: \\Evidence from Multinationals}
+
+% A subtitle is optional and this may be deleted
+%\subtitle{Gauti B. Eggertsson and Paul Krugman}
+\author{Lucas Avezum}
+
+%\author{F.~Author\inst{1} \and S.~Another\inst{2}}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+%\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+%{
+ % \inst{1}%
+  %Department of Computer Science\\
+  %University of Somewhere
+  %\and
+  %\inst{2}%
+  %Department of Theoretical Philosophy\\
+  %University of Elsewhere}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date{29/08/2017}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+%\subject{Theoretical Computer Science}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+% Let's get started
+\begin{document}
+	\begin{frame}
+	\titlepage
+\end{frame}
+\begin{frame}{Introduction}
+\begin{itemize}
+	\item Macroprudential policies affect non-financial firms' capital structure.
+	\item Increasingly used by Central Banks while effectiveness and spillover still to be fully evaluated 
+	\item Using a firm-level dataset of multinationals hosted in 37 countries we are able to identify domestic and international effects.
+	\item Tighter capital requirements reduce firms' leverage while multinationals have an extra incentive to shift debt due to moves in reserve requirements. Moreover, the domestic effect is found to be stronger for riskier firms.
+\end{itemize}
+\end{frame}
+
+%\begin{frame}{Model}
+%	\begin{equation}
+%\begin{aligned}
+%\lambda_i = &\theta_0\lambda^*+\theta_1\tau_i-\theta_2\Pi_i+\theta_2\Pi_i\tau_{i}\\
+%&+\theta_3\sum_{j=1}^{n}(\tau_i-\tau_j)\rho_j-\theta_4\sum_{j=1}^{n}(\Pi_i-\Pi_j)\rho_j\\
+%&+\theta_4\sum_{j=1}^{n}(\Pi_i\tau_i-\Pi_j\tau_j)\rho_j, \quad i=1,...,n
+%\end{aligned}
+%\label{eq:optimal leverage in theory}
+%\end{equation}
+%\end{frame}
+
+\begin{frame}{Method}
+We first present a model where macroprudential instruments affect banks' costs which in turn are transmitted to firms' leverage through their cost of debt.
+
+Result lead to the following regression equation:
+\begin{equation}
+\begin{aligned}
+\lambda_{imc(i),t}=&\alpha_0\tau_{c(i),t}+\beta_0\Pi_{c(i),t}+\beta_1\tau_{c(i),t}\Pi_{c(i),t}\\
+&+\alpha_1\sum_{j=1}^{n}(\tau_{c(i),t}-\tau_{c(j),t})\rho_{j,t}+\beta_2\sum_{j=1}^{n}(\Pi_{c(i),t}-\Pi_{c(j),t})\rho_{j,t}\\
+&+\Gamma_1 X_{i,t}+\Gamma_2 X_{c(i),t}+ f...+\varepsilon_{i,t},
+\label{eq:optimal leverage empirically 1}
+\end{aligned}
+\end{equation}
+\begin{itemize}
+	\item Some specifications we include: $\beta_3Risk_{i}\Pi_{c(i),t}$
+	\item Hypotheses: H1 $\beta_0<0$ ($\beta_1>0$); H2   $\beta_2<0$ and $\beta_3<0$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Results}
+\begin{center}
+		\begin{tiny}
+		\input{C:/Users/User/work/master_thesis/analysis/temp/Tex/benchmark_table1_presentation}
+	\end{tiny}
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Results}
+\begin{center}
+	\begin{tiny}
+		\input{C:/Users/User/work/master_thesis/analysis/temp/Tex/alternative_table2_presentation}
+	\end{tiny}
+\end{center}
+\end{frame}
+
+\begin{frame}{Conclusion}
+\begin{itemize}
+	\item Tighter capital requirements reduce firms' leverage while multinationals have an extra incentive to shift debt due to moves in reserve requirements. 
+	\item The domestic effect is found to be stronger for riskier firms.
+	\item Effects depend on choice of leverage measure.
+\end{itemize}
+\end{frame}
+
+\end{document}
+
+
