@@ -3,7 +3,7 @@
 %\begin{longtable}[]
 	\centering
 	%\resizebox{\textwidth}{!}{%
-		\begin{longtable}{p{1.7in}p{2.6in}p{1.7in}}
+		\begin{longtable}{p{2.5in}p{4in}p{2in}}
 				\label{tab:definition}\\
 			\multicolumn{3}{c}{Table \ref{tab:definition} - Variable definitions and data sources}\\
 			\hline 
@@ -22,10 +22,26 @@
 			\endlastfoot
 			Financial leverage      & Ratio of non-equity liabilities to total assets & Orbis \\
 		
-			Reserve req. on local currency & Average of quarterly index of changes in reserve requirements on local currency & \cite{cerutti2017changes}\\
-			Capital requirement & Average of quarterly index of changes in capital requirements & \cite{cerutti2017changes}\\
-			Reserve req. on local currency spillover & Sum of international reserve requirement on local currency differences weighted by local asset shares& \cite{cerutti2017changes}\\
-			Capital requirement spillover & Average of quarterly index of changes in capital requirements  & \cite{cerutti2017changes}\\
+		Restriction on banking activities & Index for the extent to which banks may engage in securities, insurance and real estate activities(higher values indicate more restrictive) & \cite{barth2013bank}\\
+			
+			Financial conglomerates restrictiveness & Index for restrictions on banks' ownership of nonfinancial firms and on non-bank firms owning banks (higher values indicate more restrictive) & \cite{barth2013bank}\\	
+			
+			Capital regulatory stringency & Index measuring stringency in capital requirements (higher values indicate higher stringency) & \cite{barth2013bank}\\
+			
+			Official supervisory power & Index capturing whether the supervisory authorities have the authority to take specific actions to prevent and correct problems (higher values indicate greater power) & \cite{barth2013bank}\\	
+			
+				External governance & Index for the quality and presence of certain accounting practices, financial statement transparency, external rating and auditing  (Higher values indicate better corporate governance) & \cite{barth2013bank}\\
+			
+			Restriction on banking activities spillover & Sum of restriction on banking activities index differences weighted by local asset shares & \cite{barth2013bank}\\
+			
+			Financial conglomerates restrictiveness spillover & Sum of Financial conglomerates restrictiveness index  differences weighted by local asset shares & \cite{barth2013bank}\\	
+			
+			Capital regulatory stringency spillover & Sum of capital regulatory stringency index differences weighted by local asset shares & \cite{barth2013bank}\\
+			
+			Official supervisory power spillover & Sum of official supervisory power index differences weighted by local asset shares & \cite{barth2013bank}\\	
+			
+			External governance spillover & Sum of external governance index differences weighted by local asset shares & \cite{barth2013bank}\\
+				
 			Tax rate & Taxes and other mandatory contributions after accounting  for deductions and exemptions to total commercial profit & World Bank Doing Business indicators\\
 			Tax rate spillover & Sum of international corporate tax rate  differences weighted by local asset shares& World Bank Doing Business indicators\\
 			Tangibility& Ratio of fixed assets to total assets & Orbis\\
