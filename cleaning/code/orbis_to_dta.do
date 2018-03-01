@@ -42,7 +42,7 @@ drop dup
 save "input/orbis/entities", replace
 
 * Open links files and merge with entities
-foreach a in 2013 2014 2015{
+foreach a in 2007 2008 2009 2010 2011 2012 2013 2014 2015{
 import delimited "input/orbis/txt_files/Links_`a'.txt", varnames(1) clear 
 
 * Create column for parent firms
@@ -108,14 +108,15 @@ save "input/orbis/links_`a'", replace
 // Financial information                                                      //
 //============================================================================//
 
-import delimited "input/orbis/txt_files/Industry - Global financials and ratios - USD.txt",///
+import delimited "input/orbis/txt_files/Industry - Global financials and ratios - USD.txt", ///
        clear varnames(1) colrange(:62)
 
 * Keep variables of interest
 keep ïbvdidnumber consolidationcode closingdate numberofmonths fixedassets ///
      intangiblefixedassets tangiblefixedassets cashcashequivalent          ///
 	 totalassets noncurrentliabilities longtermdebt currentliabilities     ///
-	 loans numberofemployees sales ebitda debtors
+	 loans numberofemployees sales ebitda debtors creditors plbeforetax    ///
+	 interestpaid depreciationamortization
 
 * Rename variables
 rename ïbvdidnumber id
@@ -128,10 +129,14 @@ rename noncurrentliabilities ncli
 rename longtermdebt ltdb 
 rename currentliabilities culi 
 rename numberofemployees workers
+rename plbeforetax ebit
+rename interestpaid interest
+rename depreciationamortization amor_depre
 
 * Get year from closing date
 gen year = int(closingdate/10000)
 replace year = closingdate if year==0
+replace year = int(closingdate/100) if year<100
 
 * Get quarter from closing date
 gen month = int((closingdate-year*10000)/100)
@@ -143,19 +148,27 @@ replace quarter = 2 if month == 4 | month == 5 | month == 6
 replace quarter = 3 if month == 7 | month == 8 | month == 9
 replace quarter = 4 if month == 10 | month == 11 | month == 12
 
-* Order variables
+* Drop consolidate information which we have unconsolidate 
+drop if consolidationcode == "C2"
+
+* Order variables 
 order id year quarter month
 
-* Keep only uncosolidated information
-keep if consol == "U1" | consol == "U2"
-drop closingdate consolidationcode
+* Replace year with previous if closing date in first semester
+replace year = year-1 if quarter == 1 | quarter == 2
 
 * Replace duplicate if previous year is missing
 sort id year month
-by id: gen gap = year - year[_n-1]
+by id (year month): gen gap = year - year[_n-1]
 by id year: gen dup = cond(_N==1,0,_n)
-by id: replace year = year-1 if gap>1 & dup==1
+by id (year month): replace year = year-1 if gap>1 & dup==1
 drop dup gap
+
+* Drop duplicate observations with least number of months 
+sort id year numberofmonths
+by id year: gen dup = cond(_N==1,1,_n)
+by id year: keep if dup == _N
+drop dup numberofmonths
 
 * Drop duplicate observations with most missing values 
 egen nmis = rowmiss(fias ifas tfas cash toas ncli ltdb culi loans workers ///
@@ -165,11 +178,10 @@ by id year: gen dup = cond(_N==1,1,_n)
 keep if dup == 1
 drop dup nmis
 
-* Drop duplicate observations with least number of months 
-sort id year numberofmonths
-by id year: gen dup = cond(_N==1,1,_n)
-by id year: keep if dup == _N
-drop dup numberofmonths
+* Remove non-positive and missing total asset
+drop if missing(toas)
+drop if toas == 0
+drop if toas < 0
 
 * Save financial data
 save "input/orbis/financials", replace 
