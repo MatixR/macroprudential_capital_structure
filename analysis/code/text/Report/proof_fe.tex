@@ -1,0 +1,91 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,amsmath,amsfonts,eurosym,geometry,ulem,caption,color,xcolor,multicol,setspace,sectsty,comment,footmisc,caption,natbib,pdflscape,subfigure,array,hyperref,verbatim,mathpazo,longtable,ntheorem,siunitx,booktabs,threeparttable,afterpage,bm}
+%\usepackage[normalem]{ulem}
+\usepackage[pdftex]{graphicx}
+\graphicspath{{Imagens/}}
+\usepackage{fullpage}
+\usepackage{indentfirst}
+\usepackage{changepage}
+
+%\setlength{\pdfpagewidth}{8.5in} \setlength{\pdfpageheight}{11in}
+%\setlength{\textheight}{8.5in} \setlength{\topmargin}{0.0in}
+%\setlength{\headheight}{0.0in} \setlength{\headsep}{0.0in}
+%\setlength{\leftmargin}{0.5in}
+%\setlength{\oddsidemargin}{0.0in}
+%\setlength{\parindent}{2em}
+%\setlength{\parskip}{\baselineskip}%
+%\setlength{\textwidth}{6.5in}
+%\linespread{1.6}
+
+\newcommand{\sym}[1]{\rlap{#1}}% Thanks to David Carlisle
+
+\newcommand*{\captionsource}[2]{%
+  \caption[{#1}]{%
+    #1%
+    \\\hspace{\linewidth}%
+    \textbf{Source:} #2%
+  }%
+}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+%***************************************************
+% Fix input with \midrule problem
+%***************************************************
+
+\makeatletter
+\newcommand\primitiveinput[1]
+{\@@input #1 }
+\makeatother
+
+
+\onehalfspacing
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}{Proposition}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+
+\newtheorem{hyp}{Hypothesis}
+\newtheorem{subhyp}{Hypothesis}[hyp]
+\renewcommand{\thesubhyp}{\thehyp\alph{subhyp}}
+
+\newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\blue}[1]{{\color{blue} #1}}
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\arraybackslash\hspace{0pt}}m{#1}}
+
+\geometry{left=1.2in,right=1.2in,top=1.2in,bottom=1.2in}
+\begin{document}
+	
+	
+	Let's consider one multinational with one parent firm ($p$) and one subsidiary $(s)$. Let the asset share within the multinational group for each be $\rho_p$ and $\rho_s$ and $\rho_s+\rho_p=1$. Bank regulation in the country of each is represented by $\Pi_p$ and $\Pi_s$.
+	
+	Fixed effects are equivalent to subtracting for each variable its correspondent average within the fixed effect group. Multinational$\times$ year fixed effects can be extracted by subtracting for each subsidiary of each multinational the average value of all variables observed in one year. Hence, we can write the spillover variable for the subsidiary ($(\Pi_{s}-\Pi_{p})\rho_p$) net of the multinational$\times$year fixed effect as:
+ 
+ 
+ 
+	\begin{equation}
+	\begin{aligned}
+	&(\Pi_{s}-\Pi_{p})\rho_p-\frac{1}{2}\bigg[(\Pi_{s}-\Pi_{p})\rho_p+(\Pi_{p}-\Pi_{s})\rho_s\bigg]\\
+	&\bm{\Pi_{s}\rho_p-\Pi_{p}\rho_p}-\frac{1}{2}\bigg[(\Pi_{s}-\Pi_{p})\rho_p+(\Pi_{p}-\Pi_{s})\rho_s\bigg]\\
+	&\Pi_{s}\rho_p-\Pi_{p}\rho_p-\frac{1}{2}\bigg[\bm{\Pi_{s}(\rho_p-\rho_s)+\Pi_{p}(\rho_s-\rho_p)}\bigg]\\
+	&\Pi_{s}\rho_p-\bm{\Pi_s\frac{(\rho_p-\rho_s)}{2}}-\Pi_{p}\rho_p-\bm{\Pi_p\frac{(\rho_s-\rho_p)}{2}}\\
+	&\Pi_{s}\bigg(\rho_p-\frac{(\rho_p-\rho_s)}{2}\bigg)-\Pi_{p}\bigg(\rho_p+\frac{(\rho_s-\rho_p)}{2}\bigg)\\
+	&\Pi_{s}\bigg(\bm{\frac{\rho_p}{2}+\frac{\rho_s}{2}}\bigg)-\Pi_{p}\bigg(\bm{\frac{\rho_p}{2}+\frac{\rho_s}{2}}\bigg)\\
+	&\Pi_{s}\bigg(\bm{\frac{1}{2}}\bigg)-\Pi_{p}\bigg(\bm{\frac{1}{2}}\bigg)\\
+	\end{aligned}
+	\end{equation}
+
+In the same manner we can write the domestic bank regulation variable net of multinational$\times$year fixed effect as: 
+
+\begin{equation}
+\begin{aligned}
+&\Pi_{s}-\frac{1}{2}\bigg[\Pi_{s}+\Pi_{p}\bigg]\\
+&\Pi_{s}\bigg(\bm{\frac{1}{2}}\bigg)-\Pi_{p}\bigg(\bm{\frac{1}{2}}\bigg)\\
+\end{aligned}
+\end{equation}
+	
+Therefore, the domestic variable net of the multinational$\times$year fixed effect is exactly the same as the spillover variable net of the multinational$\times$year fixed effect.	
+\end{document} 
