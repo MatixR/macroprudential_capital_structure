@@ -34,20 +34,16 @@ use "\cleaning\output\dataset_bank_regulation.dta", clear
 
 * Drop observations with missing values
 #delimit;
-drop if missing(leverage,fixed_total_w, 
+drop if missing(leverage,b_ext_gov_ind);
+#delimit cr
+
+
+,fixed_total_w, 
 log_fixedasset_w, profitability_w, opportunity_w, risk_w, tax_rate,
 inflation, interest_rate, gdp_growth_rate, private_credit_GDP, 
 political_risk, exchange_rate_risk, law_order,
-b_ovr_rest, b_ovr_cong, b_cap_str, b_off_sup, b_ext_gov_ind);
-#delimit cr      
+b_ovr_rest, b_ovr_cong, b_cap_str, b_off_sup, b_ext_gov_ind      
 
-* Create number of firms per multinational
-bysort multinationals year: egen number_firms_mult =  count(firms)
-
-* Create number of countries per multinational
-by multinational_year country_id, sort: gen number_countries_mult = _n == 1 
-by multinational_year: replace number_countries_mult = sum(number_countries_mult)
-by multinational_year: replace number_countries_mult = number_countries_mult[_N] 
 
 * Remove singletons by hand
 drop if missing(nace2)     
@@ -67,9 +63,10 @@ summarize number_firms_mult number_countries_mult
 //Table 3: Number of firms per country per type                               //
 //============================================================================//
 eststo clear
+set matsize 1000
 
 * Parent firms and subsidiary by host country collumns
-eststo: quiet estpost tab name_firm year 
+eststo: quiet estpost tab name_firm year if year < 2012
 esttab using "\analysis\output\tables\summary\number_firms_table.tex",       ///
 cell(b(fmt(%9.0fc))) collabels(none)      ///
 unstack noobs nonumber nomtitle fragment booktabs gaps replace               ///
@@ -78,7 +75,6 @@ varlabels(`e(labels)', blist(Total "\hline \addlinespace "))    ///
              
 * Parent firms and subsidiary by host country collumns
 eststo clear
-set matsize 1000
 eststo: quiet estpost tab name_parent year 
 
 esttab using "\analysis\output\tables\summary\number_parent_table.tex",      ///
