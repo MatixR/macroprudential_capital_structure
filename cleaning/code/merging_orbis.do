@@ -89,9 +89,4 @@ drop ipo_year delisted_year
 keep if type_id == "C"
 drop if inlist(nace2,35,36,37,38,39)
 
-* Remove non-positive and missing total asset
-drop if missing(toas)
-drop if toas == 0
-drop if toas < 0
-
 save "cleaning/temp/merged_`1'", replace

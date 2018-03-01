@@ -22,6 +22,9 @@ set more off
 
 use "cleaning/output/dataset_`1'.dta", clear
 
+* Local
+local variables "tax_rate b_ovr_rest b_ovr_cong b_int_str_cap b_cap_str b_off_sup b_pri_mon b_mor_haz b_ext_gov_ind b_dep_size b_ins_dep b_ovr_str_cap"
+
 //============================================================================//
 // Create spillover variables                                                 //
 //============================================================================//
@@ -46,7 +49,7 @@ tempfile tmp2
 keep tax_rate b_* debt_shifting_group subsidiary_time_ID id year parent asset_share 
 
 * Create debt shifting variable among all firms of multinational
- foreach a of varlist tax_rate b_gov_sha-b_for_sha{
+ foreach a of local variables{
 quiet summ subsidiary_time_ID
 forvalues k = 1/`r(max)'{
 bysort debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*asset_share[`k']
@@ -63,7 +66,7 @@ bysort debt_shifting_group: egen parent_indicator = mean(parent)
 keep if parent_indicator > 0
 
 * Create debt shifting variable only with parent firm
-foreach a of varlist tax_rate b_gov_sha-b_for_sha{
+foreach a of local variables{
 bysort debt_shifting_group (parent): gen help1 = `a'[_N]*asset_share[_N]
 bysort debt_shifting_group (parent): gen help2 = `a'*asset_share[_N]
 quiet gen `a'_ds_p= help2-help1
@@ -85,7 +88,7 @@ keep if parent == 0
 keep tax_rate  b_* debt_shifting_group subsidiary_time_ID id year parent asset_share
 
 * Debt shift only among subsidiaries
-foreach a of varlist tax_rate b_gov_sha-b_for_sha{
+foreach a of local variables{
 quiet summ subsidiary_time_ID
 forvalues k = 1/`r(max)'{
 bysort debt_shifting_group: gen help`k' = (`a'-`a'[`k'])*asset_share[`k']
@@ -117,7 +120,7 @@ replace `var'_p=0 if missing(`var'_p)
 // Label variables                                                            //
 //============================================================================//
 
-foreach var of varlist tax_rate b_gov_sha-b_for_sha{
+foreach var of local variables{
 lab var `var'_ds "`: var label `var'' spillover"
 lab var `var'_ds_p "`: var label `var'' spillover to parent"
 lab var `var'_ds_s "`: var label `var'' spillover to other subsidiaries"

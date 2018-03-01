@@ -107,3 +107,26 @@ merge m:1 country year using "cleaning/temp/worldbank.dta"
 keep if _merge==3
 drop _merge
 save "cleaning/temp/merged_`1'.dta", replace
+
+//============================================================================//
+// Merge countries names to main dataset                                      //
+//============================================================================//
+
+* Get name of subsidiaries' host countries
+insheet using "input/iso_code.csv", clear names
+rename name name_firm
+rename code country_id
+merge 1:m country_id using "cleaning/temp/merged_`1'.dta"
+keep if _merge==3
+drop _merge
+save "cleaning/temp/merged_`1'.dta", replace
+
+* Get name of parents' host countries
+insheet using "input/iso_code.csv", clear names
+rename name name_parent
+rename code country_id_P
+merge 1:m country_id_P using "cleaning/temp/merged_`1'.dta"
+drop if _merge==1
+replace name_parent = "Other" if _merge == 2
+drop _merge
+save "cleaning/temp/merged_`1'.dta", replace

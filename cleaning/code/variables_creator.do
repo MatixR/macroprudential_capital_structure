@@ -23,7 +23,7 @@ set more off
 ssc install winsor            // install winsor package
 use "cleaning/temp/merged_`1'.dta", clear
 sort id year
-egen double firms = group(id) // Create numeric ID
+egen double firms = group(id) 
 order firms
 xtset firms year              // Set panel format
 
@@ -91,7 +91,7 @@ replace intermediate = 0 if missing(intermediate)
 replace intermediate = 0 if parent == 1
 
 * Create multinational indicator
-replace id_P = id if  missing(id_P)
+replace id_P = id if missing(id_P)
 egen multinationals = group(id_P)
 
 * Create subsidiary per multinational indicator
@@ -129,22 +129,28 @@ drop help1 help2 help3
 * Keep only multinationals
 keep if multinational == 1
 
+* Create average of asset per firm
+bysort id: egen avg_toas = mean(toas)
+
+* Create number of firms per country
+bysort country_id year: egen number_firms = count(firms)
+
+* Create number of firms per multinational
+bysort multinationals year: egen number_firms_mult = count(firms)
+
+* Create number of countries per multinational
+by multinational_year country_id, sort: gen number_countries_mult = _n == 1 
+by multinational_year: replace number_countries_mult = sum(number_countries_mult)
+by multinational_year: replace number_countries_mult = number_countries_mult[_N] 
+
+* Create listed dummy
+gen listed_tag =1 if listed == "Listed"
+replace listed_tag =0 if missing(listed_tag)
+
 * Change unit of tax variable
 gen help1 = tax_rate/100
 replace tax_rate = help1
 drop help1
-
-* Create average of asset per firm
-bysort id: egen avg_toas = mean(toas)
-
-* Replace barth variable from 2011 survey in years 2008, 2009 and 2010
-gen tag = 1 if year == 2008 | year == 2009 | year == 2010
-foreach var of varlist b_*{
-bysort id: egen avg_`var' = mean(`var') if year != 2007
-replace `var' = avg_`var' if tag==1
-drop avg_`var'
-}
-drop tag
 
 //============================================================================//
 // Create dependent variables                                                 //
@@ -153,18 +159,20 @@ drop tag
 * Create financial leverage variable
 gen leverage = (ncli+culi)/toas
 replace leverage =. if leverage > 1 | leverage < 0 
+gen leverage_test = (ncli+culi)/toas
 
 * Create adjusted financial leverage variable
-gen adj_leverage = (ncli+culi-cash-debtors)/(toas-cash-debtors)
+gen adj_leverage = (ncli+culi-cash-creditors)/(toas-cash-creditors)
 replace adj_leverage =. if adj_leverage > 1 | adj_leverage < 0 
+gen adj_leverage_test = (ncli+culi-cash-creditors)/(toas-cash-creditors)
 
 * Create long term debt leverage variable
 gen longterm_debt = (ltdb)/(toas)
 replace longterm_debt =. if longterm_debt > 1 | longterm_debt < 0 
 
-* Create short term leverage variable
-gen loans_leverage = (loans)/(toas)
-replace loans_leverage =. if loans_leverage > 1 | loans_leverage < 0 
+* Create debt financial leverage variable
+gen adj_2_leverage = (ncli+loans)/(toas)
+replace adj_2_leverage =. if adj_2_leverage > 1 | adj_2_leverage < 0 
 
 * Create long- short-term debt leverage variable
 gen debt_leverage = (ltdb+loans)/(toas)
@@ -198,6 +206,14 @@ bysort country_id year multinationals: egen total_asset = total(toas)
 gen agg_profitability = total_profit/total_asset
 drop total_profit total_asset
 
+* Create degree of financial leverage 
+gen dfl_1 = ebit/(ebit-interest)
+gen dfl_2 = (ebitda-amor_depre)/(ebitda-amor_depre-interest)
+
+* Create aggregate degree of financial leverage variable
+bysort country_id nace year: egen dfl_1_median = median(dfl_1)
+bysort country_id nace year: egen dfl_2_median = median(dfl_2)
+
 * Create growth opportunity variable
 bysort firms (year): gen sales_growth = D.log_sales if year == year[_n-1]+1
 bysort firms (year): replace sales_growth = log_sales[1]-log_sales[2] if year == 2007
@@ -218,7 +234,7 @@ drop help1
 lab var gdp_per_capita "GDP per capita"
 
 * Change variables to GDP to percentage
-foreach var in gdp_growth_rate private_credit_GDP {
+foreach var in gdp_growth_rate private_credit_GDP interest_rate{
 gen help1 = `var'/100
 replace `var' = help1
 drop help1
@@ -229,9 +245,9 @@ drop help1
 //============================================================================//
 
 #delimit;
-local vars "debt_leverage leverage adj_leverage longterm_debt loans_leverage 
+local vars "debt_leverage leverage adj_leverage longterm_debt adj_2_leverage 
             fixed_total tangible_total log_fixedasset log_sales 
-			profitability agg_profitability risk opportunity";
+			profitability agg_profitability risk opportunity dfl_1 dfl_2";
 #delimit cr
 foreach var of local vars{
 winsor `var', gen(`var'_w) p(0.01)
@@ -245,7 +261,7 @@ winsor `var', gen(`var'_w) p(0.01)
 lab var leverage       "Financial leverage"
 lab var adj_leverage   "Adjusted financial leverage"
 lab var longterm_debt  "Long term debt"
-lab var loans_leverage "Short term debt"
+lab var adj_2_leverage "Adjusted debt leverage"
 lab var debt_leverage  "Debt leverage"
 
 * Independent variables
@@ -257,22 +273,42 @@ lab var agg_profitability_w "Aggregate profitability"
 lab var risk_w              "Risk"
 lab var log_fixedasset_w    "Log of fixed assets"
 lab var log_sales_w         "Log of sales"
+lab var dfl_1_w             "Risk"
+lab var dfl_2_w             "Risk"
+lab var dfl_1_median        "Aggregate risk"
+lab var dfl_2_median        "Aggregate risk"
 
 * Bank Regulation Survey
+lab var b_sec_act_ba "Restrictions on securities activities"
+lab var b_ins_act_ba "Restrictions on insurance activities"
+lab var b_real_est_act_ba "Restrictions on real estate activities"
 lab var b_ovr_rest "Restrictions on banking activities"
+lab var b_bank_owns_fc "Bank owning nonfinancial firm"
+lab var b_firm_owns_fc "Nonfinancial firm owning bank"
+lab var b_financial_owns_fc "Financial firm owning bank"
 lab var b_ovr_cong "Financial conglomerates restrictiveness"
 lab var b_lim_for  "Limitations on foreign bank"
+lab var b_entry_req "Entry requirements"
 lab var b_frac_den "Entry applications denied"
-lab var b_cap_str  "Capital regulatory index"
-lab var b_ovr_str  "Overall capital strigency"
-lab var b_int_str  "Initial capital stringency"
+lab var b_dom_den "Domestic applications denied"
+lab var b_for_den "Foreign applications denied"
+lab var b_cap_str  "Capital regulatory stringengy"
+lab var b_ovr_str_cap  "Overall capital stringency"
+lab var b_int_str_cap  "Initial capital stringency"
 lab var b_off_sup  "Official supervisory power"
-lab var b_pri_mon  "Private Monitoring"
-lab var b_mor_haz  "Moral hazard"
+lab var b_pri_mon  "Private monitoring"
+lab var b_dep_size  "Deposit insurance to bank asset"
+lab var b_ins_dep  "Funding with insured deposit"
+lab var b_mor_haz  "Moral hazard mitigation"
 lab var b_conc_dep "Bank concentration in deposits"
 lab var b_conc_ass "Bank concentration in assets"
 lab var b_for_sha  "Foreign-owned banks"
 lab var b_gov_sha  "Government-owned banks"
+lab var b_ext_aud_gov "Strength of external audit"
+lab var b_fin_trans_gov "Financial statement transparency"
+lab var b_acc_prac_gov "Accounting practices"
+lab var b_ext_rat_gov "External ratings"
+lab var b_ext_gov_ind "External governance"
 
 * World Bank
 lab var gdp_per_capita     "GDP per capita"
@@ -284,12 +320,12 @@ lab var inflation          "Inflation rate"
 
 * PRS
 lab var exchange_rate_risk "Exchange rate risk"
-lab var political_risk     "Political Risk"
+lab var political_risk     "Political risk"
 lab var law_order          "Law and order"
 
 * Other remaining labeling
-lab var parent       "Parent"
-lab var intermediate "Intermediate"
+lab var parent                "Parent"
+lab var intermediate          "Intermediate"
 
 //============================================================================//
 // Save dataset                                                               //
