@@ -30,14 +30,14 @@ preserve
 
 * Country column
 
-tempfile tmp1
+tempfile tmp
 keep if v1 == "Number"
 gen help1 = _n
 drop v1-v6
 reshape long v, i(help1) j(id)
 drop help1
 rename v country
-save `tmp1'
+save `tmp'
 
 *#delimit;
 *local var1 "I.IV II.IV III.I III.III IV.I IV.II IV.III
@@ -58,190 +58,352 @@ save `tmp1'
 *save "\cleaning\temp\barth.dta", replace
 *}
 
-* Overall restriction on banking activity
+* Bank activity regulatory
+restore
+preserve
+tempfile tmp1
+keep if v1 == "I.I" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_sec_act_ba
+save `tmp1'
+
 restore
 preserve
 tempfile tmp2
+keep if v1 == "I.II" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_ins_act_ba
+save `tmp2'
+
+restore
+preserve
+tempfile tmp3
+keep if v1 == "I.III" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_real_est_act_ba
+save `tmp3'
+
+restore
+preserve
+tempfile tmp4
 keep if v1 == "I.IV" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_ovr_rest
-save `tmp2'
+save `tmp4'
 
-* Overall financial conglomerate
+* Financial conglomerate
 restore
 preserve
-tempfile tmp3
+tempfile tmp5
+keep if v1 == "II.I" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_bank_owns_fc
+save `tmp5'
+
+restore
+preserve
+tempfile tmp6
+keep if v1 == "II.II" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_firm_owns_fc
+save `tmp6'
+
+restore
+preserve
+tempfile tmp7
+keep if v1 == "II.III" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_financial_owns_fc
+save `tmp7'
+
+restore
+preserve
+tempfile tmp8
 keep if v1 == "II.IV" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_ovr_cong
-save `tmp3'
+save `tmp8'
 
-* Limitation on foreign banks
+* Competition regulatory
 restore
 preserve
-tempfile tmp4
+tempfile tmp9
 keep if v1 == "III.I" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_lim_for
-save `tmp4'
+save `tmp9'
 
-* Fraction of application denied
 restore
 preserve
-tempfile tmp5
+tempfile tmp10
+keep if v1 == "III.II" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_entry_req
+save `tmp10'
+
+restore
+preserve
+tempfile tmp11
 keep if v1 == "III.III" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_frac_den
-save `tmp5'
+save `tmp11'
 
-* Overall strigency column
 restore
 preserve
-tempfile tmp6
+tempfile tmp12
+keep if v1 == "III.IV" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_dom_den
+save `tmp12'
+
+restore
+preserve
+tempfile tmp13
+keep if v1 == "III.V" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_for_den
+save `tmp13'
+
+* Capital regulatory
+restore
+preserve
+tempfile tmp14
 keep if v1 == "IV.I" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
-rename v b_ovr_str
-save `tmp6'
+rename v b_ovr_str_cap
+save `tmp14'
 
-* Initial strigency column
 restore
 preserve
-tempfile tmp7
+tempfile tmp15
 keep if v1 == "IV.II" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
-rename v b_int_str
-save `tmp7'
+rename v b_int_str_cap
+save `tmp15'
 
-* Total strigency column
 restore
 preserve
-tempfile tmp8
+tempfile tmp16
 keep if v1 == "IV.III" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_cap_str
-save `tmp8'
+save `tmp16'
 
 * Official supervisory power
 restore
 preserve
-tempfile tmp9
+tempfile tmp17
 keep if v1 == "V.I" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_off_sup
-save `tmp9'
+save `tmp17'
 
 * Private monitoring 
 restore
 preserve
-tempfile tmp10
+tempfile tmp18
 keep if v1 == "VII.VI" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_pri_mon
-save `tmp10'
+save `tmp18'
 
-* Moral Hazard 
+* Deposit insurance scheme 
 restore
 preserve
-tempfile tmp11
+tempfile tmp19
+keep if v1 == "VIII.II" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_dep_size
+save `tmp19'
+
+restore
+preserve
+tempfile tmp20
+keep if v1 == "VIII.III" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_ins_dep
+save `tmp20'
+
+restore
+preserve
+tempfile tmp21
 keep if v1 == "VIII.IV" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_mor_haz
-save `tmp11'
+save `tmp21'
 
-* Bank concentration deposit 
+* Market structure indicators 
 restore
 preserve
-tempfile tmp12
+tempfile tmp22
 keep if v1 == "IX.I" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_conc_dep
-save `tmp12'
+save `tmp22'
 
-* Bank concentration asset 
 restore
 preserve
-tempfile tmp13
+tempfile tmp23
 keep if v1 == "IX.II" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_conc_ass
-save `tmp13'
+save `tmp23'
 
-* Foreign share 
 restore
 preserve
-tempfile tmp14
+tempfile tmp24
 keep if v1 == "IX.III" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_for_sha
-save `tmp14'
+save `tmp24'
 
-* Government share 
 restore
+preserve
+tempfile tmp25
 keep if v1 == "IX.IV" 
 destring v3, replace
-keep if v3 == 3 | v3 == 4
 drop v1-v2 v4-v6
 rename v3 survey
 reshape long v, i(survey) j(id)
 rename v b_gov_sha
+save `tmp25'
+
+* External governance
+ 
+restore
+preserve
+tempfile tmp26
+keep if v1 == "X.I" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_ext_aud_gov
+save `tmp26'
+
+restore
+preserve
+tempfile tmp27
+keep if v1 == "X.II" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_fin_trans_gov
+save `tmp27'
+
+restore
+preserve
+tempfile tmp28
+keep if v1 == "X.III" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_acc_prac_gov
+save `tmp28'
+
+restore
+preserve
+tempfile tmp29
+keep if v1 == "X.IV" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_ext_rat_gov
+save `tmp29'
+
+restore
+keep if v1 == "X.V" 
+destring v3, replace
+drop v1-v2 v4-v6
+rename v3 survey
+reshape long v, i(survey) j(id)
+rename v b_ext_gov_ind
 
 //============================================================================//
 // Merge columns                                                              //
 //============================================================================//
 
-merge m:1 id using `tmp1'
+merge m:1 id using `tmp'
+keep if _merge == 3
+drop _merge
+
+merge m:1 id survey using `tmp1'
 keep if _merge == 3
 drop _merge
 
@@ -297,16 +459,75 @@ merge 1:1 id survey using `tmp14'
 keep if _merge == 3
 drop _merge
 
+merge 1:1 id survey using `tmp15'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp16'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp17'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp18'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp19'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp20'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp21'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp22'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp23'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp24'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp25'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp26'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp27'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp28'
+keep if _merge == 3
+drop _merge
+
+merge 1:1 id survey using `tmp29'
+keep if _merge == 3
+drop _merge
+
 //============================================================================//
 // Clean dataset                                                              //
 //============================================================================//
 
 * Assign year to surveys
-gen year = 2007 if survey == 3
+gen year = 1999 if survey == 1
+replace year = 2002 if survey == 2 
+replace year = 2006 if survey == 3 
 replace year = 2011 if survey == 4 
-
-* Drop variables not used
-drop id survey
 
 * Order and rename variables
 order country year
@@ -320,6 +541,20 @@ replace `var'="." if `var'=="n.a."|`var'=="n.a"| `var'=="N/A"
 foreach var of varlist b_*{
 destring `var', replace
 }
+* Create missing years
+sort id year
+xtset id year
+tsfill, full
+by id (year): replace country = country[_N]
+ 
+ * interpolate indeces
+ foreach var of varlist b_*{
+by id: ipolate `var' year, gen(ipolated_`var')
+replace `var' = ipolated_`var'
+drop ipolated_`var'
+}
+* Drop variables not used
+drop id survey
 
 //============================================================================//
 // Merge to main dataset                                                      //
