@@ -323,7 +323,7 @@
 				\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot
 				\\ 	
 				\endlastfoot
-				\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/summary/number_firms_table.tex}
+				\primitiveinput{../../../../output/tables/summary/number_firms_table.tex}
 				\hline 			
 			\end{longtable}	
 		}
@@ -331,49 +331,12 @@
 	
 	Given our identification strategy, we keep only multinationals groups, that is, corporate groups that have firms in at least two countries.  Banks, insurance and financial related companies\footnote{We keep only firms with the Orbis type "C" identifier.} and firms in the utility sector\footnote{Two digit NACE codes from 35 to 39.} are also excluded since their capital structure decisions are constrained by regulation. We also exclude firms with zero or negative assets and after constructing the leverage measures, we exclude observations where leverage is above one or below zero. Firms with negative net worth are likely to be credit constrained and therefore not able to choose their capital structure optimally. For our benchmark analysis, we balanced the panel across specifications, to be certain that our results are not driven by sample differences. We will relax this restriction as a robustness test.
 	
-		\begin{small}
-		{\setstretch{1.0}
-			\begin{longtable}{lrrrrrr}\\
-				\label{tab:number of parent}\\
-				\multicolumn{7}{c}{Table \ref{tab:number of parent} - Parent firms' country distribution}\\
-				\hline \hline \addlinespace Country & 2007 & 2008 & 2009 & 2010 & 2011 & Total  \\
-				\endfirsthead
-				\multicolumn{7}{c}{Table \ref{tab:number of parent} - Parent firms' country distribution}\\
-				\hline \hline \addlinespace Country & 2007 & 2008 & 2009 & 2010 & 2011 & Total  \\
-				\hline \addlinespace \endhead
-				\hline
-				\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot
-				\\ 	
-				\endlastfoot
-				\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/summary/number_parent_table.tex}
-				\hline 			
-			\end{longtable}	
-		}
-	\end{small}
+
 
 	The final sample consists of 69,490 firms from 2007 to 2011 resulting in 189,130 firm-year observations. Table \ref{tab:number of firms} provides information on the amount of firms per host country in our sample. We track firms in 24 countries, consequently, our analysis consists in comparing differences on bank regulation for those 24 countries. The dataset is highly concentrated in Europe: only 1,296 firm-year observations are from a country outside Europe. Also, note that we do not track the entire corporate group. Table \ref{tab:number of parent} shows the amount of parents per country and year in our sample. Several countries are included in \ref{tab:number of parent} but not in table \ref{tab:number of firms}, meaning that we do not observe those parent firms. Importantly, the distribution of parents is also highly concentrated in Europe, with 147,450 firm-year observations having parents within the tracked 17 European countries and 15,508 with parents from another country in Europe.
 	
 	Information about the size and composition of multinationals in the benchmark sample can be seen in table \ref{tab:info}. We track 9,913 multinationals in the sample period, or 25,509 multinational-year observations. Parent indicates if a firm-year observation is a parent. Around 37\% of all the observations are parent firms. The median amount of firms in a multinational in a given year is 4. However there are mega conglomerates of up to 874 firms. The median multinational is present in only 2 countries and owns firms in 2 sectors. The largest multinational, with respect to country coverage, is present in 12 countries while 56 is the number of sectors of the multinational with the widest range of activities.
 	   
-		\begin{small}
-		{\setstretch{1.0}
-			\begin{longtable}{lrrrrr}\\
-				\label{tab:info}\\
-				\multicolumn{6}{c}{Table \ref{tab:info} - Information on multinationals}\\
-				\hline \hline \addlinespace  & Mean & SD & Min & Med & Max  \\
-				\endfirsthead
-				\multicolumn{6}{c}{Table \ref{tab:info} - Information on multinationals}\\
-				\hline \hline \addlinespace    & Mean & SD & Min & Med & Max  \\ \hline  \endhead
-				\hline
-				\multicolumn{6}{r}{{\textit{(Continued)}}}\\ \endfoot
-				\addlinespace
-				\multicolumn{6}{p{9cm}}{{Notes: The sample period is 2007-2011. In our benchmark sample there are 9,913 multinational, resulting in 25,509 multinational-year observations. Parent is a dummy variable assigning 1 to final parent firms and 0 to subsidiaries}}\\  	
-				\endlastfoot
-				\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/summary/summary_mult.tex}
-				\hline 			
-			\end{longtable}	
-		}
-	\end{small}
 
 	Statistics on firm level data are summarized in table \ref{tab:summary}. Financial leverage is defined as the ratio of total non-equity liabilities to total assets. All the spillover measures are constructed as described in section \ref{sec:strategy}. Among the control variables tangibility is the ratio of fixed assets to total assets. While tangible assets can be used as collateral, implying a positive relationship between tangibility and leverage, the depreciation of fixed assets reduces taxable income. Hence, tangible assets can also be substitute to debt as tax shield. We use the logarithm of fixed assets to proxy for firm size, which is expected to be positively associated to leverage. Profitability is the ratio of earning before interest, tax, depreciation and amortization (EBITDA) to total assets. Higher profits may facilitate access to credit but firms with larger cash flow may also opt to finance themselves with retained earnings as predicted by the pecking order theory of capital structure (ADD REF). Thus, the relationship between profitability and leverage is ambiguous. Opportunity is the median annual growth rate of sales in an industry in a particular country. We expect this variable to be positive associated to leverage as higher growth opportunities signal future profits that can be used to increase the ability to borrow in the present. Risk is the standard deviation of firms' profitability over the sample period and it is our proxy for the riskiness of firms. Finally, we winsorized all firm-level controls at the 1st and 99th percentile to remove the effect of outliers.
 	
@@ -393,7 +356,7 @@
 						Financial leverage is trimmed at a maximum value of 1 and a minimum of 0. Firm variables are winsorized at the 1\% to minimize the impact of outliers. See Table \ref{tab:definition} for variable definitions
 						and sources.}}\\ 	
 				\endlastfoot
-				\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/summary/summary.tex}
+				\primitiveinput{../../../../output/tables/summary/summary.tex}
 				\hline 			
 			\end{longtable}	
 		}
@@ -455,7 +418,7 @@ In order to investigate the existence of international spillovers arising from d
 	 							parentheses and are clustered on multinational. *** indicates significance at the 1\% level, ** at the 5\% level and * at the
 	 							10\% level.}}\\ 	
 	 					\endlastfoot
-	 					\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/benchmark_table.tex}
+	 					\primitiveinput{../../../../output/tables/regressions/benchmark_table.tex}
 	 					\hline 			
 	 				\end{longtable}	
 	 			}
@@ -473,108 +436,18 @@ In order to investigate the existence of international spillovers arising from d
  
  The pure domestic effects of bank regulation on financial leverage remain with the expected sign and statistically significant. The exceptions are Official supervisory power when estimated jointly with the remaining indices and External governance when estimated separately.  Little to no evidence of international spillover on financial leverage is found from bank regulation. Only the coefficients for Capital regulatory stringency and Official supervisory power spillovers are statistically different from zero. Moreover, the sign of Capital regulatory stringency spillover takes the opposite sign from what we would expect. According to equation \ref{eq:optimal leverage in theory} the sign of the pure domestic effect and the debt-shifting incentive should be the same. However, when we consider all bank regulation and respective spillovers variables together, none of the latter are statistically different from zero.       
  
- \afterpage{
- 	\newgeometry{left=0.6in,right=0.6in,top=1.2in,bottom=1.2in}	    
- 	\begin{landscape}	
- 		\begin{small}
- 			{\setstretch{1.0}
- 				\begin{longtable}{lcccccc}\\
- 					\label{reg:spillover}\\
- 					\multicolumn{7}{c}{Table \ref{reg:spillover} - Bank regulation and firms' capital structure: international spillover}\\
- 					\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)}
- 					\\ \hline \hline \addlinespace
- 					Model & (1) & (2) & (3) & (4) & (5) & (6)   \\  \endfirsthead
- 					\multicolumn{7}{c}{Table \ref{reg:spillover} - Bank regulation and firms' capital structure: international spillover}\\
- 					\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
- 					\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6)  \\ \hline \\ \endhead
- 					\hline
- 					\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot
- 					\addlinespace
- 					\multicolumn{7}{p{18.5cm}}{{Notes: The estimates in this table come from OLS over the period 2007-2011. Observations are at the firm-year level. The dependent variable is the ratio of non-equity liabilities to total assets. In all columns, Firm controls refer to firm variables (Profitability,
- 							Tangibility, Log of fixed assets, Opportunity and Risk) and Country controls refer to macroeconomic variables (local monetary policy rate,
- 							GDP growth, inflation, Private credit to GDP, Political risk, Exchange rate risk and Law and order). Standard errors are reported in
- 							parentheses and are clustered on multinational. *** indicates significance at the 1\% level, ** at the 5\% level and * at the
- 							10\% level.}}\\  	
- 					\endlastfoot
- 					\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/spillover_table.tex}
- 					\hline 			
- 				\end{longtable}	
- 			}
- 		\end{small}
- 	\end{landscape}
- 	\restoregeometry}
+ 
  
  Importantly, although we do not find evidence of spillover from our variables of interest, Corporate tax spillover appears statistically significant and with expected sign for most of the regressions in table \ref{reg:spillover}. These results support our theoretical model and reinforces our underlying assumption that leverage decisions are taken at the multinational level. The results suggest that multinational corporations consider tax factors when allocating debt across subsidiaries (debt shifting incentive from tax) but not related to bank regulation and supervision.
 			  
 	\section{Robustness tests and extensions} \label{sec:robustness}
 	We start by checking if our choice of sample is driving the results. In table \ref{reg:unbalanced_panel} we allow the sample to vary across specifications, depending on the availability of data for each bank regulation index. We also do not exclude multinationals that we can only observe subsidiaries in one country. The estimated parameters remain with the expected sign but two of them loose significance: Restriction on banking activities and External governance, both when estimated separately from the other indices. Nevertheless, between multicollinearity and omitted variable bias we fear most for the latter since the bank regulation indices that we study are not highly correlated among each other (see table \ref{tab:correl}).  
 	
-	\afterpage{
-		\newgeometry{left=0.6in,right=0.6in,top=1.2in,bottom=1.2in}\begin{landscape}	
-			\begin{small}
-				{\setstretch{1.0}
-					\begin{longtable}{lcccccc}\\
-						\label{reg:unbalanced_panel}\\
-						\multicolumn{7}{c}{Table \ref{reg:unbalanced_panel} - Bank regulation and firms' capital structure: unbalanced panel}\\
-						\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)}
-						\\ \hline \hline \addlinespace
-						Model & (1) & (2) & (3) & (4) & (5) & (6) \\  \endfirsthead
-						\multicolumn{7}{c}{Table \ref{reg:unbalanced_panel} - Bank regulation and firms' capital structure: unbalanced panel}\\
-						\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
-						\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6) \\ \hline \\ \endhead
-						\hline
-						\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot
-						\addlinespace
-						\multicolumn{7}{p{17cm}}{{Notes: The estimates in this table come from OLS over the period 2007-2011. Observations are at the firm-year level. The dependent variable is the ratio of non-equity liabilities to total assets. In all columns, Firm controls refer to firm variables (Profitability,
-								Tangibility, Log of fixed assets, Opportunity and Risk) and Country controls refer to macroeconomic variables (local monetary policy rate,
-								GDP growth, inflation, Private credit to GDP, Political risk, Exchange rate risk and Law and order). Standard errors are reported in
-								parentheses and are clustered on multinational. *** indicates significance at the 1\% level, ** at the 5\% level and * at the
-								10\% level.}}\\  	
-						\endlastfoot
-						\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/robust_obs_table.tex}
-						\hline 			
-					\end{longtable}	
-				}
-			\end{small}
-		\end{landscape}
-		\restoregeometry}
+
 	
 	Table \ref{reg:robustness} shows a few other tests to our analysis. First, in regression 1 we remove any observation with negative EBITDA. The theoretical model developed in section \ref{sec:model} considers a firm with an infinity positive stream of income. Following this model, loss-making firms would be unable to optimally choose their debt level. The results are not qualitatively affected. In regression 3, we exclude firms that had switched corporate groups in the period. Mergers and acquisitions can change the debt level of the target firms drastically in a short period of time. While multinational*year fixed effects should capture the changes in managerial decision that explain leverage movements, mergers and acquisition could be endogenous in our model, as parent firms might consider the bank regulation and supervision when choosing target firms. In comparison to our main regression (column 6 in table \ref{reg:benchmark}), only the coefficient for Financial conglomerates restrictiveness lost statistical significance. Next, we drop all observation from 2007 and thus, consider only the last survey of \cite{barth2013bank}. While published in 2008, the \cite{barth2008bank} survey was run in 2006. Not only all of the parameters of interest maintain statistical significance but the magnitude of the effect increases for all.
 	
-	\afterpage{
-		\newgeometry{left=0.6in,right=0.6in,top=1.2in,bottom=1.2in}	
-		\begin{landscape}	
-			\begin{small}
-				{\setstretch{1.0}
-					\begin{longtable}{lcccccc}\\
-						\label{reg:robustness}\\
-						\multicolumn{7}{c}{Table \ref{reg:robustness} - Bank regulation and firms' capital structure: robustness checks}\\
-						\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)}
-						\\ \hline \hline \addlinespace
-						Model & (1) & (2) & (3) & (4) & (5) & (6)  \\
-						& No negative & No mergers & Only last & No risk and & Log of & Weighted   \\
-						& profits & acquisitions & survey & opportunity & sales & observations   \\  \endfirsthead
-						\multicolumn{7}{c}{Table \ref{reg:robustness} - Bank regulation and firms' capital structure: robustness checks}\\
-						\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
-						\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6)  \\
-						& No negative & No mergers & Only last & No risk and & Log of & Weighted  \\
-						& profits & acquisitions & survey & opportunity & sales & observations   \\ \hline \\ \endhead
-						\hline
-						\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot
-						\addlinespace
-						\multicolumn{7}{p{20cm}}{{Notes: The estimates in this table come from OLS over the period 2007-2011, expect column 3, which consider only the period 2008-2011. Observations are at the firm-year level. The dependent variable is the ratio of non-equity liabilities to total assets. In all columns, Firm controls refer to firm variables (Profitability,
-								Tangibility, Log of fixed assets, Opportunity and Risk) and Country controls refer to macroeconomic variables (local monetary policy rate,
-								GDP growth, inflation, Private credit to GDP, Political risk, Exchange rate risk and Law and order). Standard errors are reported in
-								parentheses and are clustered on multinational. *** indicates significance at the 1\% level, ** at the 5\% level and * at the
-								10\% level.}}\\  	
-						\endlastfoot
-						\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/robust_var_table.tex}
-						\hline 			
-					\end{longtable}	
-				}
-			\end{small}
-		\end{landscape}
-		\restoregeometry}
+
 	
 	In regression 4, we drop Risk and Opportunity, as those variables are proxies for underlying firm characteristics, we want to check if our results are not driven by selection bias on those variables. We also fear that our choice of proxy variable for firm size, Log of fixed assets, might be a bad choice since our dependent variable and other controls are scaled by total assets. We address this concern by replacing our preferred proxy for firm size to Log of sales in regression 5, following  Rajan and Zingales 1995 and \cite{huizinga2008capital}. For both regressions, our results are not meaningfully affected. Lastly, in section \ref{subsec:firm} we highlighted the unbalanced nature of our sample towards European countries. Hence, in regression 6, observations are weighted by the number of firms in the host country. Once again, the only meaningful change is that the coefficient for Financial conglomerates restrictiveness lost statistical significance. 		
 
@@ -603,7 +476,7 @@ Thus far, the analysis in this papers was restrict to the impact of five main in
 					parentheses and are clustered on multinational. *** indicates significance at the 1\% level, ** at the 5\% level and * at the
 					10\% level.}}\\  	
 			\endlastfoot
-			\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/sub_indexes_table.tex}
+			\primitiveinput{../../../../output/tables/regressions/sub_indexes_table.tex}
 			\hline 			
 		\end{longtable}	
 	}
@@ -615,33 +488,7 @@ In regression 3, we evaluate the two components of Capital regulatory index: Ove
 
 We break down External governance index in its four components in regression 4. Strength of external audit is only significant different from zero at 10\% level while the other three indices are significant at 1\% level. The negative coefficient for Financial statement transparency and Accounting practices are in odds with our priors for the summary index while External ratings is estimated with the expected sign. The result of the first two variables might be reflecting higher costs from the bureaucracy associated with better accounting standards while the requirement of banks to be rated by an external agency lead to more transparency in the banking sector, reducing adverse selection and consequently facilitating banks to capitalize. Our result suggests that the benefits of external rating on funding is at least partially transmitted to firms.         
     	
-%\subsection{Alternative dependent variables} \label{sec:alt_dep}
-%	show that our results depend on the choice of leverage measure used. We present estimates of equation \ref{eq:optimal leverage empirically 2} for alternative leverage measures in order to check both the domestic and the international effects. In column 1 we adjust our financial leverage measure by subtracting cash and cash equivalents from total non-equity liabilities and from total assets. This adjustment reflect that firms may hold cash to pay off existing debt. In this model, we observe a significant association of reserve requirement and leverage and none between the latter and capital requirements. \cite*{sanchez2013corporations} report a upward trend in cash holdings by U.S. corporations following the financial crisis in 2008. If we expect the same trend to firms globally, then perhaps the capital requirements index is simply capturing how cash holdings affect leverage. 
-	    	
-%\afterpage{	    	
-%\begin{small}
-%	{\setstretch{1.0}
-%		\begin{longtable}{lcccc}\\
-%			\label{reg:alt_dep}\\
-%			\multicolumn{5}{c}{Table \ref{reg:alt_dep} - Bank regulation and firms' capital structure: alternative dependent variables}\\
-%			\hline \hline \addlinespace
-%			Model & (1) & (2) & (3) & (4)    \\
-%			\textit{Dependent variable}& Benchmark & Adjusted & Long-term & Short-term    \\  \endfirsthead
-%			\multicolumn{5}{c}{Table \ref{reg:alt_dep} - Bank regulation and firms' capital structure: alternative dependent variables}\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) \\
-%			\textit{Dependent variable} & Benchmark & Adjusted & Long-term & Short-term   \\ \hline \\ \endhead
-%			\hline
-%			\multicolumn{5}{r}{{\textit{(Continued)}}}\\ \endfoot
-%			\multicolumn{5}{l}{{Notes: Robust standard errors clustered at the multinational level.}}\\ 	
-%			\endlastfoot
-%			\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/regressions/alt_leverage_table.tex}
-%			\hline 			
-%		\end{longtable}	
-%	}
-%\end{small}}
-
-%	Long-term debt to total assets is considered in column 2 of table \ref{reg:alternative}. International spillover appears to not impact decisions regarding long-term debt while the domestic effect is significant at 1\% for both indexes. Our model predicts that the impact of macroprudential policies to firms' leverage is transmitted through the bank sector, that is, banking loans. Therefore, the positive sign for the domestic effects in column 2 suggest that firms may substitute banking loans with long-term debt, as the cost of debt of the former increases with tighter macroprudential policies. 
-	
-%Column 3 of table \ref{reg:alternative} shows the results for short-term to total assets as dependent variable. The interaction term between capital requirements and risk gain the expected negative sign in line with the result in table \ref{reg:alternative} (column 2). The coefficient of reserve requirements on local currency spillover has the opposite sign to what we expect. However, in our model we do not account for internal capital market. This result may be driven by multinationals using short term debt through internal capital market to shift debt across subsidiaries. Hence, if external funding is relative costly to a subsidiary, firms hosted in countries with better borrowing conditions can lend to former. 
+ 
 	\section{Conclusion} \label{sec:conclusion}
 		
 	This paper shows that firms' capital structure is sensitive to bank regulatory policies, specifically capital and reserve requirements. We propose a simple theoretical model where changes in regulatory framework impact banks' cost of providing loans that ultimately are transmitted to firms via their cost of debt. Using data from multinationals in 24 countries from 2007 to 2011 we are able to identify this transmission channel since the data allow us to control for unobservable factors on the demand side that could be correlated to leverage and regulatory policies. Therefore, we use the cross-country variation in bank regulation across subsidiaries within one multinational to identify their effects on capital structure. Our model also predicts policies' effects from one country to spillover to firms hosted at others, as multinationals will take advantage of differences in credit conditions (and tax rates) to allocate debt across subsidiaries. 
@@ -650,8 +497,8 @@ We break down External governance index in its four components in regression 4. 
 
 		
 \singlespacing
-\bibliography{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/code/text/bibliography/references}
-\bibliographystyle{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/code/text/bibliography/te}
+\bibliography{../../bibliography/references}
+\bibliographystyle{../../bibliography/te}
 	
 	
 	
@@ -676,7 +523,7 @@ We break down External governance index in its four components in regression 4. 
 	\begin{landscape}
 	\begin{small}
 	{\setstretch{1.0}
-		\input{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/summary/variable_definition}
+		\input{../../../../output/tables/summary/variable_definition}
 	}
 \end{small}
 \end{landscape}
@@ -691,7 +538,7 @@ We break down External governance index in its four components in regression 4. 
 				\label{tab:correl}\\
 				\multicolumn{6}{c}{Table \ref{tab:correl} - Correlation matrix of main regressors}\\
 				\hline \hline \addlinespace	
-				\primitiveinput{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/output/tables/summary/correl.tex}
+				\primitiveinput{../../../../output/tables/summary/correl.tex}
 				\hline 			
 			\end{longtable}	
 		}

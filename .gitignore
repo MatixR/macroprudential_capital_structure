@@ -4,7 +4,6 @@ analysis/temp
 analysis/code/regression_backup.do
 *.csv
 *.xlsx
-*.bst
 *.synctex.gz
 *.bbl
 *.out
