@@ -91,10 +91,9 @@
 	
 	The effects on the bank sector of regulatory policies have been extensively studied (\cite*{barth2013}; \cite*{anginer2014does};  \cite*{caprio2014macro};\cite*{demirguc2013bank}). However, there is little evidence of their impact on non-financial sectors of the economy. In this paper we study how bank regulation and supervision influence non-financial firms' capital structure. We focus on multinational groups for our empirical identification strategy. We first present a model of the multinational corporation's optimal capital structure. This model considers the trade-off between tax advantages of debt versus the bankruptcy and agency costs related to it. On top of this standard capital structure framework, we add the transmission of bank regulatory policies to firms' cost of debt. Regulation affects banks' funding and operational costs which may be transmitted to firm via changes in lending conditions. Our theoretical model provides a simple equation in which we can test the impact of regulatory policies on firms' financial leverage. 
 	
-	Empirical evidence on the impact of bank regulatory policies on firms' capital structure is provided for a sample of 64,490 firms hosted in 24 countries and belonging to 9,913 multinational corporate groups. Our identification strategy relies on two aspects of the data. First, firm-level data mitigate endogeneity concerns as the leverage level of non-financial firms is not likely to be considered by supervision authorities when deciding on bank regulation. Second, we mitigate concerns with omitted variables by exploring variation of bank regulation \textit{across establishments} of multinationals at \textit{each year}. Our dataset allow us to track multinational groups with ownership information. We include multinational$\times$year fixed effects, effectively controlling for unobservable characteristics that drive demand for debt and could be correlated to bank regulation. 
+	Empirical evidence on the impact of bank regulatory policies on firms' capital structure is provided for a sample of 377,999 firms hosted in 54 countries and belonging to 56,702 multinational corporate groups. Our identification strategy relies on two aspects of the data. First, firm-level data mitigate endogeneity concerns as the leverage level of non-financial firms is not likely to be considered by supervision authorities when deciding on bank regulation. Second, we mitigate concerns with omitted variables by exploring variation of bank regulation \textit{across establishments} of multinationals at \textit{each year}. Our dataset allow us to track multinational groups with ownership information. We include multinational$\times$year fixed effects, effectively controlling for unobservable characteristics that drive demand for debt and could be correlated to bank regulation. 
 	
-	The results show that one standard deviation tighter capital stringency and greater official supervisory power relate to firms' financial leverage being 1.2 p.p. and
-	0.5 p.p. lower, respectively. while one standard deviation higher restrictiveness on banking activities, financial conglomerates and better external governance are associated with 1.3 p.p., 1.0 p.p., and 1.8 p.p. higher financial leverage, respectively. The effects are not negligible, especially when compared to the effect of other important determinants of firms' capital structure. Moreover, we find no evidence of multinational corporations taking advantage of differences in bank regulation as our theoretical model predicts. 
+	The results show that one standard deviation higher restrictiveness on banking activities is associated with 0.75 percentage points higher financial leverage. Additionally, one standard deviation tighter capital stringency and greater official supervisory power raise firms' financial leverage by 0.42 and 0.55 percentage points, respectively. We do not find the effect of restrictions on financial conglomerates significant different from zero. 
 	
 	Research on the effects of bank regulation, such as, prudential policies has increased considerably after the 2008 financial crisis. Several authors rely on cross-country aggregate data to study the relationship between macroprudential policies and financial indicators. \cite*{cerutti2017use} introduce a dataset containing the usage of 12 macroprudential policies at 119 countries from 2000 to 2013. Among their findings, borrower-related policies, such as limits on loan-to-value and debt-to-income ratios are associated with reductions in credit growth and house prices. As mentioned, most of the literature focus on the effects of regulation and supervision on the bank and financial sectors. Two recent exceptions are \cite*{ayyagari2017credit} who use firm-level data to relate macroprudential policies across 119 countries to firms' debt growth and \cite*{epure2017household} who study the impact of macroprudential tools on household credit in Romania with loan-level data.    
 	
@@ -114,7 +113,6 @@
 	\subsection{Costs associated with leverage}
 	\label{subsec:costs}
 	We assume that the debt of any subsidiary firm is implicitly or explicitly guaranteed by the parent firm. Consequently, the expected cost of bankruptcy associated with higher leverage is  a function of the aggregate leverage of the multinational. We assume a quadratic expected bankruptcy cost function ($C_m$) as follows:
-	
 	\begin{equation}
 	\begin{aligned}
 	C_m=\frac{\gamma}{2}\lambda_m^2\bigg(\sum_{i=1}^{n}A_i\bigg).
@@ -123,7 +121,6 @@
 	\end{equation}
 	
 	We also consider costs at the subsidiary level which are related to incentives that leverage brings to local managers. For example, high leverage may inhibit overspending but it can also lead to unnecessarily risk-averse managers. Let $\lambda^*$ be the optimal leverage ratio when considering only the incentives to local managers. The cost of deviating from $\lambda^*$ is assumed to be quadratic and proportional to the amount of assets at establishment $i$ as follows:  
-	
 	\begin{equation}
 	\begin{aligned}
 	C_i=\frac{\mu}{2}(\lambda_i-\lambda^*)^2A_i-\frac{\mu}{2}(\lambda^*)^2A_i, \quad i=1,...,n.
@@ -170,7 +167,6 @@
     We are interested in evaluating the impact of bank regulation on firms' capital structure. However, a simple regression of leverage on bank regulation might suffer from omitted variable bias. Firms' unobservable characteristics could be correlated to regulatory instruments. The inclusion of firm fixed effects is not enough since credit demand factors are most likely not constant in time. We mitigate concerns with omitted variables by exploring variation of bank regulation \textit{across establishments} of multinationals at \textit{each year}. Our dataset allows us to include multinational$\times$year fixed effects, effectively controlling for unobservable characteristics that drive demand for debt\footnote{Our reasoning depends on the implicit assumption that decisions regarding leverage are taken at the parent level. Since we only consider parent firms that have controlling power over its subsidiaries (owns at least 50\% plus one shares of the subsidiary) this assumption seems valid.}. 
     
     The theoretical expression \ref{eq:optimal leverage in theory} together with multinational$\times$year fixed effects is reduced to the following regression equation:  
-    
     \begin{equation}
     \begin{aligned}
     \lambda_{imc(i)t}=&\beta_0\tau_{c(i)t}+\beta_1\Pi_{c(i)t}+\beta_2\Pi_{c(i)t}\tau_{c(i)t}+\gamma X_{it}+\alpha_{m,t}+\alpha_{c(i)}+\varepsilon_{it},
@@ -214,7 +210,9 @@
  	\subsection{Firm level} \label{subsec:firm}
 	Firm level data and ownership information are obtained from the Orbis database compiled by the Bureau Van Dijk. The dataset consist of worldwide accounting and ownership information on both private and public owned companies.  Ownership is considered if one firm owns more than 50\% of another firm's shares in a given year. The latter firm is a subsidiary. If a company owns one or more firms but is itself owned by another, this firm is called an intermediate firm and for all purposes of this study is also considered as a subsidiary. A parent firm is the ultimate owner of a group, that is, a firm that owns one or more companies but none of its shareholders have more than 50\% of its shares. Our definition of ownership is chosen to guarantee that we are studying parent firms that have full control of their subsidiaries. As discussed in section \ref{sec:strategy}, this restriction on what constitutes ownership is important for our identification strategy. 
 	
-	\begin{small}
+	Given that our identification strategy depends on variation of exposure to bank regulation across firms of a corporate group, we restrict our analysis to multinationals. Banks, insurance and financial related companies\footnote{We keep only firms with the Orbis type "C" identifier.} and firms in the utility sector\footnote{Two digit NACE codes from 35 to 39.} are also excluded since their capital structure decisions are constrained by regulation. When available, we use unconsolidated balance sheet information. When only consolidated balance sheet is available we keep the observation from firms that are neither a parent or an intermediate company. This procedure ensures that we are not double counting and retain most of the observations. We also exclude firms with zero or negative assets and after constructing the leverage measures, we exclude observations where leverage is above one or below zero as those are likely to be erroneous. Moreover, firms with negative net worth are likely to be credit constrained and therefore not able to choose their capital structure optimally. 
+	
+		\begin{small}
 		{\setstretch{1.0}
 			\begin{longtable}{lrrrrrr}\\
 				\label{tab:number of firms}\\
@@ -234,25 +232,23 @@
 		}
 	\end{small}
 	
-	Given that our identification strategy depends on variation of exposure to bank regulation across firms of a corporate group, we restrict our analysis to multinationals. Banks, insurance and financial related companies\footnote{We keep only firms with the Orbis type "C" identifier.} and firms in the utility sector\footnote{Two digit NACE codes from 35 to 39.} are also excluded since their capital structure decisions are constrained by regulation. When available, we use unconsolidated balance sheet information. When only consolidated balance sheet is available we keep the observation from firms that are neither a parent or an intermediate company. This procedure ensures that we are not double counting and retain most of the observations. We also exclude firms with zero or negative assets and after constructing the leverage measures, we exclude observations where leverage is above one or below zero as those are likely to be erroneous. Moreover, firms with negative net worth are likely to be credit constrained and therefore not able to choose their capital structure optimally. 
-	
-	The final sample consists of 250,216 firms from 2007 to 2011 resulting in 1,084,023 firm-year observations. Table \ref{tab:number of firms} provides information on the amount of firms per host country in our sample. We track firms in 54 countries, consequently, our analysis consists in comparing differences in bank regulation at those 54 countries. 
+	The final sample consists of 377,999 firms from 2007 to 2011 resulting in 1,084,023 firm-year observations. Each firm belongs to one of the 56,702 multinational groups in our sample. Table \ref{tab:number of firms} provides information on the amount of firms per host country. We track firms in 54 countries, consequently, our analysis consists in comparing differences in bank regulation across those 54 countries. 
 	
 	Summary statistics are shown in table \ref{tab:summary}. Financial leverage is defined as the ratio of total non-equity liabilities to total assets. Among the control variables tangibility is the ratio of fixed assets to total assets. We use the logarithm of fixed assets to proxy for firm size. Profitability is the ratio of earning before interest, tax, depreciation and amortization (EBITDA) to total assets. All firm-level controls are winsorized at the 1st and 99th percentile to remove the effect of outliers. Finally, tax rate is taxes and other mandatory contributions after accounting for deductions and exemptions to total commercial profit obtained from the World Bank Doing Business indicators. 
 	
 		\begin{small}
 		{\setstretch{1.0}
-			\begin{longtable}{lrrrrr}\\
+			\begin{longtable}{lrrrrrr}\\
 				\label{tab:summary}\\
-				\multicolumn{6}{c}{Table \ref{tab:summary} - Summary statistics of benchmark panel}\\
-				\hline \hline \addlinespace  & Mean & SD & Min & Med & Max  \\
+				\multicolumn{7}{c}{Table \ref{tab:summary} - Summary statistics of benchmark panel}\\
+				\hline \hline \addlinespace  & Obs. & Mean & SD & Min & Med & Max  \\
 				\endfirsthead
-				\multicolumn{6}{c}{Table \ref{tab:summary} - Summary statistics of benchmark panel}\\
-				\hline \hline \addlinespace    & Mean & SD & Min & Med & Max  \\ \hline  \endhead
+				\multicolumn{7}{c}{Table \ref{tab:summary} - Summary statistics of benchmark panel}\\
+				\hline \hline \addlinespace  & Obs.  & Mean & SD & Min & Med & Max  \\ \hline  \endhead
 				\hline
-				\multicolumn{6}{r}{{\textit{(Continued)}}}\\ \endfoot
+				\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot
 				\addlinespace
-				\multicolumn{6}{p{15cm}}{{Notes: The sample period is 2007-2011. The number of observations is 1,084,023.
+				\multicolumn{7}{p{15cm}}{{Notes: The sample period is 2007-2011. The number of observations is 1,084,023.
 						Financial leverage is trimmed at a maximum value of 1 and a minimum of 0. Firm variables are winsorized at the 1\% to minimize the impact of outliers. See Table \ref{tab:definition} for variable definitions
 						and sources.}}\\ 	
 				\endlastfoot
@@ -266,8 +262,7 @@
 	 Table \ref{reg:benchmark} presents our main results following regression equation \ref{eq:regression benchmark} from section \ref{sec:strategy}. The dependent variable is financial leverage defined as the ratio of total non-equity liabilities to total assets. All regressions are estimated with multinational$\times$year and country fixed effects and include the tax rate variable and the interaction term between the tax rate and bank regulation variables. Through columns 1 to 4 we include one bank regulation index at time, in an attempt to avoid any multicollinearity among indices. Against omitted variable bias, column 5 shows the result for a regression that includes all the indices. 
 	 
 	 \afterpage{
-	 	\newgeometry{left=0.6in,right=0.6in,top=1.2in,bottom=1.2in}	
-	 	\begin{landscape}	
+	 	\newgeometry{left=0.6in,right=0.6in}		
 	 		\begin{small}
 	 			{\setstretch{1.0}
 	 				\begin{longtable}{lcccccc}\\
@@ -282,8 +277,7 @@
 	 					\hline
 	 					\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot \addlinespace
 	 					\multicolumn{7}{p{17cm}}{{Notes: The estimates in this table come from OLS over the period 2007-2011. Observations are at the firm-year level. The dependent variable is the ratio of non-equity liabilities to total assets. In all columns, Firm controls refer to firm variables (Profitability,
-	 							Tangibility, Log of fixed assets, Opportunity and Risk) and Country controls refer to macroeconomic variables (local monetary policy rate,
-	 							GDP growth, inflation, Private credit to GDP, Political risk, Exchange rate risk and Law and order). Standard errors are reported in
+	 							Tangibility and Log of fixed assets). Standard errors are reported in
 	 							parentheses and are clustered on multinational. *** indicates significance at the 1\% level, ** at the 5\% level and * at the
 	 							10\% level.}}\\ 	
 	 					\endlastfoot
@@ -292,41 +286,39 @@
 	 				\end{longtable}	
 	 			}
 	 		\end{small}
-	 	\end{landscape}
 	 	\restoregeometry}
 	 
-	  In regression (1) the estimated coefficient for the Restriction on banking activities variable is positive and statistically significant at 1\% level. Consider the average level of tax rate in our sample (0.47). The effect of an increase in the Restriction on banking activities variable by 1.84 (one standard deviation) on leverage is a 0.23 percentage points increase (=1.84$\times$0.021-1.84$\times$0.042$\times$0.47). When considering the joint estimation with other indices (column 5) the effect is estimated somewhat weaker and significant only at 10\% level. 
+	  In regression (1) the estimated coefficient for the Restriction on banking activities variable is positive and statistically significant at the 1\% level. Consider the average level of tax rate in our sample that is, 0.47. The effect of an increase in the Restriction on banking activities variable by 1.85 (one standard deviation) on leverage is a 0.75 percentage point gain on average (=1.85$\times$0.021-1.85$\times$0.036$\times$0.47). When considering the joint estimation with other indices (column 5) the effect is estimated somewhat weaker and statistically significant only at the 10\% level. 
 	  
-	  Regression (2) shows that the coefficient of the Financial conglomerates restrictiveness variable is estimated with the expected positive sign and different from zero at 1\% significance level. However, in regression (5) the effect looses its statistical significance. Hence, the result in the second column is most likely driven by omitted variable bias. Table \ref{tab:correl} shows that the Financial conglomerates restrictiveness index is significantly correlated to the other three indices. 
+	  Regression (2) shows that the coefficient of the Financial conglomerates restrictiveness variable is estimated with the expected positive sign and different from zero at the 1\% significance level. However, in regression (5) the effect looses its statistical significance.  Table \ref{tab:correl} shows that the Financial conglomerates restrictiveness index is significantly correlated to the other three indices. Hence, the result in the second column is most likely driven by a omitted variable bias.
 	  
-	  The estimated coefficient of the Capital regulatory stringency index in column (3) is negative, as expected, and statistically significant at 1\% level. In regression (5) the effect of this variable retains the magnitude. Consider again the average level of tax rate in our sample (0.47) and the result of column (5). The effect of an increase in the Capital regulatory stringency variable by 1.68 (one standard deviation) on leverage is a 0.23 percentage points decline (=-1.68$\times$0.011+1.68$\times$0.022$\times$0.47).
+	  The estimated coefficient of the Capital regulatory stringency index in column (3) is negative, as expected, and statistically significant at the 1\% level. In regression (5) the effect of this variable retains the magnitude. Consider again the average level of tax rate in our sample (0.47). The coefficient of the interaction term between Capital regulatory stringency and tax rate is estimated to be 0.018 in the column (5). The effect of an increase in the Capital regulatory stringency variable by 1.67 (one standard deviation) on leverage is a decrease of 0.42 percentage point on average (=-1.67$\times$0.011+1.67$\times$0.018$\times$0.47).
 	  
-	  Regression (4) shows that the coefficient of the Official supervisory power variable is not statistically different from zero. However, in column (5) the coefficient gains significance (at 5\% level) and the expected sign. The effect of an increase in the Official supervisory power index by 1.47 (one standard deviation) on leverage is a 0.23 percentage points decline (=-1.47$\times$0.009+1.47$\times$0.022$\times$0.47), considering again the average level of tax rate in our sample (0.47).
+	  Regression (4) shows that the coefficient of the Official supervisory power variable is not statistically different from zero. However, in column (5) the coefficient gains significance (at the 5\% level) and the expected sign. The average effect of an increase in the Official supervisory power index by 1.44 (one standard deviation) on leverage is a 0.55 percentage point decline (=-1.44$\times$0.009+1.44$\times$0.011$\times$0.47), considering again the average level of tax rate in our sample (0.47) and an estimated coefficient of the interaction term between this variable and tax rate at 0.018.
 	  
-	  Finally, in regression (6) we add the following firm-level controls: profitability, tangibility and the log of fixed assets. Those firm specific characteristics are important explanatory variables of financial leverage, even within a multinational group. Moreover, those characteristics could be correlated to the bank regulation measures and consequently biasing our estimates. The results are virtually unchanged from regression (5).     
+	  Finally, in regression (6) we add the following firm-level controls: profitability, tangibility and the log of fixed assets. Those firm specific characteristics are important explanatory variables of financial leverage, even within a multinational group. Moreover, those characteristics could be correlated to the bank regulation measures and consequently biasing our estimates. Nevertheless, the results are virtually unchanged from regression (5). Statistical significance increases for the Restriction on banking activities variable and decreases for the Capital regulatory stringency (although still significant at the 10\% level). The magnitude of the estimated coefficients remain equal to regression (5) for Capital regulatory stringency and Official supervisory power while it increases for Restriction on banking activities.     
 	   	    			   		
 \subsection{Extension} \label{sec:sub_index}
 
-Thus far, the analysis in this papers was restrict to the impact of five main indices from \cite{barth2013bank} on firms' financial leverage. Those indices were chosen as they are the best summary for bank regulation and supervision. However, the components of each summary index might have different effects on leverage. In table \ref{reg:sub_index} we break down four of the main indices in order to investigate the impact of each of their components on leverage. 
+Thus far, the analysis in this papers was restrict to the impact of four main indices from \cite{barth2013bank} on firms' financial leverage. Those indices were chosen as they are the best summary for bank regulation and supervision. However, the components of each summary index might have different effects on leverage. In table \ref{reg:sub_index} we break down three of the main indices in order to investigate the impact of each of their components on leverage. 
 
 \afterpage{
 \begin{small}
 	{\setstretch{1.0}
-		\begin{longtable}{lcccc}\\
+		\begin{longtable}{lccc}\\
 			\label{reg:sub_index}\\
-			\multicolumn{5}{c}{Table \ref{reg:sub_index} - Bank regulation and firms' capital structure: sub-indexes effect}\\
-			\multicolumn{5}{c}{(\textit{Dependent variable}: financial leverage)}
+			\multicolumn{4}{c}{Table \ref{reg:sub_index} - Bank regulation and firms' capital structure: extension}\\
+			\multicolumn{4}{c}{(\textit{Dependent variable}: financial leverage)}
 			\\ \hline \hline \addlinespace
-			Model & (1) & (2) & (3) & (4)    \\  \endfirsthead
-			\multicolumn{5}{c}{Table \ref{reg:sub_index} - Bank regulation and firms' capital structure: sub-indexes effect}\\
-			\multicolumn{5}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
-			\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4)  \\ \hline \\ \endhead
+			Model & (1) & (2) & (3)     \\  \endfirsthead
+			\multicolumn{4}{c}{Table \ref{reg:sub_index} - Bank regulation and firms' capital structure: sub-indexes effect}\\
+			\multicolumn{4}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+			\\ \hline \hline \addlinespace Model & (1) & (2) & (3)   \\ \hline \\ \endhead
 			\hline
-			\multicolumn{5}{r}{{\textit{(Continued)}}}\\ \endfoot
+			\multicolumn{4}{r}{{\textit{(Continued)}}}\\ \endfoot
 			\addlinespace
-			\multicolumn{5}{p{12.8cm}}{{Notes: The estimates in this table come from OLS over the period 2007-2011. Observations are at the firm-year level. The dependent variable is the ratio of non-equity liabilities to total assets. In all columns, Firm controls refer to firm variables (Profitability,
-					Tangibility, Log of fixed assets, Opportunity and Risk) and Country controls refer to macroeconomic variables (local monetary policy rate,
-					GDP growth, inflation, Private credit to GDP, Political risk, Exchange rate risk and Law and order). Standard errors are reported in
+			\multicolumn{4}{p{12cm}}{{Notes: The estimates in this table come from OLS over the period 2007-2011. Observations are at the firm-year level. The dependent variable is the ratio of non-equity liabilities to total assets. In all columns, Firm controls refer to firm variables (Profitability,
+					Tangibility and Log of fixed assets). Standard errors are reported in
 					parentheses and are clustered on multinational. *** indicates significance at the 1\% level, ** at the 5\% level and * at the
 					10\% level.}}\\  	
 			\endlastfoot
@@ -336,18 +328,19 @@ Thus far, the analysis in this papers was restrict to the impact of five main in
 	}
 \end{small}}
 
-In regression 1, Restriction on bank activities is broken in three variables: Restrictions on securities activities, Restrictions on insurance activities and Restrictions on real estate activities. While Restriction on securities appears with negative sign, suggesting complementarity to providing loans, Restriction on insurance gets a positive sign, implying a substitution effect. On the one hand, as predicted in our theory, restrictions on other activities mean lower outside option value, implying a positive sign of the estimated coefficient on leverage. On the other hand, there might be some activities that are complementaries services to lending which could reduce the cost of debt to firms. The coefficient for Restriction on real estate activities is not statistically different than zero. Next, we consider the components that form the Financial conglomerates restrictiveness. In section \ref{subsec:MPI} we described that the expected effect that this variable would identify was through the restriction on banks owning equity of non financial firms. Having only debt as instrument to invest in firms, given a identical firm, banks would be willing to extend the amount of loan. Regression 2 supports our reasoning. Out of the three variables that form the main index, only restrictions on Bank owning nonfinancial firm appears statistically significant at 1\% and with the expected sign. 
+In regression (1), Restriction on bank activities is broken in three variables: Restrictions on securities activities, Restrictions on insurance activities and Restrictions on real estate activities. Restriction on securities appears with positive sign, implying a substitution effect to providing loans. Restriction on insurance gets a negative sign, suggesting complementarity. On the one hand, restrictions on other activities reduce banks' options to lending, implying a positive sign of the estimated coefficient on leverage. On the other hand, there might be some activities, such as insurance, that are complementaries services to lending which could reduce the cost of debt to firms. The coefficient for Restriction on real estate activities is not statistically different than zero. 
 
-In regression 3, we evaluate the two components of Capital regulatory index: Overall capital stringency and Initial capital stringency. The former obtains a positive and significant coefficient, in opposition to our expectation. As explained in \cite*{barth2001regulation}, this index capture if regulatory capital is considered simply as a accounting concept or if the requirements actually reflect market-value risk elements. Hence, the positive sign might be reflecting economies with more robust financial systems, in line with previous research showing the positive association between financial development and credit growth (see \cite*{demirgucc1998law}, \cite*{demirgucc2002funding}). On the other hand, Initial capital stringency tracks the source of capital: if other assets than cash and government bonds can be used, if borrowed funds can be used and if the sources are verified by authorities. Hence, this index is closest to be tracking how constrained are banks when providing loans. Not surprisingly, the coefficient for this variable takes the expected negative sign. 
+Next, we consider the components that form the Financial conglomerates restrictiveness: restriction on banks owning nonfinancial firms, restriction on nonfinancial firms owning banks and restriction on financial firms owning banks. Regression (2) shows that none of the indices are statistically significant different from zero. 
 
-We break down External governance index in its four components in regression 4. Strength of external audit is only significant different from zero at 10\% level while the other three indices are significant at 1\% level. The negative coefficient for Financial statement transparency and Accounting practices are in odds with our priors for the summary index while External ratings is estimated with the expected sign. The result of the first two variables might be reflecting higher costs from the bureaucracy associated with better accounting standards while the requirement of banks to be rated by an external agency lead to more transparency in the banking sector, reducing adverse selection and consequently facilitating banks to capitalize. Our result suggests that the benefits of external rating on funding is at least partially transmitted to firms.         
-    	
- 
+In regression (3), we evaluate the two components of Capital regulatory index: Overall capital stringency and Initial capital stringency.  As explained in \cite*{barth2001regulation}, the former index capture if regulatory capital is considered simply as a accounting concept or if the requirements actually reflect market-value risk elements. Initial capital stringency tracks the source of capital: if other assets than cash and government bonds can be used, if borrowed funds can be used and if the sources are verified by authorities. Not surprisingly, both coefficients are estimated with the expected negative sign. However, only the coefficient for Overall capital stringency is statistically different from zero.        
+    	 
 	\section{Conclusion} \label{sec:conclusion}
 		
-	This paper shows that firms' capital structure is sensitive to bank regulatory policies, specifically capital and reserve requirements. We propose a simple theoretical model where changes in regulatory framework impact banks' cost of providing loans that ultimately are transmitted to firms via their cost of debt. Using data from multinationals in 24 countries from 2007 to 2011 we are able to identify this transmission channel since the data allow us to control for unobservable factors on the demand side that could be correlated to leverage and regulatory policies. Therefore, we use the cross-country variation in bank regulation across subsidiaries within one multinational to identify their effects on capital structure. Our model also predicts policies' effects from one country to spillover to firms hosted at others, as multinationals will take advantage of differences in credit conditions (and tax rates) to allocate debt across subsidiaries. 
+	This paper shows that firms' capital structure is sensitive to bank regulation, specifically restrictions on bank activities, capital regulatory policies and the degree of official supervisory power. We propose a simple theoretical model where changes in regulatory framework impact banks' cost of providing loans that ultimately are transmitted to firms via their cost of debt. Using data from multinationals in 54 countries from 2007 to 2011 we are able to identify this transmission channel since the data allow us to control for unobservable factors on the demand side that could be correlated to leverage and regulatory policies. Therefore, we use the cross-country variation in bank regulation across subsidiaries within one multinational to identify their effects on capital structure. 
 	
-	Overall, the results suggest that firms respond locally to changes in bank regulatory instruments while no evidence of international spillover is found. Still, the capital structure of multinational firms reflects differences in corporate taxes which reinforce our assumption that leverage decisions for each subsidiary is taken at the multinational level. In our analysis, we are able to control for most of demand factors of capital structure. However, differences in bank regulatory policy might be correlated to other country specific characteristics that also impact firms' leverage. An interesting extension to our work is to obtain a dataset that would allow to control for those unobservable characteristics at the country level.
+	Overall, the results suggest that firms' response to changes in bank regulatory instruments is significant. Consequently, this study points to the importance of bank supervision authorities to track the real sector when defining policies. Although the effect of most policies on firms' leverage has the same direction as intended by the supervisory authorities, adverse effects are possible. For instance, our results show that higher restrictions on bank activities are associated with higher leverage on the nonfinancial sector. While those restriction are intended to enhance financial stability, the increase of overall leverage in the real sector can create risks to stability.
+	
+	Finally, even though we control for country specific fixed effects in our analysis, those country characteristics might not be fixed in time. If bank regulation is correlated to time varying variables at the country level, our results could be biased. Hence, an interesting extension to our work is to obtain a dataset that would allow to control for those unobservable characteristics at the country level for each year.
 
 		
 \singlespacing
