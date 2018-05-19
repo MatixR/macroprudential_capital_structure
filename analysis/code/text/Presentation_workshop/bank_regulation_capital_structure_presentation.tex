@@ -1,0 +1,625 @@
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+\documentclass{beamer}
+% Replace the \documentclass declaration above
+% with the following two lines to typeset your 
+% lecture notes as a handout:
+%\documentclass{article}
+%\usepackage{beamerarticle}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{sansmathaccent,longtable,booktabs,threeparttable,afterpage,mathtools,anyfontsize}
+\pdfmapfile{+sansmathaccent.map}
+% There are many different themes available for Beamer. A comprehensive
+% list with examples is given here:
+% http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
+% You can uncomment the themes below if you would like to use a different
+% one:
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+\usetheme{Boadilla}
+%\usetheme{boxes}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{default}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+%***************************************************
+% Fix input with \midrule problem
+%***************************************************
+
+\newcommand{\sym}[1]{\rlap{#1}}% Thanks to David Carlisle
+
+\newcommand*{\captionsource}[2]{%
+	\caption[{#1}]{%
+		#1%
+		\\\hspace{\linewidth}%
+		\textbf{Source:} #2%
+	}%
+}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+%***************************************************
+% Fix input with \midrule problem
+%***************************************************
+
+\makeatletter
+\newcommand\primitiveinput[1]
+{\@@input #1 }
+\makeatother
+
+\title{The Impact of Bank Regulation on Firms' Capital Structure: Evidence from Multinationals}
+
+% A subtitle is optional and this may be deleted
+%\subtitle{Gauti B. Eggertsson and Paul Krugman}
+\author{Lucas Avezum \and Harry Huizinga \and Louis Raes}
+
+%\author{F.~Author\inst{1} \and S.~Another\inst{2}}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+%\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+%{
+ % \inst{1}%
+  %Department of Computer Science\\
+  %University of Somewhere
+  %\and
+  %\inst{2}%
+  %Department of Theoretical Philosophy\\
+  %University of Elsewhere}
+% - Use the \inst command only if there are several affiliations.
+% - Keep it simple, no one is interested in your street address.
+
+\date{02/05/2018}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+%\subject{Theoretical Computer Science}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%\AtBeginSubsection[]
+%{
+%  \begin{frame}<beamer>{Outline}
+%    \tableofcontents[currentsection,currentsubsection]
+%  \end{frame}
+%}
+
+% Let's get started
+\begin{document}
+	\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Introduction}{Research Question}
+
+Does bank regulation affect non-financial firms' capital structure?\\
+
+\vspace{\baselineskip}
+
+We study the effect of:
+\vspace{\baselineskip}
+\begin{itemize}
+	\item Restrictions on banking activities,
+	\item Restrictions on financial conglomerates,
+\item	Capital requirement stringency and
+	\item Official supervisory power,
+		
+\end{itemize}
+\vspace{\baselineskip}
+The \textbf{cost of debt} is the transmission channel to firms' financial leverage. 
+\end{frame}
+
+
+\begin{frame}{Introduction}{Relevance}
+
+\begin{itemize}
+	\item Bank regulation and bank performance: \cite{barth2013}, \cite{anginer2014does},\cite{caprio2014macro}, \cite{demirguc2013bank}.
+	\vspace{\baselineskip}
+	\item Bank regulation and firm performance: \cite{amore2013credit}, \cite{jimenez2017macroprudential}.
+	\vspace{\baselineskip}
+	\item Determinants of firms' capital structure:
+	\cite{leary2009bank}, \cite{rajan1995we}, \cite{oztekin2015capital}.   
+
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{Introduction}{Method}
+
+Theory
+\begin{itemize}
+	\item Model that relates bank regulation to firms' capital structure.	
+\end{itemize}
+\vspace{\baselineskip}
+Data
+\begin{itemize}
+	\item Worldwide survey on bank regulation.
+	\item Worldwide information on firms' balance sheet and ownership.
+	\item We study around 400 thousand firms belonging to 60 thousand multinational groups hosted in 61 countries from 2005 to 2011.	
+\end{itemize}
+	\vspace{\baselineskip}
+	Strategy
+\begin{itemize}
+	\item We compare firms within multinational corporations hosted in several countries
+	and consequently exposed to bank regulation at different levels. 
+	
+	
+\end{itemize}
+
+
+
+
+ 
+\end{frame}
+
+\begin{frame}{Introduction}{Results}
+
+ Effects of bank regulation on firms' capital structure changed since the crisis: \\
+\begin{itemize}
+	
+	\item Before: restrictions on financial conglomerates and insurance activities were important.
+	\item After: bank capital stringency and restriction on activities related to investment banking became central.
+\end{itemize}
+\vspace{\baselineskip}
+Effects are not exclusive to multinational groups.\\
+\vspace{\baselineskip}
+Together, the effects explain 4.1\% of sample variation in leverage.  \\
+\vspace{\baselineskip}
+Tax shield mitigate the direct effect.
+
+\end{frame}
+
+\begin{frame}{Introduction}{Outline}
+  \tableofcontents
+\end{frame}
+\section{Model}
+\begin{frame}{Model}{Balance sheets and financial leverage}
+Based on \cite*{huizinga2008capital}
+\begin{itemize}
+	\item  Balance sheet:
+\end{itemize}
+\begin{equation}
+\begin{aligned}
+A_i=I_i+L_i, \quad i=1,...,n-1.
+\end{aligned}
+\label{eq:sub balance sheet}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+A_p+\sum_{i=1}^{n-1}I_i=E_p+L_p. 
+\end{aligned}
+\label{eq:parent balance sheet}
+\end{equation}
+\begin{itemize}
+	\item  Financial leverage:
+\end{itemize}
+\begin{equation*}
+\begin{aligned}
+\lambda_i=L_i/A_i, \quad i=1,...,n-1.
+\end{aligned}
+\label{eq:sub leverage}
+\end{equation*}
+\begin{equation}
+\begin{aligned}
+\lambda_m=\frac{\sum_{i=1}^{n}L_i}{\sum_{i=1}^{n}A_i}=\sum_{i=1}^{n}\lambda_i\rho_i, 
+\end{aligned}
+\label{eq:total leverage}
+\end{equation} 
+\end{frame}
+
+\begin{frame}{Model}{Costs associated with leverage}
+\begin{itemize}
+	\item  Expected cost of bankruptcy \citep{luciano2014guarantees}:
+\end{itemize}
+\begin{equation}
+\begin{aligned}
+C_m=\frac{\gamma}{2}\lambda_m^2\bigg(\sum_{i=1}^{n}A_i\bigg).
+\end{aligned}
+\label{eq:cost bankruptcy}
+\end{equation}
+\begin{itemize}
+\item  Costs/benefits associated to incentives to local managers:
+\end{itemize}
+\begin{equation}
+\begin{aligned}
+C_i=\frac{\mu}{2}(\lambda_i-\lambda^*)^2A_i-\frac{\mu}{2}(\lambda^*)^2A_i, \quad i=1,...,n.
+\end{aligned}
+\label{eq:agency cost}
+\end{equation}
+\begin{itemize}
+	\item  Cost of debt:
+\end{itemize}
+\begin{equation}
+\begin{aligned}
+r_i=\delta_i(1+\phi'\Pi_i)
+\end{aligned}
+\label{eq:cost of debt}
+\end{equation}
+
+\end{frame}
+
+\begin{frame}{Model}{Multinational's value}
+\begin{itemize}
+	\item  Unleveraged firm's value:
+\end{itemize}
+\begin{equation}
+\begin{aligned}
+V_i^U=\frac{R_i}{\delta_i}(1-\tau_{i}),  \quad i=1,...,n.
+\end{aligned}
+\label{eq:v_u}
+\end{equation}
+\begin{itemize}
+	\item Leveraged firm's value:
+\end{itemize}
+\begin{equation}
+\begin{aligned}
+V_i^L=L_i+\frac{(R_i-r_iL_i)}{\delta_i}(1-\tau_{i})-C_i,  \quad i=1,...,n.
+\end{aligned}
+\label{eq:v_l_1}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+V_i^L=V_i^U+\tau_{i}L_i-\phi'\Pi_iL_i+\tau_{i}\phi'\Pi_iL_i-C_i,  \quad i=1,...,n.
+\end{aligned}
+\label{eq:v_l_2}
+\end{equation}	
+\begin{itemize}
+	\item Multinational's value:
+\end{itemize}
+\begin{equation}
+\begin{aligned}
+V_m^L=V_m^U+\sum_{i=1}^{n}\tau_iL_i-\phi'\sum_{i=1}^{n}\Pi_iL_i+\phi'\sum_{i=1}^{n}\tau_i\Pi_i L_i-C_m-\sum_{i=1}^{n}C_i
+\end{aligned}
+\label{eq:v_l}
+\end{equation}
+\end{frame}
+
+
+\begin{frame}{Model}{Optimal leverage}
+\begin{itemize}
+	\item  Optimal leverage:
+\end{itemize}
+\begin{equation}
+\begin{aligned}
+\lambda_i = &\theta_0\lambda^*+\theta_1\tau_i-\theta_2\Pi_i+\theta_2\Pi_i\tau_{i}\\
+&+\theta_3\sum_{j=1}^{n}(\tau_i-\tau_j)\rho_j-\theta_4\sum_{j=1}^{n}(\Pi_i-\Pi_j)\rho_j\\
+&+\theta_4\sum_{j=1}^{n}(\Pi_i\tau_i-\Pi_j\tau_j)\rho_j, \quad i=1,...,n
+\end{aligned}
+\label{eq:optimal leverage in theory}
+\end{equation}
+\begin{equation*}
+\begin{aligned}
+&\theta_0=\frac{\mu}{(\mu+\gamma)}, \ \theta_1=\frac{1}{(\mu+\gamma)}, \
+\theta_2=\frac{1}{(\mu+\gamma)}\phi', \\
+&\theta_3=\frac{\gamma}{\mu(\mu+\gamma)}, \
+\theta_4=\frac{\gamma}{\mu(\mu+\gamma)}\phi'.
+\end{aligned}
+\end{equation*}
+\end{frame}
+
+
+
+
+\section{Empirical Strategy}
+\begin{frame}{Empirical Strategy}
+Result lead to the following regression equation:
+\begin{equation}
+\begin{aligned}
+\lambda_{imcst}=&\beta_0\tau_{ct}+\beta_1\Pi_{ct}+\beta_2\tau_{ct}\Pi_{ct}+\alpha_{mt}+\alpha_{c}+\alpha_{s}+\beta_3X_{imcst}+\varepsilon_{imcst}
+\label{eq:optimal leverage empirically 1}
+\end{aligned}
+\end{equation}
+
+\end{frame}
+
+\section{Data}
+
+\begin{frame}{Data}{World Bank Regulation
+	and Supervision Survey \citep{barth2013bank}}
+
+\begin{itemize}
+	\item Addressed to the head of banking supervision.
+	\vspace{\baselineskip}
+	\item Comparable across countries and time.
+
+	
+\end{itemize}
+	
+
+\end{frame}
+
+\begin{frame}{Data}{World Bank Regulation
+	and Supervision Survey \citep{barth2013bank}}
+
+	\textit{4.1 What are the conditions under which banks can engage in securities activities?\\
+	a. A full range of these activities can be conducted directly in banks,\\
+	b. A full range of these activities are offered but all or some of these activities must be conducted in subsidiaries, or in another part of a common holding company or parent,\\
+	c. Less than the full range of activities can be conducted in banks, or subsidiaries, or in another part of a common holding company or parent,\\
+	d. None of these activities can be done in either banks or subsidiaries, or in another part of a common holding company or parent.}
+	\begin{itemize}
+	\item Hypothesis: restrictions on banking activities increase non-financial firms' leverage ($\beta_1>0$).
+	
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Data}{World Bank Regulation
+	and Supervision Survey \citep{barth2013bank}}
+
+\textit{4.4 What are the conditions under which banks can engage in nonfinancial businesses except those businesses that are auxiliary to banking business (e.g. IT company, debt collection company etc.) ?\\
+a. Nonfinancial activities can be conducted directly in banks,\\
+b. Nonfinancial activities must be conducted in subsidiaries, or in another part of a common holding company or parent\\
+c. Nonfinancial activities may be conducted in subsidiaries, or in another part of a common holding company or parent, but subject to regulatory limit or approval,\\
+d. None of these activities can be done in either banks or subsidiaries, or in another part of a common holding company or parent.
+}
+\begin{itemize}
+	\item Hypothesis: restrictions on financial conglomerates increase non-financial firms' leverage ($\beta_1>0$)
+	
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Data}{World Bank Regulation
+	and Supervision Survey \citep{barth2013bank}}
+
+\textit{3.1 Which regulatory capital adequacy regimes did you use as of end of 2010 and for which banks does each regime apply to (if using more than one regime)?\\
+	Mark the appropriate response below and specify for which types of banks each regime applies\\
+	a. Basel I\\
+	b. Basel II\\
+	c. Leverage ratio\\
+	d. Other (please explain)
+}
+\begin{itemize}
+	\item Hypothesis: Tightening capital requirements decrease non-financial firms' leverage ($\beta_1<0$)
+	
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Data}{World Bank Regulation
+	and Supervision Survey \citep{barth2013bank}}
+
+\textit{12.3.2 Can the supervisory authority force a bank to change its internal organizational structure?}	\\  
+\vspace{\baselineskip}
+	\textit{11.1 Please indicate whether the following enforcement powers are available to the supervisory agency\\
+f. Require banks to constitute provisions to cover actual or potential losses \\
+j. Require banks to reduce or suspend dividends to shareholders \\
+k. Require banks to reduce or suspend bonuses and other remuneration to bank directors and managers}
+\vspace{\baselineskip}
+\begin{itemize}
+	\item Hypothesis: greater official supervisory power decreases non-financial firms' leverage ($\beta_1<0$)
+	
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Data}{Firm-level}
+\begin{itemize}
+	\item We use the Orbis database compiled by the Bureau Van Dijk.
+	\vspace{\baselineskip}
+	\item Worldwide accounting and ownership information.
+	\vspace{\baselineskip}
+	\item Subsidiaries: a firm that has more than 50\% of its share owned by another firm.
+	\vspace{\baselineskip}
+	\item Parent firm: a firm that owns one or more companies but none of its shareholders have more than 50\% of its shares.
+	\vspace{\baselineskip}
+	\item Multinational corporation: group of firms with common parent firm.
+	
+\end{itemize}
+\begin{center}
+	\begin{tiny}	
+	\end{tiny}
+\end{center}
+\end{frame}
+
+\section{Results}
+
+\begin{frame}{Results}
+
+{\fontsize{6}{7}\selectfont		
+\begin{longtable}{lcccccc}\\
+	\label{reg:benchmark}\\
+	\multicolumn{7}{c}{Table \ref{reg:benchmark} - Regression results, bank regulation and firms' capital structure}\\
+	\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)}
+	\\ \hline \hline \addlinespace
+	Model & (1) & (2) & (3) & (4) & (5) & (6) \\  \endfirsthead
+	\multicolumn{7}{c}{Table \ref{reg:benchmark} - Regression results, bank regulation and firms' capital structure }\\
+	\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+	\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6) \\ \hline \\ \endhead
+	\hline
+	\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot 
+	\endlastfoot
+	\primitiveinput{../../../output/tables/regressions/benchmark_table.tex}
+	\hline 			
+\end{longtable}		
+}
+
+\end{frame}
+
+\begin{frame}{Results}{Before 2008}
+
+{\fontsize{6}{7}\selectfont		
+	\begin{longtable}{lcccccc}\\
+		\label{reg:prior}\\
+		\multicolumn{7}{c}{Table \ref{reg:prior} - Regression results, bank regulation and firms' capital structure}\\
+		\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)}
+		\\ \hline \hline \addlinespace
+		Model & (1) & (2) & (3) & (4) & (5) & (6) \\  \endfirsthead
+		\multicolumn{7}{c}{Table \ref{reg:prior} - Regression results, bank regulation and firms' capital structure }\\
+		\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+		\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6) \\ \hline \\ \endhead
+		\hline
+		\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot 
+		\endlastfoot
+		\primitiveinput{../../../output/tables/regressions/benchmark_table_prior.tex}
+		\hline 			
+	\end{longtable}		
+}
+
+\end{frame}
+
+\begin{frame}{Results}{After 2008}
+
+{\fontsize{6}{7}\selectfont		
+	\begin{longtable}{lcccccc}\\
+		\label{reg:post}\\
+		\multicolumn{7}{c}{Table \ref{reg:post} - Regression results, bank regulation and firms' capital structure}\\
+		\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)}
+		\\ \hline \hline \addlinespace
+		Model & (1) & (2) & (3) & (4) & (5) & (6) \\  \endfirsthead
+		\multicolumn{7}{c}{Table \ref{reg:post} - Regression results, bank regulation and firms' capital structure }\\
+		\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+		\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6) \\ \hline \\ \endhead
+		\hline
+		\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot 
+		\endlastfoot
+		\primitiveinput{../../../output/tables/regressions/benchmark_table_post.tex}
+		\hline 			
+	\end{longtable}		
+}
+
+\end{frame}
+
+
+\begin{frame}{Results}{}
+
+{\fontsize{5}{6}\selectfont 		
+	\begin{longtable}{lcccccc}\\
+		\label{reg:sub}\\
+		\multicolumn{7}{c}{Table \ref{reg:sub} - Different effects from restrictions}\\
+		\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)}
+		\\ \hline \hline \addlinespace
+		& \multicolumn{2}{c}{Full sample} & \multicolumn{2}{c}{Before 2008} & \multicolumn{2}{c}{After 2008} \\  
+		Model & (1) & (2) & (3) & (4)& (5)& (6) \\	
+		\endfirsthead
+		\multicolumn{7}{c}{Table \ref{reg:sub} - Different effects from restrictions}\\
+		\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+		\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4)& (5)& (6)  \\ \hline \\ \endhead
+		\hline
+		\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot  	
+		\endlastfoot
+		\primitiveinput{../../../output/tables/regressions/sub_indexes_table.tex}
+		\hline 			
+	\end{longtable}		
+}
+
+
+\end{frame}
+
+\begin{frame}{Results}{Full sample of firms}
+
+{\fontsize{6}{7}\selectfont 		
+		\begin{longtable}{lccccc}\\
+		\label{reg:rep}\\
+		\multicolumn{6}{c}{Table \ref{reg:rep} - Full sample of firms}\\
+		\multicolumn{6}{c}{(\textit{Dependent variable}: financial leverage)}
+		\\ \hline \hline \addlinespace
+		Model & (1) & (2) & (3) & (4) & (5) \\  \endfirsthead
+		\multicolumn{6}{c}{Table \ref{reg:rep} - Multinational as representative sample}\\
+		\multicolumn{6}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+		\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) \\ \hline \\ \endhead
+		\hline
+		\multicolumn{6}{r}{{\textit{(Continued)}}}\\ \endfoot 	
+		\endlastfoot
+		\primitiveinput{../../../output/tables/regressions/representative_table.tex}
+		\hline 			
+	\end{longtable}		
+}
+
+
+\end{frame}
+
+
+\begin{frame}{Results}{Total effects}
+
+{\fontsize{6}{7}\selectfont 		
+	\begin{longtable}{lcc}\\
+		\label{reg:effect}\\
+		\multicolumn{3}{c}{Table \ref{reg:effect} - Total effects}\\
+		\multicolumn{3}{c}{(Considering the average level of tax rate in the sample (49\%))}
+		\\ \hline \hline \addlinespace
+		Effect & One standard deviation increase & From least to most stringent  \\  \endfirsthead
+		\multicolumn{3}{c}{Table \ref{reg:effect} - Multinational as representative sample}\\
+		\multicolumn{3}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+		\\ \hline \hline \addlinespace Model & (1)\\ \hline \\ \endhead
+		\hline
+		\multicolumn{3}{r}{{\textit{(Continued)}}}\\ \endfoot 	
+		\endlastfoot
+		\primitiveinput{../../../output/tables/regressions/effect_table_full_sample.tex}
+		\hline 			
+	\end{longtable}		
+}
+
+
+\end{frame}
+
+
+\begin{frame}{Conclusion}
+
+ Effects of bank regulation on firms' capital structure changed since the crisis: \\
+\begin{itemize}
+	
+	\item Before: restrictions on financial conglomerates and insurance activities were important.
+	\item After: bank capital stringency and restriction on activities related to investment banking became central.
+\end{itemize}
+	    \vspace{\baselineskip}
+   Effects are not exclusive to multinational groups.\\
+       \vspace{\baselineskip}
+   Together, the effects explain 4.1\% of sample variation in leverage.   
+	
+
+\end{frame}
+
+
+
+\begin{frame}{Bibliography}{}
+\begin{tiny}
+\bibliography{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/code/text/bibliography/references}
+\bibliographystyle{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/code/text/bibliography/te}
+\end{tiny}
+\end{frame}
+\end{document}
+
+
