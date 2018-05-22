@@ -30,7 +30,7 @@
 %\usetheme{Bergen}
 %\usetheme{Berkeley}
 %\usetheme{Berlin}
-\usetheme{Boadilla}
+%\usetheme{Boadilla}
 %\usetheme{boxes}
 %\usetheme{CambridgeUS}
 %\usetheme{Copenhagen}
@@ -196,18 +196,19 @@ Data
 
 \begin{frame}{Introduction}{Results}
 
- Effects of bank regulation on firms' capital structure changed since the crisis: \\
+ Net effects of bank regulation on firms' capital structure depends on the tax rate: \\
 \begin{itemize}
 	
-	\item Before: restrictions on financial conglomerates and insurance activities were important.
-	\item After: bank capital stringency and restriction on activities related to investment banking became central.
+	\item Direct effect: in the absence of taxes, higher cost of debt decreases the firm's value.
+	\item Indirect effect: gains or losses from the interest tax shield mitigate the direct effect.
 \end{itemize}
 \vspace{\baselineskip}
-Effects are not exclusive to multinational groups.\\
-\vspace{\baselineskip}
-Together, the effects explain 4.1\% of sample variation in leverage.  \\
-\vspace{\baselineskip}
-Tax shield mitigate the direct effect.
+We find that the direct effect of:
+\begin{itemize}
+	\item Restrictions on banking activities and on financial conglomerates to be positive and,
+	\item	Tighter capital requirement and greater official supervisory power to be negative.
+	
+\end{itemize}
 
 \end{frame}
 
@@ -215,7 +216,7 @@ Tax shield mitigate the direct effect.
   \tableofcontents
 \end{frame}
 \section{Model}
-\begin{frame}{Model}{Balance sheets and financial leverage}
+\begin{frame}<presentation:0>{Model}{Balance sheets and financial leverage}
 Based on \cite*{huizinga2008capital}
 \begin{itemize}
 	\item  Balance sheet:
@@ -249,7 +250,7 @@ A_p+\sum_{i=1}^{n-1}I_i=E_p+L_p.
 \end{equation} 
 \end{frame}
 
-\begin{frame}{Model}{Costs associated with leverage}
+\begin{frame}<presentation:0>{Model}{Costs associated with leverage}
 \begin{itemize}
 	\item  Expected cost of bankruptcy \citep{luciano2014guarantees}:
 \end{itemize}
@@ -281,24 +282,10 @@ r_i=\delta_i(1+\phi'\Pi_i)
 \end{frame}
 
 \begin{frame}{Model}{Multinational's value}
-\begin{itemize}
-	\item  Unleveraged firm's value:
-\end{itemize}
-\begin{equation}
-\begin{aligned}
-V_i^U=\frac{R_i}{\delta_i}(1-\tau_{i}),  \quad i=1,...,n.
-\end{aligned}
-\label{eq:v_u}
-\end{equation}
+
 \begin{itemize}
 	\item Leveraged firm's value:
 \end{itemize}
-\begin{equation}
-\begin{aligned}
-V_i^L=L_i+\frac{(R_i-r_iL_i)}{\delta_i}(1-\tau_{i})-C_i,  \quad i=1,...,n.
-\end{aligned}
-\label{eq:v_l_1}
-\end{equation}
 \begin{equation}
 \begin{aligned}
 V_i^L=V_i^U+\tau_{i}L_i-\phi'\Pi_iL_i+\tau_{i}\phi'\Pi_iL_i-C_i,  \quad i=1,...,n.
@@ -341,6 +328,20 @@ V_m^L=V_m^U+\sum_{i=1}^{n}\tau_iL_i-\phi'\sum_{i=1}^{n}\Pi_iL_i+\phi'\sum_{i=1}^
 
 
 
+\section{Empirical Strategy}
+\begin{frame}{Empirical Strategy}
+\begin{itemize}
+	\item  Optimal leverage:
+\end{itemize}
+\begin{equation}
+\begin{aligned}
+\lambda_i = &\theta_0\lambda^*+(\theta_1+\theta_3)\tau_i-(\theta_2+\theta_4)\Pi_i+(\theta_2+\theta_4)\Pi_i\tau_{i}\\
+&-\theta_3\sum_{j=1}^{n}\tau_j\rho_j+\theta_4\sum_{j=1}^{n}\Pi_j\rho_j-\theta_4\sum_{j=1}^{n}\Pi_j\tau_j\rho_j, \quad i=1,...,n
+\end{aligned}
+\label{eq:optimal leverage in theory 2}
+\end{equation}
+
+\end{frame}
 
 \section{Empirical Strategy}
 \begin{frame}{Empirical Strategy}
@@ -351,7 +352,7 @@ Result lead to the following regression equation:
 \label{eq:optimal leverage empirically 1}
 \end{aligned}
 \end{equation}
-
+$\beta_1$ and $\beta_2$ capture the direct and indirect total effect on multinationals, respectively. 
 \end{frame}
 
 \section{Data}
@@ -359,76 +360,20 @@ Result lead to the following regression equation:
 \begin{frame}{Data}{World Bank Regulation
 	and Supervision Survey \citep{barth2013bank}}
 
-\begin{itemize}
-	\item Addressed to the head of banking supervision.
-	\vspace{\baselineskip}
-	\item Comparable across countries and time.
-
-	
-\end{itemize}
-	
-
-\end{frame}
-
-\begin{frame}{Data}{World Bank Regulation
-	and Supervision Survey \citep{barth2013bank}}
-
-	\textit{4.1 What are the conditions under which banks can engage in securities activities?\\
-	a. A full range of these activities can be conducted directly in banks,\\
-	b. A full range of these activities are offered but all or some of these activities must be conducted in subsidiaries, or in another part of a common holding company or parent,\\
-	c. Less than the full range of activities can be conducted in banks, or subsidiaries, or in another part of a common holding company or parent,\\
-	d. None of these activities can be done in either banks or subsidiaries, or in another part of a common holding company or parent.}
 	\begin{itemize}
 	\item Hypothesis: restrictions on banking activities increase non-financial firms' leverage ($\beta_1>0$).
 	
-\end{itemize}
+\vspace{\baselineskip}
 
-\end{frame}
-
-\begin{frame}{Data}{World Bank Regulation
-	and Supervision Survey \citep{barth2013bank}}
-
-\textit{4.4 What are the conditions under which banks can engage in nonfinancial businesses except those businesses that are auxiliary to banking business (e.g. IT company, debt collection company etc.) ?\\
-a. Nonfinancial activities can be conducted directly in banks,\\
-b. Nonfinancial activities must be conducted in subsidiaries, or in another part of a common holding company or parent\\
-c. Nonfinancial activities may be conducted in subsidiaries, or in another part of a common holding company or parent, but subject to regulatory limit or approval,\\
-d. None of these activities can be done in either banks or subsidiaries, or in another part of a common holding company or parent.
-}
-\begin{itemize}
 	\item Hypothesis: restrictions on financial conglomerates increase non-financial firms' leverage ($\beta_1>0$)
 	
-\end{itemize}
+\vspace{\baselineskip}
 
-\end{frame}
-
-\begin{frame}{Data}{World Bank Regulation
-	and Supervision Survey \citep{barth2013bank}}
-
-\textit{3.1 Which regulatory capital adequacy regimes did you use as of end of 2010 and for which banks does each regime apply to (if using more than one regime)?\\
-	Mark the appropriate response below and specify for which types of banks each regime applies\\
-	a. Basel I\\
-	b. Basel II\\
-	c. Leverage ratio\\
-	d. Other (please explain)
-}
-\begin{itemize}
 	\item Hypothesis: Tightening capital requirements decrease non-financial firms' leverage ($\beta_1<0$)
 	
-\end{itemize}
 
-\end{frame}
-
-\begin{frame}{Data}{World Bank Regulation
-	and Supervision Survey \citep{barth2013bank}}
-
-\textit{12.3.2 Can the supervisory authority force a bank to change its internal organizational structure?}	\\  
 \vspace{\baselineskip}
-	\textit{11.1 Please indicate whether the following enforcement powers are available to the supervisory agency\\
-f. Require banks to constitute provisions to cover actual or potential losses \\
-j. Require banks to reduce or suspend dividends to shareholders \\
-k. Require banks to reduce or suspend bonuses and other remuneration to bank directors and managers}
-\vspace{\baselineskip}
-\begin{itemize}
+
 	\item Hypothesis: greater official supervisory power decreases non-financial firms' leverage ($\beta_1<0$)
 	
 \end{itemize}
@@ -438,18 +383,16 @@ k. Require banks to reduce or suspend bonuses and other remuneration to bank dir
 \begin{frame}{Data}{Firm-level}
 \begin{itemize}
 	\item We use the Orbis database compiled by the Bureau Van Dijk.
-	\vspace{\baselineskip}
-	\item Worldwide accounting and ownership information.
-	\vspace{\baselineskip}
-	\item Subsidiaries: a firm that has more than 50\% of its share owned by another firm.
-	\vspace{\baselineskip}
-	\item Parent firm: a firm that owns one or more companies but none of its shareholders have more than 50\% of its shares.
-	\vspace{\baselineskip}
-	\item Multinational corporation: group of firms with common parent firm.
+	
 	
 \end{itemize}
 \begin{center}
 	\begin{tiny}	
+		\begin{longtable}{lcccccc}\\
+			\label{reg:benchmark}\\
+		\primitiveinput{../../../output/tables/summary/summary.tex}
+			\hline 			
+	\end{longtable}	
 	\end{tiny}
 \end{center}
 \end{frame}
@@ -478,47 +421,26 @@ k. Require banks to reduce or suspend bonuses and other remuneration to bank dir
 
 \end{frame}
 
-\begin{frame}{Results}{Before 2008}
+\begin{frame}{Results}{Total effects}
 
-{\fontsize{6}{7}\selectfont		
-	\begin{longtable}{lcccccc}\\
-		\label{reg:prior}\\
-		\multicolumn{7}{c}{Table \ref{reg:prior} - Regression results, bank regulation and firms' capital structure}\\
-		\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)}
+{\fontsize{6}{7}\selectfont 		
+	\begin{longtable}{lcc}\\
+		\label{reg:effect}\\
+		\multicolumn{3}{c}{Table \ref{reg:effect} - Total effects}\\
+		\multicolumn{3}{c}{(Considering the average level of tax rate in the sample (47\%))}
 		\\ \hline \hline \addlinespace
-		Model & (1) & (2) & (3) & (4) & (5) & (6) \\  \endfirsthead
-		\multicolumn{7}{c}{Table \ref{reg:prior} - Regression results, bank regulation and firms' capital structure }\\
-		\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
-		\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6) \\ \hline \\ \endhead
+		Effect & One standard deviation increase & From least to most stringent  \\  \endfirsthead
+		\multicolumn{3}{c}{Table \ref{reg:effect} - Multinational as representative sample}\\
+		\multicolumn{3}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+		\\ \hline \hline \addlinespace Model & (1)\\ \hline \\ \endhead
 		\hline
-		\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot 
+		\multicolumn{3}{r}{{\textit{(Continued)}}}\\ \endfoot 	
 		\endlastfoot
-		\primitiveinput{../../../output/tables/regressions/benchmark_table_prior.tex}
+		\primitiveinput{../../../output/tables/regressions/effect_table.tex}
 		\hline 			
 	\end{longtable}		
 }
 
-\end{frame}
-
-\begin{frame}{Results}{After 2008}
-
-{\fontsize{6}{7}\selectfont		
-	\begin{longtable}{lcccccc}\\
-		\label{reg:post}\\
-		\multicolumn{7}{c}{Table \ref{reg:post} - Regression results, bank regulation and firms' capital structure}\\
-		\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)}
-		\\ \hline \hline \addlinespace
-		Model & (1) & (2) & (3) & (4) & (5) & (6) \\  \endfirsthead
-		\multicolumn{7}{c}{Table \ref{reg:post} - Regression results, bank regulation and firms' capital structure }\\
-		\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
-		\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4) & (5) & (6) \\ \hline \\ \endhead
-		\hline
-		\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot 
-		\endlastfoot
-		\primitiveinput{../../../output/tables/regressions/benchmark_table_post.tex}
-		\hline 			
-	\end{longtable}		
-}
 
 \end{frame}
 
@@ -526,19 +448,19 @@ k. Require banks to reduce or suspend bonuses and other remuneration to bank dir
 \begin{frame}{Results}{}
 
 {\fontsize{5}{6}\selectfont 		
-	\begin{longtable}{lcccccc}\\
+	\begin{longtable}{lcc}\\
 		\label{reg:sub}\\
-		\multicolumn{7}{c}{Table \ref{reg:sub} - Different effects from restrictions}\\
-		\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)}
+		\multicolumn{3}{c}{Table \ref{reg:sub} - Different effects from restrictions}\\
+		\multicolumn{3}{c}{(\textit{Dependent variable}: financial leverage)}
 		\\ \hline \hline \addlinespace
-		& \multicolumn{2}{c}{Full sample} & \multicolumn{2}{c}{Before 2008} & \multicolumn{2}{c}{After 2008} \\  
-		Model & (1) & (2) & (3) & (4)& (5)& (6) \\	
+		 
+		Model & (1) & (2)\\	
 		\endfirsthead
-		\multicolumn{7}{c}{Table \ref{reg:sub} - Different effects from restrictions}\\
-		\multicolumn{7}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
-		\\ \hline \hline \addlinespace Model & (1) & (2) & (3) & (4)& (5)& (6)  \\ \hline \\ \endhead
+		\multicolumn{3}{c}{Table \ref{reg:sub} - Different effects from restrictions}\\
+		\multicolumn{3}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
+		\\ \hline \hline \addlinespace Model & (1) & (2)  \\ \hline \\ \endhead
 		\hline
-		\multicolumn{7}{r}{{\textit{(Continued)}}}\\ \endfoot  	
+		\multicolumn{3}{r}{{\textit{(Continued)}}}\\ \endfoot  	
 		\endlastfoot
 		\primitiveinput{../../../output/tables/regressions/sub_indexes_table.tex}
 		\hline 			
@@ -550,7 +472,7 @@ k. Require banks to reduce or suspend bonuses and other remuneration to bank dir
 
 \begin{frame}{Results}{Full sample of firms}
 
-{\fontsize{6}{7}\selectfont 		
+{\fontsize{4}{5}\selectfont 		
 		\begin{longtable}{lccccc}\\
 		\label{reg:rep}\\
 		\multicolumn{6}{c}{Table \ref{reg:rep} - Full sample of firms}\\
@@ -572,43 +494,21 @@ k. Require banks to reduce or suspend bonuses and other remuneration to bank dir
 \end{frame}
 
 
-\begin{frame}{Results}{Total effects}
-
-{\fontsize{6}{7}\selectfont 		
-	\begin{longtable}{lcc}\\
-		\label{reg:effect}\\
-		\multicolumn{3}{c}{Table \ref{reg:effect} - Total effects}\\
-		\multicolumn{3}{c}{(Considering the average level of tax rate in the sample (49\%))}
-		\\ \hline \hline \addlinespace
-		Effect & One standard deviation increase & From least to most stringent  \\  \endfirsthead
-		\multicolumn{3}{c}{Table \ref{reg:effect} - Multinational as representative sample}\\
-		\multicolumn{3}{c}{(\textit{Dependent variable}: financial leverage)\textit{(Continued)}}
-		\\ \hline \hline \addlinespace Model & (1)\\ \hline \\ \endhead
-		\hline
-		\multicolumn{3}{r}{{\textit{(Continued)}}}\\ \endfoot 	
-		\endlastfoot
-		\primitiveinput{../../../output/tables/regressions/effect_table_full_sample.tex}
-		\hline 			
-	\end{longtable}		
-}
-
-
-\end{frame}
-
-
 \begin{frame}{Conclusion}
 
- Effects of bank regulation on firms' capital structure changed since the crisis: \\
+Net effects of bank regulation on firms' capital structure depends on the tax rate: \\
 \begin{itemize}
 	
-	\item Before: restrictions on financial conglomerates and insurance activities were important.
-	\item After: bank capital stringency and restriction on activities related to investment banking became central.
+	\item Direct effect: in the absence of taxes, higher cost of debt decreases the firm's value.
+	\item Indirect effect: gains or losses from the interest tax shield mitigate the direct effect.
 \end{itemize}
-	    \vspace{\baselineskip}
-   Effects are not exclusive to multinational groups.\\
-       \vspace{\baselineskip}
-   Together, the effects explain 4.1\% of sample variation in leverage.   
+\vspace{\baselineskip}
+We find that the direct effect of:
+\begin{itemize}
+	\item Restrictions on banking activities and on financial conglomerates to be positive and,
+	\item	Tighter capital requirement and greater official supervisory power to be negative.
 	
+\end{itemize}
 
 \end{frame}
 
@@ -616,8 +516,8 @@ k. Require banks to reduce or suspend bonuses and other remuneration to bank dir
 
 \begin{frame}{Bibliography}{}
 \begin{tiny}
-\bibliography{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/code/text/bibliography/references}
-\bibliographystyle{C:/Users/u1273941/Research/Projects/macroprudential_capital_structure/analysis/code/text/bibliography/te}
+	\bibliography{../bibliography/references}
+	\bibliographystyle{../bibliography/te}
 \end{tiny}
 \end{frame}
 \end{document}
